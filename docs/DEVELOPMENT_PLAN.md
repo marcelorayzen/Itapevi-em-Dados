@@ -32,7 +32,7 @@
   - Aceite: backlog tem prioridade, responsável e estado para os itens ativos.
 - [-] **P0-02 — Separar artefatos gerados do código-fonte.** Política proposta registrada; a migração exige aprovação.
   - Aceite: política documentada, `.gitignore` coerente e mudança revisada.
-- [-] **P0-03 — Configurar CI mínimo.** Workflow criado; falta observar uma execução no GitHub.
+- [x] **P0-03 — Configurar CI mínimo.** Workflow validado no GitHub Actions na execução `#1` do commit `d2e5b21`, com build e testes concluídos com sucesso.
   - Aceite: workflow reproduz `npm run build` e `npm test` em PR.
 - [-] **P0-04 — Inventariar dependências e licenças.** Inventário direto criado; transitivas e revisão humana pendentes.
   - Aceite: inventário versionado e exceções registradas.
