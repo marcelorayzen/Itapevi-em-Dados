@@ -30,7 +30,7 @@
 
 - [x] **P0-01 — Definir responsável e rito de priorização.** Marcelo e Rayzen acompanham o plano com revisão semanal.
   - Aceite: backlog tem prioridade, responsável e estado para os itens ativos.
-- [-] **P0-02 — Separar artefatos gerados do código-fonte.** Política proposta registrada; a migração exige aprovação.
+- [x] **P0-02 — Separar artefatos gerados do código-fonte.** `node_modules/` e `dist/` foram retirados do índice Git, preservados localmente e incluídos no `.gitignore`; build e testes passaram após a migração (commit `2bb9fd1`).
   - Aceite: política documentada, `.gitignore` coerente e mudança revisada.
 - [x] **P0-03 — Configurar CI mínimo.** Workflow validado no GitHub Actions na execução `#1` do commit `d2e5b21`, com build e testes concluídos com sucesso.
   - Aceite: workflow reproduz `npm run build` e `npm test` em PR.

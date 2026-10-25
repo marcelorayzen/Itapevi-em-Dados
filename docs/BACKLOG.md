@@ -10,7 +10,7 @@
 | ID | Prioridade | Item | Dependência | Estado |
 |---|---|---|---|---|
 | P0-01 | P0 | Rito de priorização e responsáveis | — | [x] |
-| P0-02 | P0 | Política para `dist/` e `node_modules` rastreados | P0-01 | [-] |
+| P0-02 | P0 | Política para `dist/` e `node_modules` rastreados | P0-01 | [x] |
 | P0-03 | P0 | CI de build e testes | P0-01 | [x] |
 | P0-04 | P0 | Inventário de licenças de dependências | P0-01 | [-] |
 | P0-05 | P0 | Registro de fontes e termos de uso | P0-01 | [-] |
