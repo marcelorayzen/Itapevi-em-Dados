@@ -27,7 +27,7 @@ _Leitura local em 25/10/2026. Este inventário é inicial e não substitui revis
 
 - [x] Inventariar dependências transitivas a partir do lockfile.
 - [ ] Validar avisos, obrigações de atribuição e compatibilidade antes de release estável.
-- [ ] Registrar exceções e responsável pela revisão.
+- [x] Registrar responsável pela revisão: Marcelo Augusto.
 
 ## Varredura transitiva
 
