@@ -45,7 +45,7 @@
 
 - [x] **F1-01 — Escolher a fonte piloto.** Diário Oficial e emendas parlamentares foram escolhidos para Document Intelligence; IBGE é a fonte estruturada complementar. A LOA 2026 oficial foi aprovada para teste local controlado com dados reais.
   - Aceite: decisão registrada em `docs/F1_PILOT_DECISION.md`; publicação e redistribuição permanecem condicionadas à validação de fonte e termos.
-- [ ] **F1-02 — Modelar catálogo e proveniência mínimos.** Definir `fonte`, `dataset`, `artefato`, `execução`, `evento` e `evidência`.
+- [-] **F1-02 — Modelar catálogo e proveniência mínimos.** Primeiro modelo e exemplo controlado registrados em `docs/F1_CATALOG_PROVENANCE_MODEL.md`; revisão do decisor pendente.
   - Aceite: modelo e exemplos revisados; ADRs aplicáveis atualizados se necessário.
 - [ ] **F1-03 — Persistir artefato bruto e checksum.** Armazenar entrada original, referência estável e data de coleta.
   - Aceite: reprocessamento usa o mesmo artefato e detecta duplicidade.
