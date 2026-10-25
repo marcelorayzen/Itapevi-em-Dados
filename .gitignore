@@ -5,4 +5,5 @@
 
 # Dependências e resultados locais
 node_modules/
+dist/
 coverage/
