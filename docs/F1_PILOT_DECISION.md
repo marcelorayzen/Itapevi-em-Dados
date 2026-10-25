@@ -2,7 +2,7 @@
 
 - **Data:** 25/10/2026
 - **Decisor:** Marcelo Augusto
-- **Status:** Aprovada para planejamento; implementação condicionada à validação de fonte e termos.
+- **Status:** Aprovada para execução controlada com dados reais; publicação e redistribuição continuam condicionadas à validação de fonte e termos.
 
 ## Escopo
 
@@ -28,4 +28,4 @@ Consulte também a [especificação de Document Intelligence](F1_DOCUMENT_INTELL
 
 ## Limites
 
-Esta decisão não autoriza scraping, redistribuição ou publicação de dados derivados sem validar a fonte, os termos aplicáveis e a responsabilidade institucional.
+Esta decisão autoriza baixar, armazenar localmente para o experimento e processar com Docling a [LOA 2026 oficial](https://itapevi.sp.gov.br/wp-content/uploads/2026/01/loa-lei-no-3.551-2025.pdf), bem como usar seus dados reais em testes de extração, proveniência, checksum e reprocessamento. Ela não autoriza scraping amplo de portais, redistribuição ou publicação de artefatos/dados derivados sem validar a fonte, os termos aplicáveis e a responsabilidade institucional.
