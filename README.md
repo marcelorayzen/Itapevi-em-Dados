@@ -1,6 +1,6 @@
-# Itapevi em Dados 🏙️📊
+# Itapevi em Dados — protótipo da plataforma Cidade em Dados
 
-Um assistente inteligente que integra dados públicos de Itapevi (SP) para permitir consultas em linguagem natural sobre a cidade. Desenvolvido com MCP (Model Context Protocol).
+Primeira implementação e protótipo da plataforma **Cidade em Dados**: um servidor MCP em TypeScript/Node.js para consultas a dados públicos de Itapevi (SP). O protótipo não substitui fontes oficiais; respostas e dados devem ser verificados na fonte de origem.
 
 ## 📋 Sobre o Projeto
 
@@ -19,6 +19,17 @@ Um servidor MCP que expõe ferramentas de consulta a:
 - ✅ Dados do IBGE (demografia, perfil socioeconômico)
 - ✅ (Em breve) Lei de Transparência Imobiliária
 
+## Status do Protótipo
+
+| Estado | Componentes |
+|---|---|
+| Implementado | Servidor MCP, cache, validação de entradas, health-check e testes iniciais. |
+| Experimental | Integrações IBGE, Diário Oficial e MeuMunicípio; dependem de disponibilidade e mudanças nas fontes. |
+| Mock ou placeholder | Despesas, legislação, licitações e demandas. Não devem ser usadas como evidência pública. |
+| Planejado V2 | Grafo de conhecimento, memória histórica, timeline, provenance/lineage/trust, alertas, portal web e API pública. |
+
+Consulte a [documentação institucional e técnica](docs/README.md) para a distinção detalhada entre estado atual e arquitetura-alvo.
+
 ## 🚀 Começando
 
 ### Pré-requisitos
@@ -30,8 +41,8 @@ Um servidor MCP que expõe ferramentas de consulta a:
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/itapevi-em-dados.git
-cd itapevi-em-dados
+git clone https://github.com/marcelorayzen/Itapevi-em-Dados.git
+cd Itapevi-em-Dados
 
 # Instale as dependências
 npm install
@@ -43,25 +54,13 @@ cp .env.example .env
 # Edite .env com suas configurações
 ```
 
-Configuração rápida (com npx)
+### Distribuição por npm
 
-Se você quiser testar rapidamente sem clonar o repositório:
+Este protótipo **não está publicado como pacote npm**. A configuração via `npx itapevi-em-dados` não está disponível. Para executar ou integrar o servidor MCP, clone o repositório, instale as dependências e use os scripts locais descritos abaixo.
 
-```json
-{
-  "mcpServers": {
-    "itapevi-dados": {
-      "command": "npx",
-      "args": ["itapevi-em-dados"],
-      "env": {
-        "TAVILY_API_KEY": "sua-chave-aqui" // opcional
-      }
-    }
-  }
-}
-```
+## 🛠️ Ferramentas declaradas no protótipo
 
-## 🛠️ Ferramentas Disponíveis
+As ferramentas de despesas, legislação, licitações e demandas estão classificadas como mock ou placeholder no [Status do Protótipo](docs/PROTOTYPE_STATUS.md). Elas não devem ser usadas como evidência pública até que suas fontes e comportamentos sejam validados.
 
 | Ferramenta | Descrição | Parâmetros |
 |---|---|---|
@@ -117,14 +116,9 @@ Depois de configurar o servidor, você pode fazer perguntas como:
 - "Mostre as licitações de 2024 acima de R$ 100 mil"
 - "Qual a população de Itapevi segundo o último censo?"
 
-### Via linha de comando (para testes)
-```bash
-# Listar ferramentas disponíveis
-npx itapevi-em-dados list-tools
+### Via linha de comando
 
-# Consultar demandas
-npx itapevi-em-dados call buscar_demandas_por_bairro --args '{"bairro": "Jardim São Paulo"}'
-```
+Não há CLI ou pacote npm publicado para este protótipo. Use os scripts locais `npm run build`, `npm start`, `npm run dev` e `npm test` conforme descritos neste README.
 
 ## 🏗️ Estrutura do Projeto
 
@@ -202,7 +196,7 @@ curl http://localhost:3000/health
 
 ## �📄 Licença
 
-Este projeto é licenciado sob a MIT License – veja o arquivo LICENSE para detalhes.
+O código deste repositório é disponibilizado sob a [Apache License 2.0](LICENSE). Dados, documentos e fontes públicas podem ter licenças, termos de uso e responsabilidades próprios; a licença do código não concede direitos sobre esses materiais.
 
 ## 🙏 Agradecimentos
 
@@ -212,10 +206,8 @@ Este projeto é licenciado sob a MIT License – veja o arquivo LICENSE para det
 
 ## 📞 Contato
 
-- Autor: [SEU NOME]
-- Natural de: Itapevi
-- E-mail: [SEU EMAIL]
-- LinkedIn: [SEU LINKEDIN]
-- GitHub: [SEU GITHUB]
+- Autor: Marcelo Augusto
+- Organização/projeto: Rayzen Gov
+- GitHub: https://github.com/marcelorayzen
 
 Itapevi em Dados – Transformando informação em cidadania. 🏙️

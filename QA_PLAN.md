@@ -10,8 +10,8 @@
 2. buscar_demandas_por_bairro
 3. buscar_lei
 4. dados_ibge
-5. buscar_licitacoes (a implementar)
-6. buscar_contratos (a implementar)
+5. buscar_licitacoes (mock/placeholder; requer validação de fonte)
+6. buscar_contratos (não exposta como integração real; requer validação de fonte)
 
 ## 2) Estratégia de testes
 ### Unitários
@@ -25,8 +25,8 @@
 - Resultado deve ter `content: [{ type, text }]`.
 
 ### E2E
-- Fluxo com cliente ou CLI (ex.: `npx itapevi-em-dados call ...`).
-- Simular carregamento de caixa de ferramentas e execução dos comandos.
+- Fluxo com cliente MCP local compatível com o transporte `stdio`.
+- Simular carregamento de ferramentas e execução dos comandos.
 
 ### Regressão / Snapshots
 - Armazenar respostas estabilizadas e verificar se não mudam.
@@ -53,7 +53,7 @@
 ## 4) Critérios de aceitação
 - `npm run build` sem erros.
 - `npm test` sem erros (meta >= 95% de acerto).
-- `npm run lint` sem avisos (quando adicionarmos lint).
+- Quando uma ferramenta de lint for adotada, incluí-la explicitamente nos scripts e critérios de aceitação.
 - Cada ferramenta com docs + testes e cobertura mínima 80%.
 
 ## 5) Riscos e mitigação
@@ -63,8 +63,8 @@
 - injeção e dados maliciosos: validação forte no Zod e escape.
 
 ## 6) Backlog e roadmap
-- Sprint 1: testes unitários e integração para os 4 endpoints existentes + adicionar `jest`.
-- Sprint 2: implementar `buscar_licitacoes` e `buscar_contratos` com mocks + reais.
+- Sprint 1: ampliar testes unitários e de integração para cada conector com fonte real/experimental.
+- Sprint 2: substituir placeholders apenas após validar fonte, licença, comportamento e critérios de qualidade.
 - Sprint 3: scraping de retrocompatibilidade + monitoramento (logs metricas, health-check).
 - Sprint 4: segurança (rate-limit, policy, threat model).
 

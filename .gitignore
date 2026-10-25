@@ -1,0 +1,8 @@
+# Configurações locais e credenciais
+.env
+.env.*
+!.env.example
+
+# Dependências e resultados locais
+node_modules/
+coverage/
