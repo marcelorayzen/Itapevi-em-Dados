@@ -58,7 +58,7 @@ Estados previstos: `aprovada`, `execucao_candidata`, `empenhada_confirmada`, `li
 ## Critérios para iniciar implementação
 
 - [-] Confirmar URL e termos do portal de transparência da Câmara. O e-SIC oficial confirmou o domínio e as categorias publicadas; ainda falta identificar a rota técnica, formato e termos específicos de coleta/redistribuição.
-- [-] Localizar um PDF real de LOA/emendas e um documento de despesa/adiantamento autorizado para teste. A [LOA 2026](https://itapevi.sp.gov.br/wp-content/uploads/2026/01/loa-lei-no-3.551-2025.pdf) foi localizada como amostra estrutural; ainda falta anexo de emendas individualizadas e documento de despesa/adiantamento.
+- [-] Localizar um PDF real de LOA/emendas e um documento de despesa/adiantamento autorizado para teste. A [LOA 2026](https://itapevi.sp.gov.br/wp-content/uploads/2026/01/loa-lei-no-3.551-2025.pdf) foi extraída localmente com Docling; evidência e limitações em `docs/F1_DOCLING_EXPERIMENT_LOA_2026.md`. Ainda falta anexo de emendas individualizadas e documento de despesa/adiantamento.
 - [ ] Confirmar se a Prefeitura oferece exportação CSV/HTML e quais campos/documentação acompanham a exportação.
 - [ ] Definir retenção de artefatos e responsabilidade institucional pela validação de fonte.
 - [ ] Criar conjunto de avaliação com extração manual de referência antes de automatizar Docling.
