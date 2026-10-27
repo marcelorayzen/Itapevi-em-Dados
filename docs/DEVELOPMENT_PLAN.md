@@ -51,7 +51,7 @@
   - Aceite: reprocessamento usa o mesmo artefato e detecta duplicidade.
 - [x] **F1-04 — Normalizar a fonte piloto.** A LOA 2026 recebeu normalizador conservador para corpo da lei, com referência manual nas páginas 1 e 2; tabelas complexas permanecem excluídas. Evidência em `docs/F1_NORMALIZATION_LOA_2026.md`.
   - Aceite: esquema normalizado versionado e teste com exemplos reais permitidos.
-- [ ] **F1-05 — Registrar eventos e evidências.** Transformar registros aceitos em eventos temporais com ponteiro para origem.
+- [x] **F1-05 — Registrar eventos e evidências.** A LOA 2026 gerou evento interno `candidate` ligado a execução, fonte, artefato e três evidências de página. Evidência em `docs/F1_EVENT_EVIDENCE_VALIDATION.md`.
   - Aceite: consulta interna recupera evento, origem, coletado em e transformação.
 - [ ] **F1-06 — Reprocessar e observar.** Implementar execução idempotente, falha rastreável e métrica de cobertura.
   - Aceite: duas execuções não duplicam fatos e falha pode ser investigada por `run_id`.

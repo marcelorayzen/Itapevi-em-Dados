@@ -19,7 +19,7 @@
 | F1-02 | P1 | Modelo mínimo de catálogo e proveniência | F1-01 | [x] |
 | F1-03 | P1 | Artefato bruto e checksum | F1-02 | [x] |
 | F1-04 | P1 | Normalização da fonte piloto | F1-03 | [x] |
-| F1-05 | P1 | Eventos e evidências | F1-04 | [ ] |
+| F1-05 | P1 | Eventos e evidências | F1-04 | [x] |
 | F1-06 | P1 | Reprocessamento e observabilidade | F1-05 | [ ] |
 | F2-01 | P2 | Resolução de entidades | F1-05 | [ ] |
 | F2-02 | P2 | Prova de necessidade do grafo | F2-01 | [ ] |

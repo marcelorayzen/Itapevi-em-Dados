@@ -11,6 +11,7 @@
     "db:migrate": "tsx scripts/migrate-db.ts",
     "db:bootstrap:f1": "tsx scripts/bootstrap-f1-catalog.ts",
     "db:register-artifact": "tsx scripts/register-artifact.ts",
+    "db:persist-loa-candidate": "tsx scripts/persist-loa-candidate.ts",
     "normalize:loa": "tsx scripts/normalize-loa.ts",
     "test": "jest --runInBand"
   },

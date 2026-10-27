@@ -43,6 +43,22 @@ export interface ProcessingRunRecord {
   configuration: Record<string, unknown>;
 }
 
+export interface EvidenceRecord {
+  evidenceId?: string;
+  artifactId: string;
+  locator: Record<string, unknown>;
+  excerpt?: string;
+}
+
+export interface EventRecord {
+  eventId?: string;
+  eventType: string;
+  occurredOn?: string;
+  payload: Record<string, unknown>;
+  status: 'candidate' | 'accepted' | 'nao_confirmado' | 'rejected';
+  runId?: string;
+}
+
 export class ProvenanceRepository {
   constructor(private readonly pool: Pool) {}
 
@@ -104,6 +120,42 @@ export class ProvenanceRepository {
       [runId, run.artifactId, run.processorName, run.processorVersion, run.configuration],
     );
     return runId;
+  }
+
+  async findArtifactIdBySha256(sha256: string): Promise<string | undefined> {
+    const result = await this.pool.query<{ artifact_id: string }>(
+      'SELECT artifact_id FROM artifacts WHERE sha256 = $1',
+      [sha256],
+    );
+    return result.rows[0]?.artifact_id;
+  }
+
+  async recordEvidence(evidence: EvidenceRecord): Promise<string> {
+    const evidenceId = evidence.evidenceId ?? randomUUID();
+    await this.pool.query(
+      `INSERT INTO evidence (evidence_id, artifact_id, locator, excerpt)
+       VALUES ($1, $2, $3, $4)`,
+      [evidenceId, evidence.artifactId, evidence.locator, evidence.excerpt ?? null],
+    );
+    return evidenceId;
+  }
+
+  async recordEvent(event: EventRecord): Promise<string> {
+    const eventId = event.eventId ?? randomUUID();
+    await this.pool.query(
+      `INSERT INTO events (event_id, event_type, occurred_on, payload, status, run_id)
+       VALUES ($1, $2, $3, $4, $5, $6)`,
+      [eventId, event.eventType, event.occurredOn ?? null, event.payload, event.status, event.runId ?? null],
+    );
+    return eventId;
+  }
+
+  async linkEventEvidence(eventId: string, evidenceId: string, role = 'supports'): Promise<void> {
+    await this.pool.query(
+      `INSERT INTO event_evidence (event_id, evidence_id, role)
+       VALUES ($1, $2, $3)`,
+      [eventId, evidenceId, role],
+    );
   }
 
   async finishProcessingRun(runId: string, status: 'succeeded' | 'failed' | 'partial', errorMessage?: string): Promise<void> {
