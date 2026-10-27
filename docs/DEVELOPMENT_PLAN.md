@@ -75,7 +75,7 @@
   - Aceite: piloto lista a fonte F1 e suas limitações.
 - [ ] **F3-03 — Avaliar API pública, sem antecipá-la.** Definir autenticação, rate limiting, OpenAPI e riscos somente após F1/F2.
   - Aceite: decisão explícita de seguir, adiar ou rejeitar.
-- [ ] **F3-04 — Construir interface web de consulta e demonstração.** Disponibilizar um portal de demonstração para prefeituras e BBSIA, mostrando dados, evidências, cobertura, limitações e estado de revisão sem apresentar conteúdo experimental como dado consolidado.
+- [x] **F3-04 — Construir interface web de consulta e demonstração.** A demonstração local e somente leitura apresenta catálogo, entidades, evidências, cobertura e limites pelo contrato `1.0`, sem chamadas externas ou publicação. Evidência em `docs/F3_WEB_DEMO_VALIDATION.md`.
   - Aceite: fluxo demonstrável localmente com consulta, fonte/artefato/página visíveis, limites de cobertura e roteiro de demonstração; publicação externa somente após revisão humana de segurança, termos e conteúdo.
 
 ## F4 — Inteligência responsável

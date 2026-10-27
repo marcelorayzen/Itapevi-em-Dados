@@ -27,7 +27,7 @@
 | F2-04 | P2 | Consulta citável com evidências | F2-01 | [x] |
 | F3-01 | P2 | Contrato de resposta comum | F1-05 | [x] |
 | F3-02 | P2 | Catálogo navegável de datasets | F1-05 | [x] |
-| F3-04 | P2 | Interface web de consulta e demonstração para prefeituras e BBSIA | F3-01, F3-02 | [ ] |
+| F3-04 | P2 | Interface web de consulta e demonstração para prefeituras e BBSIA | F3-01, F3-02 | [x] |
 | F4-01 | P2 | Regra de insight reproduzível | F1-06 | [ ] |
 | F5-01 | P3 | Configuração multi-cidade | F1-02 | [ ] |
 

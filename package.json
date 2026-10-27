@@ -8,6 +8,7 @@
     "start": "node dist/server.js",
     "dev": "tsx watch src/server.ts",
     "health:start": "tsx scripts/start-health.ts",
+    "demo:start": "tsx scripts/start-health.ts",
     "download:dados": "tsx scripts/download-dados-municipio.ts",
     "db:migrate": "tsx scripts/migrate-db.ts",
     "db:bootstrap:f1": "tsx scripts/bootstrap-f1-catalog.ts",

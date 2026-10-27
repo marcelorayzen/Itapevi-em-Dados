@@ -26,12 +26,12 @@ Copy-Item .env.example .env
 
 O arquivo `.env` usa, por padrao, um banco local em `localhost:55433`. A senha de exemplo e exclusiva para desenvolvimento local.
 
-## Primeiro teste: pagina de diagnostico
+## Primeiro teste: pagina de diagnostico e demonstracao
 
 Inicie o servidor HTTP local:
 
 ```powershell
-npm run health:start
+npm run demo:start
 ```
 
 Abra no navegador:
@@ -47,6 +47,14 @@ http://localhost:3000/health
 ```
 
 O resultado esperado e `status: "ok"` e a lista de ferramentas MCP carregadas. Use `Ctrl+C` no terminal para encerrar o processo. Este endpoint nao consulta nem publica o banco.
+
+Com o banco local preparado, abra tambem:
+
+```text
+http://localhost:3000/demo
+```
+
+Essa e a demonstracao web local e somente leitura. Ela apresenta catalogo, entidades, evidencias e limitacoes; nao e portal publico.
 
 ## Segundo teste: banco local e fluxo F1/F2
 
@@ -115,6 +123,7 @@ git diff --check
 | Necessidade | Caminho atual |
 |---|---|
 | Confirmar que a aplicacao iniciou | `http://localhost:3000/` |
+| Abrir demonstracao local | `http://localhost:3000/demo` |
 | Confirmar as ferramentas carregadas | `http://localhost:3000/health` |
 | Conferir evidencias F2 no banco | `npm run db:inspect:f2` |
 | Listar datasets, cobertura e termos | `npm run db:catalog` |

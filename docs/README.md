@@ -31,6 +31,7 @@ As ADRs são propostas até serem validadas por custo operacional e provas de co
 - [Validação da consulta citável da F2](F2_CITABLE_QUERY_VALIDATION.md)
 - [Contrato comum de resposta da F3](F3_RESPONSE_CONTRACT.md)
 - [Validação do catálogo de datasets da F3](F3_DATASET_CATALOG_VALIDATION.md)
+- [Validação da demonstração web local da F3](F3_WEB_DEMO_VALIDATION.md)
 - [Melhorias futuras registradas](FUTURE_IMPROVEMENTS.md)
 
 Os documentos existentes de visão, princípios, arquitetura, roadmap e ontologia descrevem a direção V2 e não representam recursos já implementados.
