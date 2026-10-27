@@ -49,7 +49,7 @@
   - Aceite: modelo e exemplos revisados; ADRs aplicáveis atualizados se necessário.
 - [x] **F1-03 — Persistir artefato bruto e checksum.** PostgreSQL local registrou a LOA 2026 por URL, data, tamanho, referência local e SHA-256; duas execuções retornaram o mesmo artefato sem duplicação. Evidência em `docs/F1_POSTGRES_VALIDATION.md` e modelo F1-02 aprovado.
   - Aceite: reprocessamento usa o mesmo artefato e detecta duplicidade.
-- [ ] **F1-04 — Normalizar a fonte piloto.** Usar normalização direta para API/CSV/HTML estruturado; avaliar Docling somente para PDF complexo.
+- [x] **F1-04 — Normalizar a fonte piloto.** A LOA 2026 recebeu normalizador conservador para corpo da lei, com referência manual nas páginas 1 e 2; tabelas complexas permanecem excluídas. Evidência em `docs/F1_NORMALIZATION_LOA_2026.md`.
   - Aceite: esquema normalizado versionado e teste com exemplos reais permitidos.
 - [ ] **F1-05 — Registrar eventos e evidências.** Transformar registros aceitos em eventos temporais com ponteiro para origem.
   - Aceite: consulta interna recupera evento, origem, coletado em e transformação.
