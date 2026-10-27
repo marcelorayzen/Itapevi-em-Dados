@@ -8,6 +8,7 @@ Esta pasta define a direção da V2 do **Itapevi em Dados**. É uma especificaç
 4. [Ontologia](data/ontology.md), [governança](governance/provenance.md) e [roadmap](roadmap.md)
 5. [Blueprint](engineering/implementation-blueprint.md) e [ADRs](architecture/adr/)
 6. [Plano de desenvolvimento](DEVELOPMENT_PLAN.md) e [backlog](BACKLOG.md)
+7. [Manual de uso local](USER_MANUAL.md)
 
 As ADRs são propostas até serem validadas por custo operacional e provas de conceito. Dados de origem e eventos continuam sendo a autoridade; projeções, LLMs e grafos são derivados reconstruíveis.
 
@@ -26,6 +27,7 @@ As ADRs são propostas até serem validadas por custo operacional e provas de co
 - [Registro de descoberta de fontes da F1](F1_SOURCE_DISCOVERY_LOG.md)
 - [Escopo de resolução de entidades da F2](F2_ENTITY_RESOLUTION_SCOPE.md)
 - [Validação da resolução de entidades da F2](F2_ENTITY_RESOLUTION_VALIDATION.md)
+- [Avaliação relacional da F2](F2_RELATIONAL_PROJECTION_EVALUATION.md)
 - [Melhorias futuras registradas](FUTURE_IMPROVEMENTS.md)
 
 Os documentos existentes de visão, princípios, arquitetura, roadmap e ontologia descrevem a direção V2 e não representam recursos já implementados.

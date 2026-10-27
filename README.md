@@ -30,6 +30,8 @@ Um servidor MCP que expõe ferramentas de consulta a:
 
 Consulte a [documentação institucional e técnica](docs/README.md) para a distinção detalhada entre estado atual e arquitetura-alvo.
 
+Para instalar, iniciar e testar o protótipo localmente — inclusive a página de diagnóstico disponível no navegador — siga o [Manual de uso local](docs/USER_MANUAL.md).
+
 ## 🚀 Começando
 
 ### Pré-requisitos

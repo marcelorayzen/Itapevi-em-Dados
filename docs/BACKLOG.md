@@ -22,6 +22,7 @@
 | F1-05 | P1 | Eventos e evidências | F1-04 | [x] |
 | F1-06 | P1 | Reprocessamento e observabilidade | F1-05 | [x] |
 | F2-01 | P2 | Resolução de entidades | F1-05 | [x] |
+| F2-02 | P2 | Prova de necessidade do grafo | F2-01 | [x] |
 | F2-02 | P2 | Prova de necessidade do grafo | F2-01 | [ ] |
 | F2-03 | P2 | Projeção relacional, se aprovada | F2-02 | [ ] |
 | F3-01 | P2 | Contrato de resposta comum | F1-05 | [ ] |
