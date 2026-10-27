@@ -69,7 +69,7 @@
 
 ## F3 — Entrega controlada
 
-- [ ] **F3-01 — Definir contrato de resposta comum.** Padronizar dados, evidências, cobertura, confiança e limitações para MCP e futuras interfaces.
+- [x] **F3-01 — Definir contrato de resposta comum.** O envelope JSON `1.0` padroniza dados, evidências, cobertura, confiança, limitações e metadados; há construtor e testes de compatibilidade. A integração de conectores existentes será gradual. Especificação em `docs/F3_RESPONSE_CONTRACT.md`.
   - Aceite: contrato versionado e testes de compatibilidade.
 - [ ] **F3-02 — Criar catálogo navegável de datasets.** Exibir escopo, atualização, fonte, termos e status.
   - Aceite: piloto lista a fonte F1 e suas limitações.
