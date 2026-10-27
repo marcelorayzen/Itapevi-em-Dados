@@ -55,6 +55,8 @@
   - Aceite: consulta interna recupera evento, origem, coletado em e transformação.
 - [x] **F1-06 — Reprocessar e observar.** A reexecução da LOA reutilizou a mesma execução/evento sem duplicar registros; uma falha controlada foi recuperada por `run_id`. Evidência em `docs/F1_REPROCESSING_VALIDATION.md`.
   - Aceite: duas execuções não duplicam fatos e falha pode ser investigada por `run_id`.
+- [x] **F1-07 — Validar exportação municipal LAI.** A exportação JSON de convidado do painel Previsto e Empenhado foi registrada como artefato local, normalizada com filtros e reprocessada sem duplicação. Evidência em `docs/F1_LAI_EXPORT_VALIDATION.md`.
+  - Aceite: o artefato, os filtros, os totais e a execução podem ser recuperados localmente por checksum.
 
 ## F2 — Conhecimento verificável
 
