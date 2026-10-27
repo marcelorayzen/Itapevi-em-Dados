@@ -58,8 +58,8 @@
 
 ## F2 — Conhecimento verificável
 
-- [-] **F2-01 — Definir resolução de entidades.** Recorte inicial aprovado para órgãos e secretarias municipais; modelo e regras em `docs/F2_ENTITY_RESOLUTION_SCOPE.md`.
-  - Aceite: casos de empresa/órgão duplicados possuem decisão auditável.
+- [x] **F2-01 — Definir resolução de entidades.** O recorte inicial de órgãos e secretarias municipais possui modelo persistido, um alias resolvido por normalização de caixa e um caso ambíguo mantido em revisão. Evidência em `docs/F2_ENTITY_RESOLUTION_VALIDATION.md`.
+  - Aceite: um caso aceito e um caso ambíguo podem ser recuperados até o artefato, página e decisão de resolução.
 - [ ] **F2-02 — Provar uma projeção relacional.** Avaliar grafo somente para uma pergunta que não seja atendida adequadamente por consultas convencionais.
   - Aceite: comparação documentada entre consulta relacional convencional e projeção proposta.
 - [ ] **F2-03 — Implementar projeção idempotente se justificada.** Nunca usar o grafo como fonte de verdade.

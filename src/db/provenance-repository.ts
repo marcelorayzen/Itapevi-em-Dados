@@ -64,6 +64,27 @@ export interface EventRecord {
   runId?: string;
 }
 
+export interface EntityRecord {
+  entityId?: string;
+  entityType: 'public_body' | 'municipal_secretariat';
+  canonicalName: string;
+  confidence: 'high' | 'medium' | 'needs_review';
+  resolutionStatus: 'accepted' | 'needs_review' | 'rejected';
+  validFrom?: string;
+  validTo?: string;
+}
+
+export interface EntityAliasRecord {
+  aliasId?: string;
+  entityId?: string;
+  artifactId: string;
+  aliasText: string;
+  proposedCanonicalName?: string;
+  locator: Record<string, unknown>;
+  confidence: 'high' | 'medium' | 'needs_review';
+  resolutionStatus: 'accepted' | 'needs_review' | 'rejected';
+}
+
 export class ProvenanceRepository {
   constructor(private readonly pool: Pool) {}
 
@@ -195,6 +216,60 @@ export class ProvenanceRepository {
        VALUES ($1, $2, $3)`,
       [eventId, evidenceId, role],
     );
+  }
+
+  async upsertEntity(entity: EntityRecord): Promise<string> {
+    const entityId = entity.entityId ?? randomUUID();
+    const result = await this.pool.query<{ entity_id: string }>(
+      `INSERT INTO entities (
+         entity_id, entity_type, canonical_name, confidence, resolution_status, valid_from, valid_to
+       ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+       ON CONFLICT (entity_type, canonical_name) DO UPDATE SET
+         confidence = EXCLUDED.confidence,
+         resolution_status = EXCLUDED.resolution_status,
+         valid_from = EXCLUDED.valid_from,
+         valid_to = EXCLUDED.valid_to
+       RETURNING entity_id`,
+      [entityId, entity.entityType, entity.canonicalName, entity.confidence, entity.resolutionStatus, entity.validFrom ?? null, entity.validTo ?? null],
+    );
+    return result.rows[0].entity_id;
+  }
+
+  async recordEntityAlias(alias: EntityAliasRecord): Promise<string> {
+    const aliasId = alias.aliasId ?? randomUUID();
+    const deduplicationKey = createHash('sha256')
+      .update(`${alias.artifactId}:${alias.aliasText}:${JSON.stringify(alias.locator)}:${alias.resolutionStatus}`)
+      .digest('hex');
+    const result = await this.pool.query<{ alias_id: string }>(
+      `INSERT INTO entity_aliases (
+         alias_id, entity_id, artifact_id, alias_text, proposed_canonical_name, locator, deduplication_key, confidence, resolution_status
+       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+       ON CONFLICT (deduplication_key) DO UPDATE SET
+         entity_id = EXCLUDED.entity_id,
+         proposed_canonical_name = EXCLUDED.proposed_canonical_name,
+         confidence = EXCLUDED.confidence,
+         resolution_status = EXCLUDED.resolution_status
+       RETURNING alias_id`,
+      [aliasId, alias.entityId ?? null, alias.artifactId, alias.aliasText, alias.proposedCanonicalName ?? null, alias.locator, deduplicationKey, alias.confidence, alias.resolutionStatus],
+    );
+    return result.rows[0].alias_id;
+  }
+
+  async recordEntityResolutionDecision(
+    aliasId: string,
+    decisionType: 'case_normalization' | 'manual_merge' | 'deferred_ambiguous' | 'rejected',
+    rationale: string,
+    decidedBy: string,
+  ): Promise<string> {
+    const decisionId = randomUUID();
+    const result = await this.pool.query<{ decision_id: string }>(
+      `INSERT INTO entity_resolution_decisions (decision_id, alias_id, decision_type, rationale, decided_by)
+       VALUES ($1, $2, $3, $4, $5)
+       ON CONFLICT (alias_id, decision_type, rationale) DO UPDATE SET decided_by = EXCLUDED.decided_by
+       RETURNING decision_id`,
+      [decisionId, aliasId, decisionType, rationale, decidedBy],
+    );
+    return result.rows[0].decision_id;
   }
 
   async finishProcessingRun(runId: string, status: 'succeeded' | 'failed' | 'partial', errorMessage?: string): Promise<void> {

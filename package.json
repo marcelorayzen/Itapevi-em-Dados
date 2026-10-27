@@ -12,6 +12,7 @@
     "db:bootstrap:f1": "tsx scripts/bootstrap-f1-catalog.ts",
     "db:register-artifact": "tsx scripts/register-artifact.ts",
     "db:persist-loa-candidate": "tsx scripts/persist-loa-candidate.ts",
+    "db:bootstrap-loa-entities": "tsx scripts/bootstrap-loa-org-entities.ts",
     "normalize:loa": "tsx scripts/normalize-loa.ts",
     "test": "jest --runInBand"
   },
