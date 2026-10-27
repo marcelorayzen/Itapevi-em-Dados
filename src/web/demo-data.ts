@@ -16,6 +16,7 @@ export interface EntityEvidenceItem {
 export interface DemoDataProvider {
   getCatalog(): Promise<CommonResponse<{ datasets: unknown[] }>>;
   getEntities(): Promise<CommonResponse<{ entities: EntityEvidenceItem[] }>>;
+  getBudgetSummary(): Promise<CommonResponse<{ exports: unknown[] }>>;
 }
 
 type CatalogDatabaseRow = {
@@ -79,6 +80,34 @@ export function createPostgresDemoDataProvider(): DemoDataProvider {
           limitations: ['Nao inclui empresas, contratos, licitacoes ou pessoas.', 'Aliases needs_review nao representam entidade confirmada.'],
           confidence: entities.some((entity) => entity.confidence === 'needs_review') ? 'needs_review' : 'high',
           metadata: { municipality: 'Itapevi' },
+        });
+      } finally { await pool.end(); }
+    },
+    async getBudgetSummary() {
+      const pool = createDatabasePool();
+      try {
+        const result = await pool.query<{ payload: { filters: Record<string, string>; recordCount: number; totals: { plannedAmount: number; realizedAmount: number }; exportedAt: string }; sha256: string; dataset_name: string }>(`
+          SELECT e.payload, a.sha256, d.name AS dataset_name
+          FROM events e JOIN processing_runs pr ON pr.run_id = e.run_id
+          JOIN artifacts a ON a.artifact_id = pr.artifact_id JOIN datasets d ON d.dataset_id = a.dataset_id
+          WHERE e.event_type = 'municipal_budget_panel_exported' AND e.status = 'candidate'
+          ORDER BY e.created_at DESC;
+        `);
+        const exports = result.rows.map((row) => ({
+          ...row.payload,
+          totals: {
+            plannedAmount: Math.round(row.payload.totals.plannedAmount * 100) / 100,
+            realizedAmount: Math.round(row.payload.totals.realizedAmount * 100) / 100,
+          },
+          artifactSha256: row.sha256,
+          datasetName: row.dataset_name,
+        }));
+        return createCommonResponse({
+          status: 'ok', data: { exports },
+          evidence: result.rows.map((row) => ({ sourceId: 'SRC-PREF-LAI-001', datasetId: 'DS-LAI-PREVISTO-EMPENHADO-2026', artifactSha256: row.sha256 })),
+          coverage: { scope: 'exportacoes agregadas do painel LAI, conforme filtros de cada arquivo', status: 'pilot' },
+          limitations: ['Totais representam somente as linhas retornadas pelos filtros.', 'Nao substitui empenhos individuais ou toda a execucao orcamentaria.'],
+          confidence: 'needs_review', metadata: { municipality: 'Itapevi' },
         });
       } finally { await pool.end(); }
     },

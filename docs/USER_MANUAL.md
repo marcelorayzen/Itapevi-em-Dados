@@ -56,6 +56,8 @@ http://localhost:3000/demo
 
 Essa e a demonstracao web local e somente leitura. Ela apresenta catalogo, entidades, evidencias e limitacoes; nao e portal publico.
 
+Quando houver uma exportacao LAI processada, a mesma tela tambem mostra o resumo de previsto e realizado com periodo, filtros e checksum.
+
 ## Segundo teste: banco local e fluxo F1/F2
 
 Com Docker Desktop em execucao, suba o banco e aplique as migracoes:

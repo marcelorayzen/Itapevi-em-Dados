@@ -18,10 +18,11 @@ Abra `http://localhost:3000/demo`.
 
 - catalogo de datasets, fonte, estado de termos, quantidade de artefatos e escopo;
 - aliases de orgaos/secretarias, identidade aceita quando houver, estado de revisao, pagina e dataset;
+- resumo LAI de previsto e realizado, periodo, criterio temporal, numero de linhas e checksum da exportacao;
 - cobertura e confianca retornadas pelo contrato `1.0`;
 - aviso visivel de que o ambiente e piloto local, sem permissao automatica de redistribuicao.
 
-As rotas somente leitura sao `GET /api/demo/catalog` e `GET /api/demo/entities`. Ambas retornam o contrato comum `1.0`.
+As rotas somente leitura sao `GET /api/demo/catalog`, `GET /api/demo/entities` e `GET /api/demo/budget`. Todas retornam o contrato comum `1.0`.
 
 ## Limites de demonstracao
 
