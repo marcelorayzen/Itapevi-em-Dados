@@ -64,7 +64,7 @@
   - Aceite: comparação documentada entre consulta relacional convencional e projeção proposta.
 - [ ] **F2-03 — Implementar projeção idempotente se justificada.** Nunca usar o grafo como fonte de verdade.
   - Aceite: projeção pode ser reconstruída a partir dos fatos aceitos.
-- [ ] **F2-04 — Entregar uma consulta citável.** Exemplo: Empresa–Licitação–Contrato, se as fontes licenciadas permitirem.
+- [x] **F2-04 — Entregar uma consulta citável.** A consulta local de aliases de órgãos/secretarias recupera identidade aceita quando houver, artefato, checksum, fonte, página/seção e limitações de cobertura. Evidência em `docs/F2_CITABLE_QUERY_VALIDATION.md`.
   - Aceite: cada elo aponta para evidência e limitações de cobertura.
 
 ## F3 — Entrega controlada
@@ -75,6 +75,8 @@
   - Aceite: piloto lista a fonte F1 e suas limitações.
 - [ ] **F3-03 — Avaliar API pública, sem antecipá-la.** Definir autenticação, rate limiting, OpenAPI e riscos somente após F1/F2.
   - Aceite: decisão explícita de seguir, adiar ou rejeitar.
+- [ ] **F3-04 — Construir interface web de consulta e demonstração.** Disponibilizar um portal de demonstração para prefeituras e BBSIA, mostrando dados, evidências, cobertura, limitações e estado de revisão sem apresentar conteúdo experimental como dado consolidado.
+  - Aceite: fluxo demonstrável localmente com consulta, fonte/artefato/página visíveis, limites de cobertura e roteiro de demonstração; publicação externa somente após revisão humana de segurança, termos e conteúdo.
 
 ## F4 — Inteligência responsável
 

@@ -28,6 +28,7 @@ As ADRs são propostas até serem validadas por custo operacional e provas de co
 - [Escopo de resolução de entidades da F2](F2_ENTITY_RESOLUTION_SCOPE.md)
 - [Validação da resolução de entidades da F2](F2_ENTITY_RESOLUTION_VALIDATION.md)
 - [Avaliação relacional da F2](F2_RELATIONAL_PROJECTION_EVALUATION.md)
+- [Validação da consulta citável da F2](F2_CITABLE_QUERY_VALIDATION.md)
 - [Melhorias futuras registradas](FUTURE_IMPROVEMENTS.md)
 
 Os documentos existentes de visão, princípios, arquitetura, roadmap e ontologia descrevem a direção V2 e não representam recursos já implementados.

@@ -28,6 +28,7 @@ Este catálogo preserva ideias aprovadas para exploração futura. Nenhum item a
 
 - Catálogo navegável de datasets com cobertura, atualização, termos e limitações.
 - Contrato único para MCP e interfaces futuras, incluindo evidências e nível de confiança.
+- Interface web de consulta e demonstração para prefeituras e BBSIA, começando em ambiente local e exibindo fonte, artefato, página, cobertura e limitações de cada resultado.
 - Insights somente descritivos, reproduzíveis e não acusatórios, conforme ADR-011.
 - Alertas internos primeiro; entrega automática somente após critérios de ruído, destinatário e revisão humana.
 
