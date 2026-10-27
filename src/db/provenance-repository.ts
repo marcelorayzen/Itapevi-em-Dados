@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import type { Pool } from 'pg';
 
 export type RedistributionStatus = 'pending_review' | 'allowed' | 'restricted' | 'prohibited';
@@ -41,6 +41,11 @@ export interface ProcessingRunRecord {
   processorName: string;
   processorVersion: string;
   configuration: Record<string, unknown>;
+}
+
+export interface ProcessingRunStartResult {
+  runId: string;
+  created: boolean;
 }
 
 export interface EvidenceRecord {
@@ -111,15 +116,49 @@ export class ProvenanceRepository {
     return result.rows[0].artifact_id;
   }
 
-  async startProcessingRun(run: ProcessingRunRecord): Promise<string> {
+  async startProcessingRun(run: ProcessingRunRecord): Promise<ProcessingRunStartResult> {
     const runId = run.runId ?? randomUUID();
-    await this.pool.query(
+    const deduplicationKey = createHash('sha256')
+      .update(`${run.artifactId}:${run.processorName}:${run.processorVersion}:${JSON.stringify(run.configuration)}`)
+      .digest('hex');
+    const inserted = await this.pool.query<{ run_id: string }>(
       `INSERT INTO processing_runs (
-         run_id, artifact_id, processor_name, processor_version, configuration, status
-       ) VALUES ($1, $2, $3, $4, $5, 'started')`,
-      [runId, run.artifactId, run.processorName, run.processorVersion, run.configuration],
+         run_id, artifact_id, processor_name, processor_version, configuration, status, deduplication_key
+       ) VALUES ($1, $2, $3, $4, $5, 'started', $6)
+       ON CONFLICT (deduplication_key) DO NOTHING
+       RETURNING run_id`,
+      [runId, run.artifactId, run.processorName, run.processorVersion, run.configuration, deduplicationKey],
     );
-    return runId;
+    if (inserted.rows[0]) return { runId: inserted.rows[0].run_id, created: true };
+
+    const existing = await this.pool.query<{ run_id: string }>(
+      'SELECT run_id FROM processing_runs WHERE deduplication_key = $1',
+      [deduplicationKey],
+    );
+    return { runId: existing.rows[0].run_id, created: false };
+  }
+
+  async findSucceededProcessingRun(run: Omit<ProcessingRunRecord, 'runId'>): Promise<string | undefined> {
+    const result = await this.pool.query<{ run_id: string }>(
+      `SELECT run_id FROM processing_runs
+       WHERE artifact_id = $1
+         AND processor_name = $2
+         AND processor_version = $3
+         AND configuration = $4::jsonb
+         AND status = 'succeeded'
+       ORDER BY started_at DESC
+       LIMIT 1`,
+      [run.artifactId, run.processorName, run.processorVersion, run.configuration],
+    );
+    return result.rows[0]?.run_id;
+  }
+
+  async findEventIdByRunId(runId: string): Promise<string | undefined> {
+    const result = await this.pool.query<{ event_id: string }>(
+      'SELECT event_id FROM events WHERE run_id = $1 ORDER BY created_at DESC LIMIT 1',
+      [runId],
+    );
+    return result.rows[0]?.event_id;
   }
 
   async findArtifactIdBySha256(sha256: string): Promise<string | undefined> {

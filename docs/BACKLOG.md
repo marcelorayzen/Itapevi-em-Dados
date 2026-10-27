@@ -20,7 +20,7 @@
 | F1-03 | P1 | Artefato bruto e checksum | F1-02 | [x] |
 | F1-04 | P1 | Normalização da fonte piloto | F1-03 | [x] |
 | F1-05 | P1 | Eventos e evidências | F1-04 | [x] |
-| F1-06 | P1 | Reprocessamento e observabilidade | F1-05 | [ ] |
+| F1-06 | P1 | Reprocessamento e observabilidade | F1-05 | [x] |
 | F2-01 | P2 | Resolução de entidades | F1-05 | [ ] |
 | F2-02 | P2 | Prova de necessidade do grafo | F2-01 | [ ] |
 | F2-03 | P2 | Projeção relacional, se aprovada | F2-02 | [ ] |

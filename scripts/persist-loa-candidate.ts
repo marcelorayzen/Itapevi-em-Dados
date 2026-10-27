@@ -23,21 +23,36 @@ async function main(): Promise<void> {
   const pool = createDatabasePool();
   const repository = new ProvenanceRepository(pool);
   let runId: string | undefined;
+  const run = {
+    artifactId: '',
+    processorName: 'loa-normalizer',
+    processorVersion: 'f1-loa-v1',
+    configuration: {
+      input: 'docling_markdown',
+      manual_reference_pages: [1, 2],
+      tables_included: false,
+    },
+  };
 
   try {
     const artifactId = await repository.findArtifactIdBySha256(artifactSha256);
     if (!artifactId) throw new Error(`Artefato não encontrado para SHA-256: ${artifactSha256}`);
 
-    runId = await repository.startProcessingRun({
-      artifactId,
-      processorName: 'loa-normalizer',
-      processorVersion: 'f1-loa-v1',
-      configuration: {
-        input: 'docling_markdown',
-        manual_reference_pages: [1, 2],
-        tables_included: false,
-      },
-    });
+    run.artifactId = artifactId;
+    const priorRunId = await repository.findSucceededProcessingRun(run);
+    if (priorRunId) {
+      const priorEventId = await repository.findEventIdByRunId(priorRunId);
+      console.log(JSON.stringify({ artifactId, runId: priorRunId, eventId: priorEventId, reused: true }, null, 2));
+      return;
+    }
+
+    const startedRun = await repository.startProcessingRun(run);
+    runId = startedRun.runId;
+    if (!startedRun.created) {
+      const existingEventId = await repository.findEventIdByRunId(runId);
+      console.log(JSON.stringify({ artifactId, runId, eventId: existingEventId, reused: true }, null, 2));
+      return;
+    }
 
     const evidenceIds = await Promise.all([
       repository.recordEvidence({ artifactId, locator: { page: 1, section: 'lei_header', verified_by: ['docling', 'pdf_text'] } }),

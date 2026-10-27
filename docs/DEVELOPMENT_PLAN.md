@@ -53,7 +53,7 @@
   - Aceite: esquema normalizado versionado e teste com exemplos reais permitidos.
 - [x] **F1-05 — Registrar eventos e evidências.** A LOA 2026 gerou evento interno `candidate` ligado a execução, fonte, artefato e três evidências de página. Evidência em `docs/F1_EVENT_EVIDENCE_VALIDATION.md`.
   - Aceite: consulta interna recupera evento, origem, coletado em e transformação.
-- [ ] **F1-06 — Reprocessar e observar.** Implementar execução idempotente, falha rastreável e métrica de cobertura.
+- [x] **F1-06 — Reprocessar e observar.** A reexecução da LOA reutilizou a mesma execução/evento sem duplicar registros; uma falha controlada foi recuperada por `run_id`. Evidência em `docs/F1_REPROCESSING_VALIDATION.md`.
   - Aceite: duas execuções não duplicam fatos e falha pode ser investigada por `run_id`.
 
 ## F2 — Conhecimento verificável
