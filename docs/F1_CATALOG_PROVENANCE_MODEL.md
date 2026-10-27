@@ -64,3 +64,9 @@ O exemplo é um registro de experimento local: não disponibiliza o PDF, Markdow
 ## Próximo uso
 
 O primeiro experimento Docling deve produzir um `artifact`, um `run` e métricas de saída. Eventos e evidências só serão aceitos após inspeção de qualidade e definição do conjunto manual de referência.
+
+## Aprovação
+
+- **Data:** 27/10/2026
+- **Decisor:** Marcelo Augusto
+- **Decisão:** modelo aprovado para F1. Implementações futuras devem preservar seus invariantes de proveniência e evidência.

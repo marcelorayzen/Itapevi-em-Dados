@@ -45,9 +45,9 @@
 
 - [x] **F1-01 — Escolher a fonte piloto.** Diário Oficial e emendas parlamentares foram escolhidos para Document Intelligence; IBGE é a fonte estruturada complementar. A LOA 2026 oficial foi aprovada para teste local controlado com dados reais.
   - Aceite: decisão registrada em `docs/F1_PILOT_DECISION.md`; publicação e redistribuição permanecem condicionadas à validação de fonte e termos.
-- [-] **F1-02 — Modelar catálogo e proveniência mínimos.** Primeiro modelo e exemplo controlado registrados em `docs/F1_CATALOG_PROVENANCE_MODEL.md`; revisão do decisor pendente.
+- [x] **F1-02 — Modelar catálogo e proveniência mínimos.** Modelo e exemplo controlado em `docs/F1_CATALOG_PROVENANCE_MODEL.md`, aprovados pelo decisor em 27/10/2026.
   - Aceite: modelo e exemplos revisados; ADRs aplicáveis atualizados se necessário.
-- [-] **F1-03 — Persistir artefato bruto e checksum.** PostgreSQL local registrou a LOA 2026 por URL, data, tamanho, referência local e SHA-256; duas execuções retornaram o mesmo artefato sem duplicação. Evidência em `docs/F1_POSTGRES_VALIDATION.md`. Encerramento depende da revisão do modelo F1-02 pelo decisor.
+- [x] **F1-03 — Persistir artefato bruto e checksum.** PostgreSQL local registrou a LOA 2026 por URL, data, tamanho, referência local e SHA-256; duas execuções retornaram o mesmo artefato sem duplicação. Evidência em `docs/F1_POSTGRES_VALIDATION.md` e modelo F1-02 aprovado.
   - Aceite: reprocessamento usa o mesmo artefato e detecta duplicidade.
 - [ ] **F1-04 — Normalizar a fonte piloto.** Usar normalização direta para API/CSV/HTML estruturado; avaliar Docling somente para PDF complexo.
   - Aceite: esquema normalizado versionado e teste com exemplos reais permitidos.

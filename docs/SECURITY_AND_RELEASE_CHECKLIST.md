@@ -21,13 +21,13 @@ Este checklist não substitui exigências legais, de segurança ou de privacidad
 
 ## Registro técnico de vulnerabilidades
 
-_Varredura local em 27/10/2026, `npm audit --omit=dev`. Nenhuma correção automática foi aplicada._
+_Varredura e atualização controlada em 27/10/2026. Foram atualizados MCP SDK, Zod, Axios, csv-parse e dependências transitivas; `esbuild` foi unificado por override para corrigir sua dependência transitiva do `tsx`._
 
 | Severidade | Quantidade |
 |---|---:|
-| Crítica | 1 |
-| Alta | 7 |
-| Moderada | 3 |
+| Crítica | 0 |
+| Alta | 0 |
+| Moderada | 0 |
 | Baixa | 0 |
 
-Dependências diretas afetadas: `@modelcontextprotocol/sdk`, `axios`, `csv-parse` e `zod`. Há correções indicadas pelo npm, mas sua aplicação pode atualizar versões transitivas ou diretas; a decisão e a validação de compatibilidade permanecem pendentes antes de qualquer release.
+`npm audit` final reportou zero vulnerabilidades. Build e a suíte de quatro testes passaram após a atualização. Isso não substitui revisão humana de release, testes de integração e análise das 50 entradas sem manifesto local no inventário de licenças.
