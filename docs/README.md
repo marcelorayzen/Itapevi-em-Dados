@@ -34,6 +34,7 @@ As ADRs são propostas até serem validadas por custo operacional e provas de co
 - [Validação da demonstração web local da F3](F3_WEB_DEMO_VALIDATION.md)
 - [Validação da exportação municipal LAI](F1_LAI_EXPORT_VALIDATION.md)
 - [Validação da estimativa IBGE 2026](F1_IBGE_2026_VALIDATION.md)
+- [Validação do piloto agregado TCESP](F1_TCESP_AGGREGATE_VALIDATION.md)
 - [Melhorias futuras registradas](FUTURE_IMPROVEMENTS.md)
 
 Os documentos existentes de visão, princípios, arquitetura, roadmap e ontologia descrevem a direção V2 e não representam recursos já implementados.
