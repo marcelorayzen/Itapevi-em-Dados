@@ -17,7 +17,7 @@
 | P0-06 | P0 | Checklist de segurança e release | P0-01 | [-] |
 | F1-01 | P1 | Escolha da fonte piloto | P0-05 | [x] |
 | F1-02 | P1 | Modelo mínimo de catálogo e proveniência | F1-01 | [-] |
-| F1-03 | P1 | Artefato bruto e checksum | F1-02 | [ ] |
+| F1-03 | P1 | Artefato bruto e checksum | F1-02 | [-] |
 | F1-04 | P1 | Normalização da fonte piloto | F1-03 | [ ] |
 | F1-05 | P1 | Eventos e evidências | F1-04 | [ ] |
 | F1-06 | P1 | Reprocessamento e observabilidade | F1-05 | [ ] |

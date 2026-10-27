@@ -54,6 +54,18 @@ cp .env.example .env
 # Edite .env com suas configurações
 ```
 
+### PostgreSQL local para F1
+
+O PostgreSQL é a fonte de verdade do catálogo, artefatos, execuções e evidências da F1. Para desenvolvimento local, o Compose isola o banco em `127.0.0.1:55433`, evitando interferência com outras instâncias PostgreSQL.
+
+```bash
+docker compose up -d
+npm run db:migrate
+npm run db:bootstrap:f1
+```
+
+O valor de `DATABASE_URL` em `.env.example` já aponta para esse ambiente de desenvolvimento. A senha padrão é exclusivamente local; nunca a reutilize em homologação ou produção.
+
 ### Distribuição por npm
 
 Este protótipo **não está publicado como pacote npm**. A configuração via `npx itapevi-em-dados` não está disponível. Para executar ou integrar o servidor MCP, clone o repositório, instale as dependências e use os scripts locais descritos abaixo.

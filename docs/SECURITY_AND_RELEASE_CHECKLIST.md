@@ -18,3 +18,16 @@
 - [ ] Não há migração, coleta ou exposição de dado sem validação institucional necessária.
 
 Este checklist não substitui exigências legais, de segurança ou de privacidade aplicáveis a cada implantação.
+
+## Registro técnico de vulnerabilidades
+
+_Varredura local em 27/10/2026, `npm audit --omit=dev`. Nenhuma correção automática foi aplicada._
+
+| Severidade | Quantidade |
+|---|---:|
+| Crítica | 1 |
+| Alta | 7 |
+| Moderada | 3 |
+| Baixa | 0 |
+
+Dependências diretas afetadas: `@modelcontextprotocol/sdk`, `axios`, `csv-parse` e `zod`. Há correções indicadas pelo npm, mas sua aplicação pode atualizar versões transitivas ou diretas; a decisão e a validação de compatibilidade permanecem pendentes antes de qualquer release.

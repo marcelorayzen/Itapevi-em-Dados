@@ -17,11 +17,13 @@ _Leitura local em 25/10/2026. Este inventário é inicial e não substitui revis
 | express | 5.2.1 | MIT |
 | jest | 30.3.0 | MIT |
 | node-cache | 5.1.2 | MIT |
+| pg | 8.23.1 | MIT |
 | supertest | 7.2.2 | MIT |
 | ts-jest | 29.4.6 | MIT |
 | tsx | 4.21.0 | MIT |
 | typescript | 5.9.3 | Apache-2.0 |
 | zod | 3.25.76 | MIT |
+| @types/pg | 8.23.1 | MIT |
 
 ## Pendências
 
@@ -31,12 +33,12 @@ _Leitura local em 25/10/2026. Este inventário é inicial e não substitui revis
 
 ## Varredura transitiva
 
-_Executada localmente em 25/10/2026 a partir do `package-lock.json` (lockfile v3). A varredura lê a licença declarada em cada `package.json` disponível; ela não substitui revisão jurídica._
+_Atualizada localmente em 27/10/2026 a partir do `package-lock.json` (lockfile v3). A varredura lê a licença declarada em cada `package.json` disponível; ela não substitui revisão jurídica._
 
 | Resultado | Quantidade de entradas transitivas |
 |---|---:|
-| MIT | 360 |
-| ISC | 40 |
+| MIT | 373 |
+| ISC | 42 |
 | BSD-2-Clause | 13 |
 | BSD-3-Clause | 13 |
 | Apache-2.0 | 6 |
@@ -44,7 +46,7 @@ _Executada localmente em 25/10/2026 a partir do `package-lock.json` (lockfile v3
 | MIT OR CC0-1.0 | 2 |
 | CC-BY-4.0 | 1 |
 | Sem manifesto local disponível para leitura | 50 |
-| **Total no lockfile** | **489** |
+| **Total no lockfile** | **504** |
 
 As 50 entradas sem manifesto local podem corresponder a pacotes opcionais, não instalados na plataforma atual ou ausentes da árvore local. Elas exigem inspeção pela fonte do pacote/lockfile antes de uma release estável. Licenças de documentação e dados, como `CC-BY-4.0`, não são automaticamente equivalentes à licença do código e devem ser revisadas no contexto de uso.
 

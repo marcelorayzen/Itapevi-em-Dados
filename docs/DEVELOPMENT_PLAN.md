@@ -47,7 +47,7 @@
   - Aceite: decisão registrada em `docs/F1_PILOT_DECISION.md`; publicação e redistribuição permanecem condicionadas à validação de fonte e termos.
 - [-] **F1-02 — Modelar catálogo e proveniência mínimos.** Primeiro modelo e exemplo controlado registrados em `docs/F1_CATALOG_PROVENANCE_MODEL.md`; revisão do decisor pendente.
   - Aceite: modelo e exemplos revisados; ADRs aplicáveis atualizados se necessário.
-- [ ] **F1-03 — Persistir artefato bruto e checksum.** Armazenar entrada original, referência estável e data de coleta.
+- [-] **F1-03 — Persistir artefato bruto e checksum.** PostgreSQL local registrou a LOA 2026 por URL, data, tamanho, referência local e SHA-256; duas execuções retornaram o mesmo artefato sem duplicação. Evidência em `docs/F1_POSTGRES_VALIDATION.md`. Encerramento depende da revisão do modelo F1-02 pelo decisor.
   - Aceite: reprocessamento usa o mesmo artefato e detecta duplicidade.
 - [ ] **F1-04 — Normalizar a fonte piloto.** Usar normalização direta para API/CSV/HTML estruturado; avaliar Docling somente para PDF complexo.
   - Aceite: esquema normalizado versionado e teste com exemplos reais permitidos.
