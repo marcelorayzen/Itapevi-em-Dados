@@ -17,6 +17,7 @@ export interface DemoDataProvider {
   getCatalog(): Promise<CommonResponse<{ datasets: unknown[] }>>;
   getEntities(): Promise<CommonResponse<{ entities: EntityEvidenceItem[] }>>;
   getBudgetSummary(): Promise<CommonResponse<{ exports: unknown[] }>>;
+  getDemographics(): Promise<CommonResponse<{ estimates: unknown[] }>>;
 }
 
 type CatalogDatabaseRow = {
@@ -109,6 +110,18 @@ export function createPostgresDemoDataProvider(): DemoDataProvider {
           limitations: ['Totais representam somente as linhas retornadas pelos filtros.', 'Nao substitui empenhos individuais ou toda a execucao orcamentaria.'],
           confidence: 'needs_review', metadata: { municipality: 'Itapevi' },
         });
+      } finally { await pool.end(); }
+    },
+    async getDemographics() {
+      const pool = createDatabasePool();
+      try {
+        const result = await pool.query<{ payload: Record<string, unknown>; sha256: string }>(`
+          SELECT e.payload, a.sha256 FROM events e JOIN processing_runs pr ON pr.run_id = e.run_id
+          JOIN artifacts a ON a.artifact_id = pr.artifact_id
+          WHERE e.event_type = 'municipal_population_estimated' AND e.status = 'candidate' ORDER BY e.created_at DESC;
+        `);
+        const estimates = result.rows.map((row) => ({ ...row.payload, artifactSha256: row.sha256 }));
+        return createCommonResponse({ status: 'ok', data: { estimates }, evidence: result.rows.map((row) => ({ sourceId: 'SRC-IBGE-EST-2026-001', datasetId: 'DS-IBGE-EST-2026', artifactSha256: row.sha256 })), coverage: { scope: 'estimativa populacional municipal do IBGE com referencia em 01/07/2026', status: 'pilot' }, limitations: ['Estimativa anual; nao representa contagem em tempo real.', 'Termos de redistribuicao ainda aguardam revisao.'], confidence: 'needs_review', metadata: { municipality: 'Itapevi' } });
       } finally { await pool.end(); }
     },
   };

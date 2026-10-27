@@ -15,6 +15,10 @@ const app = createApp({
     status: 'ok', data: { exports: [] }, evidence: [{ sourceId: 'SRC', datasetId: 'DS' }],
     coverage: { scope: 'teste', status: 'pilot' }, limitations: [], confidence: 'high', metadata: { municipality: 'Itapevi' },
   }),
+  getDemographics: async () => createCommonResponse({
+    status: 'ok', data: { estimates: [] }, evidence: [{ sourceId: 'SRC', datasetId: 'DS' }],
+    coverage: { scope: 'teste', status: 'pilot' }, limitations: [], confidence: 'high', metadata: { municipality: 'Itapevi' },
+  }),
 });
 
 describe('demonstracao web local', () => {
@@ -23,11 +27,13 @@ describe('demonstracao web local', () => {
     const catalog = await request(app).get('/api/demo/catalog');
     const entities = await request(app).get('/api/demo/entities');
     const budget = await request(app).get('/api/demo/budget');
+    const demographics = await request(app).get('/api/demo/demographics');
 
     expect(page.status).toBe(200);
     expect(page.text).toContain('Demonstracao local');
     expect(catalog.body.contractVersion).toBe('1.0');
     expect(entities.body.data.entities).toEqual([]);
     expect(budget.body.data.exports).toEqual([]);
+    expect(demographics.body.data.estimates).toEqual([]);
   });
 });
