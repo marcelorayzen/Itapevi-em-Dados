@@ -58,7 +58,7 @@
 
 ## F2 — Conhecimento verificável
 
-- [ ] **F2-01 — Definir resolução de entidades.** Estabelecer chaves fortes, aliases, confiança e revisão humana.
+- [-] **F2-01 — Definir resolução de entidades.** Recorte inicial aprovado para órgãos e secretarias municipais; modelo e regras em `docs/F2_ENTITY_RESOLUTION_SCOPE.md`.
   - Aceite: casos de empresa/órgão duplicados possuem decisão auditável.
 - [ ] **F2-02 — Provar uma projeção relacional.** Avaliar grafo somente para uma pergunta que não seja atendida adequadamente por consultas convencionais.
   - Aceite: comparação documentada entre consulta relacional convencional e projeção proposta.

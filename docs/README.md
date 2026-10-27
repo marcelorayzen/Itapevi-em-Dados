@@ -24,5 +24,7 @@ As ADRs são propostas até serem validadas por custo operacional e provas de co
 - [Decisão do piloto F1](F1_PILOT_DECISION.md)
 - [Especificação de Document Intelligence da F1](F1_DOCUMENT_INTELLIGENCE_SPEC.md)
 - [Registro de descoberta de fontes da F1](F1_SOURCE_DISCOVERY_LOG.md)
+- [Escopo de resolução de entidades da F2](F2_ENTITY_RESOLUTION_SCOPE.md)
+- [Melhorias futuras registradas](FUTURE_IMPROVEMENTS.md)
 
 Os documentos existentes de visão, princípios, arquitetura, roadmap e ontologia descrevem a direção V2 e não representam recursos já implementados.
