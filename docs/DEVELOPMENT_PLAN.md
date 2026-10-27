@@ -71,7 +71,7 @@
 
 - [x] **F3-01 — Definir contrato de resposta comum.** O envelope JSON `1.0` padroniza dados, evidências, cobertura, confiança, limitações e metadados; há construtor e testes de compatibilidade. A integração de conectores existentes será gradual. Especificação em `docs/F3_RESPONSE_CONTRACT.md`.
   - Aceite: contrato versionado e testes de compatibilidade.
-- [ ] **F3-02 — Criar catálogo navegável de datasets.** Exibir escopo, atualização, fonte, termos e status.
+- [x] **F3-02 — Criar catálogo navegável de datasets.** O catálogo local usa o contrato `1.0` e exibe escopo, atualização, fonte, termos, status, artefatos e limitações do piloto F1. Evidência em `docs/F3_DATASET_CATALOG_VALIDATION.md`.
   - Aceite: piloto lista a fonte F1 e suas limitações.
 - [ ] **F3-03 — Avaliar API pública, sem antecipá-la.** Definir autenticação, rate limiting, OpenAPI e riscos somente após F1/F2.
   - Aceite: decisão explícita de seguir, adiar ou rejeitar.

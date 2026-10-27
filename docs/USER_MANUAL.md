@@ -73,6 +73,12 @@ npm run db:inspect:f2
 
 O comando mostra, em JSON, o nome canonico quando aceito, o alias observado, status, confianca, fonte, dataset, checksum do artefato e pagina/secao de origem. Um alias `needs_review` e uma pendencia de revisao humana, nao um erro a ser corrigido por inferencia automatica.
 
+Para listar os datasets registrados, sua cobertura e o estado de termos:
+
+```powershell
+npm run db:catalog
+```
+
 ## Terceiro teste: servidor MCP
 
 Compile o projeto e inicie o transporte MCP:
@@ -111,6 +117,7 @@ git diff --check
 | Confirmar que a aplicacao iniciou | `http://localhost:3000/` |
 | Confirmar as ferramentas carregadas | `http://localhost:3000/health` |
 | Conferir evidencias F2 no banco | `npm run db:inspect:f2` |
+| Listar datasets, cobertura e termos | `npm run db:catalog` |
 | Usar ferramentas por IA/cliente | servidor MCP via `npm start` |
 | Entender limites do produto | [Status do prototipo](PROTOTYPE_STATUS.md) |
 | Acompanhar etapas e backlog | [Plano](DEVELOPMENT_PLAN.md) e [Backlog](BACKLOG.md) |

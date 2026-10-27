@@ -15,6 +15,7 @@
     "db:persist-loa-candidate": "tsx scripts/persist-loa-candidate.ts",
     "db:bootstrap-loa-entities": "tsx scripts/bootstrap-loa-org-entities.ts",
     "db:inspect:f2": "tsx scripts/inspect-entity-evidence.ts",
+    "db:catalog": "tsx scripts/inspect-dataset-catalog.ts",
     "normalize:loa": "tsx scripts/normalize-loa.ts",
     "test": "jest --runInBand"
   },
