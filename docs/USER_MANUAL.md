@@ -58,6 +58,20 @@ Essa e a demonstracao web local e somente leitura. Ela apresenta catalogo, entid
 
 Quando houver uma exportacao LAI processada, a mesma tela tambem mostra o resumo de previsto e realizado com periodo, filtros e checksum.
 
+## Perguntas guiadas na demonstracao
+
+No topo de `http://localhost:3000/demo`, use o campo de pergunta. Nesta etapa, ele responde somente consultas verificaveis sobre os dados locais carregados; nao e um chat de IA livre.
+
+Exemplos:
+
+- `Qual a populacao de Itapevi?`
+- `Quanto foi previsto e realizado?`
+- `O que ha do TCESP em 2019?`
+- `Qual o maior gasto TCESP?`
+- `Quais entidades estao em revisao?`
+
+Cada resposta informa cobertura e confianca. A pergunta sobre maior gasto descreve apenas o maior grupo agregado do mes historico coletado; ela nao indica irregularidade, favorecimento ou comportamento em outros periodos.
+
 ## Segundo teste: banco local e fluxo F1/F2
 
 Com Docker Desktop em execucao, suba o banco e aplique as migracoes:

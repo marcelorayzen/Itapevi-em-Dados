@@ -59,7 +59,7 @@ function demoError(area: string, error: unknown) {
   });
 }
 
-async function answerQuestion(question: string, provider: DemoDataProvider) {
+export async function answerQuestion(question: string, provider: DemoDataProvider) {
   const normalized = question.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   if (normalized.includes('populacao') || normalized.includes('habitantes')) {
     const response = await provider.getDemographics(); const estimate = (response.data.estimates[0] ?? {}) as { estimated_population?: number; reference_date?: string };
