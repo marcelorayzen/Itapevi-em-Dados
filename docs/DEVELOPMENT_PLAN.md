@@ -86,7 +86,7 @@
 
 - [x] **F4-01 — Definir regras de insight.** A regra de execução orçamentária previsto × realizado foi implementada de modo reproduzível, com fórmula, período, cobertura e exclusões documentados em `docs/F4_BUDGET_EXECUTION_INSIGHT.md`.
   - Aceite: uma regra reproduzível em dados controlados, validada pela consulta guiada local.
-- [ ] **F4-02 — Aplicar ADR-011.** Validar linguagem neutra, fontes, recortes e revisão humana para indicadores sensíveis.
+- [x] **F4-02 — Aplicar ADR-011.** Consultas acusatórias são bloqueadas antes de consultar dados e retornam limite explicável; teste e checklist estão em `docs/F4_NON_ACCUSATORY_VALIDATION.md`.
   - Aceite: checklist não acusatório aprovado em exemplos de saída.
 - [ ] **F4-03 — Avaliar alertas.** Definir assinatura, frequência, ruído, destinatário e revogação.
   - Aceite: piloto sem envio automático em produção.

@@ -65,6 +65,16 @@ function demoError(area: string, error: unknown) {
 
 export async function answerQuestion(question: string, provider: DemoDataProvider) {
   const normalized = question.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  if (['irregular', 'fraude', 'favorec', 'culpa', 'corrup', 'desvio', 'crime', 'ilegal'].some((term) => normalized.includes(term))) {
+    return createCommonResponse({
+      status: 'not_found',
+      data: { question, answer: 'Esta demonstracao nao classifica pessoas, empresas, contratos ou orgaos como irregulares, fraudulentos, favorecidos ou culpados. Posso apresentar somente fatos verificaveis, com fonte, periodo, criterio e limitacoes de cobertura.' },
+      evidence: [],
+      coverage: { scope: 'proteção ADR-011 para consultas guiadas locais', status: 'pilot' },
+      limitations: ['Indicadores descritivos nao comprovam conduta, ilegalidade ou responsabilidade.', 'Qualquer analise sensivel exige contexto, fonte verificavel e revisao humana.'],
+      confidence: 'high', metadata: { municipality: 'Itapevi' },
+    });
+  }
   if (normalized.includes('populacao') || normalized.includes('habitantes')) {
     const response = await provider.getDemographics(); const estimate = (response.data.estimates[0] ?? {}) as { estimated_population?: number; reference_date?: string };
     return { ...response, data: { question, answer: estimate.estimated_population ? `A estimativa oficial do IBGE para Itapevi e ${estimate.estimated_population.toLocaleString('pt-BR')} habitantes, com referencia em ${estimate.reference_date}.` : 'Nao ha estimativa carregada.' } };

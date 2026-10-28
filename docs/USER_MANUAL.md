@@ -74,6 +74,8 @@ Exemplos:
 
 Cada resposta informa cobertura e confianca. A pergunta sobre maior gasto descreve apenas o maior grupo agregado do mes historico coletado; ela nao indica irregularidade, favorecimento ou comportamento em outros periodos.
 
+Perguntas que pedem acusacao de fraude, irregularidade, favorecimento, culpa ou ilegalidade nao sao respondidas como conclusoes. A demonstracao explica esse limite e aceita somente consultas descritivas e verificaveis; veja [a validacao do ADR-011](F4_NON_ACCUSATORY_VALIDATION.md).
+
 A consulta de compras por modalidade usa somente totais e agrupamentos presentes em uma exportacao local do painel LAI. Ela nao exibe processos, objetos, fornecedores ou documentos brutos e nao representa, sem metadados de filtro, toda a contratacao municipal.
 
 ## Segundo teste: banco local e fluxo F1/F2

@@ -46,4 +46,14 @@ describe('demonstracao web local', () => {
     expect(historical.body.data.periods).toEqual([]);
     expect(procurement.body.data.exports).toEqual([]);
   });
+
+  it('recusa classificacao acusatoria e explica o limite do ADR-011', async () => {
+    const response = await request(app).get('/api/demo/query').query({ q: 'Qual empresa cometeu fraude?' });
+
+    expect(response.status).toBe(200);
+    expect(response.body.status).toBe('not_found');
+    expect(response.body.data.answer).toContain('nao classifica');
+    expect(response.body.data.answer).not.toContain('cometeu fraude');
+    expect(response.body.limitations).toContain('Indicadores descritivos nao comprovam conduta, ilegalidade ou responsabilidade.');
+  });
 });
