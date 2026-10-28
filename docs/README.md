@@ -33,6 +33,8 @@ As ADRs são propostas até serem validadas por custo operacional e provas de co
 - [Validação do catálogo de datasets da F3](F3_DATASET_CATALOG_VALIDATION.md)
 - [Validação da demonstração web local da F3](F3_WEB_DEMO_VALIDATION.md)
 - [Validação da exportação municipal LAI](F1_LAI_EXPORT_VALIDATION.md)
+- [Validação da exportação municipal de compras](F1_LAI_PROCUREMENT_EXPORT_VALIDATION.md)
+- [Insight de execução orçamentária](F4_BUDGET_EXECUTION_INSIGHT.md)
 - [Validação da estimativa IBGE 2026](F1_IBGE_2026_VALIDATION.md)
 - [Validação do piloto agregado TCESP](F1_TCESP_AGGREGATE_VALIDATION.md)
 - [Melhorias futuras registradas](FUTURE_IMPROVEMENTS.md)

@@ -57,6 +57,8 @@
   - Aceite: duas execuções não duplicam fatos e falha pode ser investigada por `run_id`.
 - [x] **F1-07 — Validar exportação municipal LAI.** A exportação JSON de convidado do painel Previsto e Empenhado foi registrada como artefato local, normalizada com filtros e reprocessada sem duplicação. Evidência em `docs/F1_LAI_EXPORT_VALIDATION.md`.
   - Aceite: o artefato, os filtros, os totais e a execução podem ser recuperados localmente por checksum.
+- [x] **F1-08 — Validar exportação municipal de compras por modalidade.** A exportação CSV de convidado foi registrada como artefato local, normalizada em totais e modalidades e mantida fora do Git. Evidência em `docs/F1_LAI_PROCUREMENT_EXPORT_VALIDATION.md`.
+  - Aceite: o artefato, checksum, configuração de processamento e evento agregado podem ser recuperados localmente sem expor processos ou objetos no dado derivado.
 
 ## F2 — Conhecimento verificável
 
@@ -82,8 +84,8 @@
 
 ## F4 — Inteligência responsável
 
-- [ ] **F4-01 — Definir regras de insight.** Registrar fórmula, população, período, limiar e dados excluídos.
-  - Aceite: uma regra reproduzível em dados controlados.
+- [x] **F4-01 — Definir regras de insight.** A regra de execução orçamentária previsto × realizado foi implementada de modo reproduzível, com fórmula, período, cobertura e exclusões documentados em `docs/F4_BUDGET_EXECUTION_INSIGHT.md`.
+  - Aceite: uma regra reproduzível em dados controlados, validada pela consulta guiada local.
 - [ ] **F4-02 — Aplicar ADR-011.** Validar linguagem neutra, fontes, recortes e revisão humana para indicadores sensíveis.
   - Aceite: checklist não acusatório aprovado em exemplos de saída.
 - [ ] **F4-03 — Avaliar alertas.** Definir assinatura, frequência, ruído, destinatário e revogação.

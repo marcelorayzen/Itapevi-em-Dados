@@ -19,6 +19,7 @@ export interface DemoDataProvider {
   getBudgetSummary(): Promise<CommonResponse<{ exports: unknown[] }>>;
   getDemographics(): Promise<CommonResponse<{ estimates: unknown[] }>>;
   getHistoricalExpenses(): Promise<CommonResponse<{ periods: unknown[] }>>;
+  getProcurementSummary(): Promise<CommonResponse<{ exports: unknown[] }>>;
 }
 
 type CatalogDatabaseRow = {
@@ -131,6 +132,26 @@ export function createPostgresDemoDataProvider(): DemoDataProvider {
         const result = await pool.query<{ payload: { period: string; recordCount: number; aggregate: unknown[] }; sha256: string }>(`SELECT e.payload, a.sha256 FROM events e JOIN processing_runs pr ON pr.run_id=e.run_id JOIN artifacts a ON a.artifact_id=pr.artifact_id WHERE e.event_type='municipal_expense_month_aggregated' AND e.status='candidate' ORDER BY e.created_at DESC;`);
         const periods = result.rows.map((row) => ({ ...row.payload, groups: row.payload.aggregate.length, artifactSha256: row.sha256 }));
         return createCommonResponse({ status: 'ok', data: { periods }, evidence: result.rows.map((row) => ({ sourceId: 'SRC-TCESP-001', datasetId: 'DS-TCESP-DESPESAS-2019-01', artifactSha256: row.sha256 })), coverage: { scope: 'despesas historicas agregadas do TCESP, por mes coletado', status: 'pilot' }, limitations: ['Cobertura atual limitada a janeiro de 2019.', 'Valores agregados nao representam toda a execucao municipal.'], confidence: 'needs_review', metadata: { municipality: 'Itapevi' } });
+      } finally { await pool.end(); }
+    },
+    async getProcurementSummary() {
+      const pool = createDatabasePool();
+      try {
+        const result = await pool.query<{ payload: { records: number; totals: Record<string, number>; modalities: unknown[] }; sha256: string; dataset_name: string }>(`
+          SELECT e.payload, a.sha256, d.name AS dataset_name
+          FROM events e JOIN processing_runs pr ON pr.run_id = e.run_id
+          JOIN artifacts a ON a.artifact_id = pr.artifact_id JOIN datasets d ON d.dataset_id = a.dataset_id
+          WHERE e.event_type = 'municipal_procurement_modalities_exported' AND e.status = 'candidate'
+          ORDER BY e.created_at DESC;
+        `);
+        const exports = result.rows.map((row) => ({ ...row.payload, artifactSha256: row.sha256, datasetName: row.dataset_name }));
+        return createCommonResponse({
+          status: 'ok', data: { exports },
+          evidence: result.rows.map((row) => ({ sourceId: 'SRC-PREF-LAI-001', datasetId: 'DS-LAI-COMPRAS-MODALIDADE-2026', artifactSha256: row.sha256 })),
+          coverage: { scope: 'exportacoes agregadas de compras por modalidade do painel LAI', status: 'pilot' },
+          limitations: ['O piloto guarda somente totais e agrupamentos por modalidade.', 'Processos, objetos e documentos continuam no artefato bruto local e nao sao exibidos.'],
+          confidence: 'needs_review', metadata: { municipality: 'Itapevi' },
+        });
       } finally { await pool.end(); }
     },
   };

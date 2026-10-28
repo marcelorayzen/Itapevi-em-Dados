@@ -22,6 +22,9 @@ const app = createApp({
   getHistoricalExpenses: async () => createCommonResponse({
     status: 'ok', data: { periods: [] }, evidence: [{ sourceId: 'SRC', datasetId: 'DS' }], coverage: { scope: 'teste', status: 'pilot' }, limitations: [], confidence: 'high', metadata: { municipality: 'Itapevi' },
   }),
+  getProcurementSummary: async () => createCommonResponse({
+    status: 'ok', data: { exports: [] }, evidence: [{ sourceId: 'SRC', datasetId: 'DS' }], coverage: { scope: 'teste', status: 'pilot' }, limitations: [], confidence: 'high', metadata: { municipality: 'Itapevi' },
+  }),
 });
 
 describe('demonstracao web local', () => {
@@ -32,6 +35,7 @@ describe('demonstracao web local', () => {
     const budget = await request(app).get('/api/demo/budget');
     const demographics = await request(app).get('/api/demo/demographics');
     const historical = await request(app).get('/api/demo/historical-expenses');
+    const procurement = await request(app).get('/api/demo/procurement');
 
     expect(page.status).toBe(200);
     expect(page.text).toContain('Demonstracao local');
@@ -40,5 +44,6 @@ describe('demonstracao web local', () => {
     expect(budget.body.data.exports).toEqual([]);
     expect(demographics.body.data.estimates).toEqual([]);
     expect(historical.body.data.periods).toEqual([]);
+    expect(procurement.body.data.exports).toEqual([]);
   });
 });

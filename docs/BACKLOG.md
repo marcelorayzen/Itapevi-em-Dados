@@ -22,6 +22,7 @@
 | F1-05 | P1 | Eventos e evidências | F1-04 | [x] |
 | F1-06 | P1 | Reprocessamento e observabilidade | F1-05 | [x] |
 | F1-07 | P1 | Exportação municipal LAI controlada | F1-03 | [x] |
+| F1-08 | P1 | Exportação municipal de compras por modalidade | F1-03 | [x] |
 | F2-01 | P2 | Resolução de entidades | F1-05 | [x] |
 | F2-02 | P2 | Prova de necessidade do grafo | F2-01 | [x] |
 | F2-03 | P2 | Projeção relacional, se aprovada | F2-02 | [ ] |
@@ -29,7 +30,7 @@
 | F3-01 | P2 | Contrato de resposta comum | F1-05 | [x] |
 | F3-02 | P2 | Catálogo navegável de datasets | F1-05 | [x] |
 | F3-04 | P2 | Interface web de consulta e demonstração para prefeituras e BBSIA | F3-01, F3-02 | [x] |
-| F4-01 | P2 | Regra de insight reproduzível | F1-06 | [ ] |
+| F4-01 | P2 | Regra de insight reproduzível | F1-06 | [x] |
 | F5-01 | P3 | Configuração multi-cidade | F1-02 | [ ] |
 
 ## Registro de bloqueios

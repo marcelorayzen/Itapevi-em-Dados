@@ -70,8 +70,11 @@ Exemplos:
 - `Qual o maior gasto TCESP?`
 - `Quais entidades estao em revisao?`
 - `Qual a execucao orcamentaria por orgao/programa?`
+- `Quanto foi comprado por modalidade de licitacao?`
 
 Cada resposta informa cobertura e confianca. A pergunta sobre maior gasto descreve apenas o maior grupo agregado do mes historico coletado; ela nao indica irregularidade, favorecimento ou comportamento em outros periodos.
+
+A consulta de compras por modalidade usa somente totais e agrupamentos presentes em uma exportacao local do painel LAI. Ela nao exibe processos, objetos, fornecedores ou documentos brutos e nao representa, sem metadados de filtro, toda a contratacao municipal.
 
 ## Segundo teste: banco local e fluxo F1/F2
 
@@ -103,6 +106,17 @@ Para listar os datasets registrados, sua cobertura e o estado de termos:
 ```powershell
 npm run db:catalog
 ```
+
+### Ingerir a exportacao de compras por modalidade
+
+Com a exportacao ZIP salva localmente e o PostgreSQL iniciado:
+
+```powershell
+npm run db:bootstrap:lai-procurement
+npm run db:ingest:lai-procurement -- --input "C:\\caminho\\para\\compras-por-modalidade.zip"
+```
+
+O comando registra o checksum do ZIP, mas nao move o arquivo para o repositorio nem o envia ao Git. Veja a cobertura e as limitacoes em [Validacao da exportacao de compras](F1_LAI_PROCUREMENT_EXPORT_VALIDATION.md).
 
 ## Terceiro teste: servidor MCP
 
