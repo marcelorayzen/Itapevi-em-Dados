@@ -7,4 +7,16 @@ describe('normalizacao da exportacao LAI de compras', () => {
     expect(result.totals).toEqual({ priceRegistrationTotal: 10, purchasedAmount: 30, estimatedAmount: 50, items: 3 });
     expect(result.modalities).toEqual([{ modality: 'Pregão', records: 2, priceRegistrationTotal: 10, purchasedAmount: 30, estimatedAmount: 50, items: 3 }]);
   });
+
+  it('rejeita valor monetario invalido em vez de produzir total silenciosamente incorreto', () => {
+    const csv = '"Modalidade"|"Total registro de preço"|"Valor comprado"|"Valor estimado"|"Itens"\n"Pregão"|0|invalido|20|1\n';
+
+    expect(() => normalizeLaiProcurementCsv(csv)).toThrow('Valor numerico invalido');
+  });
+
+  it('rejeita arquivo sem linhas de detalhe', () => {
+    const csv = '"Modalidade"|"Total registro de preço"|"Valor comprado"|"Valor estimado"|"Itens"\n"TOTAL"|0|0|0|0\n';
+
+    expect(() => normalizeLaiProcurementCsv(csv)).toThrow('CSV nao contem registros de compras por modalidade.');
+  });
 });

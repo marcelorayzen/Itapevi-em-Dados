@@ -29,6 +29,10 @@ npm run db:ingest:lai-procurement -- --input "C:\\caminho\\do\\arquivo.zip"
 
 O processador é `lai-procurement-normalizer@lai-procurement-v1`. Uma nova execução com o mesmo artefato, configuração e versão reutiliza a execução concluída, sem criar novo evento.
 
+Na validação local de 27/10/2026, o artefato foi registrado como `099ad1d7-9838-4fa9-8bfa-25c719223e28`; a execução `f87a24de-81ae-41a0-9195-e88a955e29b2` e o evento candidato `d2d8d0aa-e8e8-43a4-9a93-a21b3bb8f405` foram reutilizados na segunda execução. O resultado agregado teve 117 registros, R$ 289.910.157,77 em valor comprado, R$ 1.397.454.907,60 em valor estimado e 673 itens.
+
+Os testes versionados cobrem o agrupamento por modalidade, a rejeição de valor numérico inválido, a rejeição de CSV sem detalhe e a resposta guiada com evidência. Eles usam apenas dados sintéticos.
+
 ## Limites
 
 - A exportação é um recorte do painel; como não há metadados de filtro no CSV, ela não deve ser apresentada como cobertura completa de um exercício.
