@@ -69,6 +69,7 @@ Exemplos:
 - `O que ha do TCESP em 2019?`
 - `Qual o maior gasto TCESP?`
 - `Quais entidades estao em revisao?`
+- `Qual a execucao orcamentaria por orgao/programa?`
 
 Cada resposta informa cobertura e confianca. A pergunta sobre maior gasto descreve apenas o maior grupo agregado do mes historico coletado; ela nao indica irregularidade, favorecimento ou comportamento em outros periodos.
 

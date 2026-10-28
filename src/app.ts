@@ -65,6 +65,14 @@ export async function answerQuestion(question: string, provider: DemoDataProvide
     const response = await provider.getDemographics(); const estimate = (response.data.estimates[0] ?? {}) as { estimated_population?: number; reference_date?: string };
     return { ...response, data: { question, answer: estimate.estimated_population ? `A estimativa oficial do IBGE para Itapevi e ${estimate.estimated_population.toLocaleString('pt-BR')} habitantes, com referencia em ${estimate.reference_date}.` : 'Nao ha estimativa carregada.' } };
   }
+  if (normalized.includes('execucao') || normalized.includes('executado') || normalized.includes('realizado por orgao') || normalized.includes('realizado por programa')) {
+    const response = await provider.getBudgetSummary();
+    const item = (response.data.exports[0] ?? {}) as { totals?: { plannedAmount: number; realizedAmount: number }; breakdown?: Array<{ program: string; responsibleBody: string; plannedAmount: number; realizedAmount: number }> };
+    const totalRate = item.totals && item.totals.plannedAmount > 0 ? (item.totals.realizedAmount / item.totals.plannedAmount) * 100 : 0;
+    const top = [...(item.breakdown ?? [])].filter((row) => row.plannedAmount > 0).sort((a, b) => (b.realizedAmount / b.plannedAmount) - (a.realizedAmount / a.plannedAmount))[0];
+    const detail = top ? ` O maior percentual entre as linhas retornadas foi ${top.responsibleBody} / ${top.program}: ${((top.realizedAmount / top.plannedAmount) * 100).toFixed(2)}%.` : '';
+    return { ...response, data: { question, answer: `No recorte carregado, a execucao agregada e ${totalRate.toFixed(2)}% do previsto.${detail} O resultado descreve somente as linhas e o periodo exportados.` } };
+  }
   if (normalized.includes('previsto') || normalized.includes('empenhado') || normalized.includes('orcamento')) {
     const response = await provider.getBudgetSummary(); const item = (response.data.exports[0] ?? {}) as { totals?: { plannedAmount: number; realizedAmount: number }; filters?: Record<string, string> };
     return { ...response, data: { question, answer: item.totals ? `No recorte ${item.filters?.['Data Inicial']} a ${item.filters?.['Data Final']}, o painel LAI retornou R$ ${item.totals.plannedAmount.toLocaleString('pt-BR',{minimumFractionDigits:2})} previstos e R$ ${item.totals.realizedAmount.toLocaleString('pt-BR',{minimumFractionDigits:2})} realizados.` : 'Nao ha exportacao LAI carregada.' } };

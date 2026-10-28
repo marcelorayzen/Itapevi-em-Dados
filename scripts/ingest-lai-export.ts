@@ -40,7 +40,7 @@ async function main(): Promise<void> {
       retentionStatus: 'retained_local', publicationStatus: 'blocked_pending_terms_review',
     });
     const run = {
-      artifactId, processorName: 'lai-budget-normalizer', processorVersion: 'lai-v1',
+      artifactId, processorName: 'lai-budget-normalizer', processorVersion: 'lai-v2',
       configuration: { input: 'zip_json', encoding: 'windows-1252', source_view: 'previsto_empenhado_por_programa_secretaria' },
     };
     const previous = await repository.findSucceededProcessingRun(run);
@@ -57,7 +57,11 @@ async function main(): Promise<void> {
     const evidenceId = await repository.recordEvidence({ artifactId, locator: { export_format: 'zip/json', filters: normalized.filters, record_count: normalized.records.length, encoding: 'windows-1252' } });
     const eventId = await repository.recordEvent({
       eventType: 'municipal_budget_panel_exported', status: 'candidate', runId,
-      payload: { origin: normalized.origin, exportedAt: normalized.exportedAt, filters: normalized.filters, recordCount: normalized.records.length, totals: normalized.totals },
+      payload: {
+        origin: normalized.origin, exportedAt: normalized.exportedAt, filters: normalized.filters,
+        recordCount: normalized.records.length, totals: normalized.totals,
+        breakdown: normalized.records.map((record) => ({ program: record.program, responsibleBody: record.responsibleBody, plannedAmount: record.plannedAmount, realizedAmount: record.realizedAmount })),
+      },
     });
     await repository.linkEventEvidence(eventId, evidenceId);
     await repository.finishProcessingRun(runId, 'succeeded');
