@@ -69,9 +69,15 @@ async function answerQuestion(question: string, provider: DemoDataProvider) {
     const response = await provider.getBudgetSummary(); const item = (response.data.exports[0] ?? {}) as { totals?: { plannedAmount: number; realizedAmount: number }; filters?: Record<string, string> };
     return { ...response, data: { question, answer: item.totals ? `No recorte ${item.filters?.['Data Inicial']} a ${item.filters?.['Data Final']}, o painel LAI retornou R$ ${item.totals.plannedAmount.toLocaleString('pt-BR',{minimumFractionDigits:2})} previstos e R$ ${item.totals.realizedAmount.toLocaleString('pt-BR',{minimumFractionDigits:2})} realizados.` : 'Nao ha exportacao LAI carregada.' } };
   }
-  if (normalized.includes('tcesp') || normalized.includes('historico') || normalized.includes('2019')) {
+  if ((normalized.includes('tcesp') || normalized.includes('historico') || normalized.includes('2019')) && !normalized.includes('maior') && !normalized.includes('mais')) {
     const response = await provider.getHistoricalExpenses(); const item = (response.data.periods[0] ?? {}) as { period?: string; recordCount?: number; groups?: number };
     return { ...response, data: { question, answer: item.period ? `O piloto TCESP cobre ${item.period}, com ${item.recordCount} registros brutos locais agregados em ${item.groups} grupos.` : 'Nao ha piloto TCESP carregado.' } };
+  }
+  if ((normalized.includes('maior') || normalized.includes('mais')) && (normalized.includes('despesa') || normalized.includes('gasto') || normalized.includes('orgao'))) {
+    const response = await provider.getHistoricalExpenses();
+    const item = (response.data.periods[0] ?? {}) as { period?: string; aggregate?: Array<{ orgao: string; evento: string; total: number }> };
+    const top = [...(item.aggregate ?? [])].sort((a, b) => b.total - a.total)[0];
+    return { ...response, data: { question, answer: top ? `No recorte ${item.period}, o maior grupo agregado foi ${top.orgao} / ${top.evento}, com R$ ${top.total.toLocaleString('pt-BR',{minimumFractionDigits:2})}. Isso descreve somente o mes coletado.` : 'Nao ha grupo TCESP carregado.' } };
   }
   if (normalized.includes('entidade') || normalized.includes('secretaria') || normalized.includes('revisao')) {
     const response = await provider.getEntities(); const items = response.data.entities as Array<{ canonicalName?: string | null; resolutionStatus?: string }>;
