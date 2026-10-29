@@ -32,6 +32,7 @@
 | F3-04 | P2 | Interface web de consulta e demonstração para prefeituras e BBSIA | F3-01, F3-02 | [x] |
 | F4-01 | P2 | Regra de insight reproduzível | F1-06 | [x] |
 | F4-02 | P2 | Aplicar ADR-011 em consultas públicas | F4-01 | [x] |
+| F4-03 | P2 | Relatório semanal de alertas governados | F4-02 | [x] |
 | F5-01 | P3 | Configuração multi-cidade | F1-02 | [ ] |
 
 ## Registro de bloqueios

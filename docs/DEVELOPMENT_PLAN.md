@@ -88,7 +88,7 @@
   - Aceite: uma regra reproduzível em dados controlados, validada pela consulta guiada local.
 - [x] **F4-02 — Aplicar ADR-011.** Consultas acusatórias são bloqueadas antes de consultar dados e retornam limite explicável; teste e checklist estão em `docs/F4_NON_ACCUSATORY_VALIDATION.md`.
   - Aceite: checklist não acusatório aprovado em exemplos de saída.
-- [ ] **F4-03 — Avaliar alertas.** Definir assinatura, frequência, ruído, destinatário e revogação.
+- [x] **F4-03 — Avaliar alertas.** Relatório semanal local para Marcelo e Rayzen cobre novas coletas, falhas, termos e aliases pendentes; sem envio externo ou agendamento. Evidência em `docs/F4_WEEKLY_ALERT_REPORT.md`.
   - Aceite: piloto sem envio automático em produção.
 
 ## F5 — Multi-cidade

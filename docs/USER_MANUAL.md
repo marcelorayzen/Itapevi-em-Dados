@@ -151,6 +151,16 @@ npm test
 git diff --check
 ```
 
+## Relatório semanal de alertas
+
+Para revisar novas coletas, falhas de processamento e pendências de governança no PostgreSQL local:
+
+```powershell
+npm run alerts:weekly
+```
+
+O relatório é direcionado a Marcelo e Rayzen, é gerado somente sob demanda e não envia mensagens externas. Consulte [Relatório semanal de alertas](F4_WEEKLY_ALERT_REPORT.md) para critérios, limites e revogação.
+
 ## Onde encontrar cada coisa
 
 | Necessidade | Caminho atual |
