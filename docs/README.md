@@ -20,6 +20,7 @@ As ADRs são propostas até serem validadas por custo operacional e provas de co
 - [Reuso e implantação](REUSE_AND_DEPLOYMENT.md)
 - [Governança de dados](DATA_GOVERNANCE.md)
 - [Registro de fontes](DATA_SOURCES_REGISTER.md)
+- [Revisão de termos e licenças das fontes](P0_DATA_LICENSE_REVIEW.md)
 - [Inventário inicial de licenças](DEPENDENCY_LICENSE_INVENTORY.md)
 - [Checklist de segurança e release](SECURITY_AND_RELEASE_CHECKLIST.md)
 - [Decisão do piloto F1](F1_PILOT_DECISION.md)

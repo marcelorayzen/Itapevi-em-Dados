@@ -36,7 +36,7 @@
   - Aceite: workflow reproduz `npm run build` e `npm test` em PR.
 - [-] **P0-04 — Inventariar dependências e licenças.** Inventário direto criado; transitivas e revisão humana pendentes.
   - Aceite: inventário versionado e exceções registradas.
-- [-] **P0-05 — Inventariar fontes atuais.** Registro inicial criado; termos e responsáveis pendentes de validação humana.
+- [-] **P0-05 — Inventariar fontes atuais.** Registro e primeira revisão documental criados; termos, atribuições e responsáveis por dataset permanecem pendentes de validação humana. Evidência em `docs/P0_DATA_LICENSE_REVIEW.md`.
   - Aceite: registro revisável por fonte e limites de redistribuição conhecidos.
 - [-] **P0-06 — Revisar segurança operacional.** Checklist inicial criado; aprovação operacional pendente.
   - Aceite: checklist de release e de contribuição aprovado.
