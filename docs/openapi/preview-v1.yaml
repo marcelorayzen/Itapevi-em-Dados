@@ -1,0 +1,33 @@
+openapi: 3.1.0
+info:
+  title: Itapevi em Dados - Prévia Privada
+  version: 0.1.0-preview
+  description: >-
+    Especificação preparatória. Não representa uma API pública, deployment ou
+    autorização de redistribuição de dados.
+servers:
+  - url: https://nao-configurado.example
+    description: Sem servidor externo configurado nesta etapa.
+paths:
+  /api/preview/v1/catalog:
+    get:
+      summary: Lista datasets explicitamente elegíveis para a prévia privada
+      security:
+        - previewBearer: []
+      responses:
+        '200':
+          description: Catálogo elegível ou resposta parcial sem datasets liberados.
+        '401':
+          description: Chave ausente ou inválida.
+        '403':
+          description: Origem não autorizada.
+        '429':
+          description: Limite de requisições excedido.
+        '404':
+          description: Prévia desativada.
+components:
+  securitySchemes:
+    previewBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: opaque-preview-key

@@ -2,7 +2,7 @@
 
 ## Estado da decisão
 
-**Em avaliação.** Não existe API pública, deploy externo, chave de acesso ou compromisso de disponibilidade nesta etapa.
+**Decisão registrada:** preparar prévia privada, autenticada e somente leitura. Não existe API pública, deploy externo, chave real de acesso ou compromisso de disponibilidade nesta etapa.
 
 ## Situação atual
 
@@ -53,4 +53,4 @@ Marcelo deve escolher uma das opções:
 2. **Preparar prévia privada**: implementar controles, sem abrir acesso externo até novo ApprovalGate.
 3. **Planejar API pública**: somente como roadmap, após os requisitos acima e uma decisão institucional de publicação.
 
-Enquanto a decisão não for tomada, o projeto permanece na alternativa B.
+Marcelo aprovou a opção 2 em 29/10/2026. A implementação preparatória e seus limites estão em `docs/F3_PRIVATE_PREVIEW_VALIDATION.md`; qualquer ativação externa continua bloqueada pelos requisitos desta avaliação.

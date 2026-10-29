@@ -20,6 +20,7 @@ export interface DemoDataProvider {
   getDemographics(): Promise<CommonResponse<{ estimates: unknown[] }>>;
   getHistoricalExpenses(): Promise<CommonResponse<{ periods: unknown[] }>>;
   getProcurementSummary(): Promise<CommonResponse<{ exports: unknown[] }>>;
+  getPreviewCatalog(): Promise<CommonResponse<{ datasets: unknown[] }>>;
 }
 
 type CatalogDatabaseRow = {
@@ -152,6 +153,34 @@ export function createPostgresDemoDataProvider(): DemoDataProvider {
           limitations: ['O piloto guarda somente totais e agrupamentos por modalidade.', 'Processos, objetos e documentos continuam no artefato bruto local e nao sao exibidos.'],
           confidence: 'needs_review', metadata: { municipality: 'Itapevi' },
         });
+      } finally { await pool.end(); }
+    },
+    async getPreviewCatalog() {
+      const pool = createDatabasePool();
+      try {
+        const result = await pool.query<CatalogDatabaseRow>(`
+          SELECT s.source_id, s.organization, s.base_url, s.terms_url, s.redistribution_status, s.reviewed_at,
+                 d.dataset_id, d.name, d.scope, d.update_frequency, d.schema_version, d.status,
+                 count(a.artifact_id) AS artifact_count, max(a.collected_at) AS latest_collection
+          FROM sources s JOIN datasets d ON d.source_id = s.source_id
+          JOIN artifacts a ON a.dataset_id = d.dataset_id AND a.publication_status = 'approved_for_publication'
+          WHERE s.redistribution_status = 'allowed' AND d.status = 'active'
+          GROUP BY s.source_id, s.organization, s.base_url, s.terms_url, s.redistribution_status, s.reviewed_at,
+                   d.dataset_id, d.name, d.scope, d.update_frequency, d.schema_version, d.status
+          ORDER BY d.dataset_id;
+        `);
+        if (result.rows.length === 0) return createCommonResponse({
+          status: 'partial', data: { datasets: [] }, evidence: [],
+          coverage: { scope: 'datasets explicitamente aprovados para a previa privada', status: 'pilot' },
+          limitations: ['Nenhum dataset atende simultaneamente aos estados allowed, active e approved_for_publication.', 'Datasets candidatos ou com termos pendentes permanecem indisponiveis.'],
+          confidence: 'needs_review', metadata: { municipality: 'Itapevi' },
+        });
+        return createDatasetCatalogResponse(result.rows.map((row) => ({
+          sourceId: row.source_id, organization: row.organization, baseUrl: row.base_url, termsUrl: row.terms_url,
+          redistributionStatus: row.redistribution_status, reviewedAt: row.reviewed_at?.toISOString() ?? null,
+          datasetId: row.dataset_id, name: row.name, scope: row.scope, updateFrequency: row.update_frequency,
+          schemaVersion: row.schema_version, status: row.status, artifactCount: Number(row.artifact_count), latestCollection: row.latest_collection?.toISOString() ?? null,
+        })));
       } finally { await pool.end(); }
     },
   };

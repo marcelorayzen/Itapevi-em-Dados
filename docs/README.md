@@ -33,6 +33,7 @@ As ADRs são propostas até serem validadas por custo operacional e provas de co
 - [Validação do catálogo de datasets da F3](F3_DATASET_CATALOG_VALIDATION.md)
 - [Validação da demonstração web local da F3](F3_WEB_DEMO_VALIDATION.md)
 - [Avaliação de API pública da F3](F3_PUBLIC_API_EVALUATION.md)
+- [Prévia privada de API da F3](F3_PRIVATE_PREVIEW_VALIDATION.md)
 - [Validação da exportação municipal LAI](F1_LAI_EXPORT_VALIDATION.md)
 - [Validação da exportação municipal de compras](F1_LAI_PROCUREMENT_EXPORT_VALIDATION.md)
 - [Insight de execução orçamentária](F4_BUDGET_EXECUTION_INSIGHT.md)

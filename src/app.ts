@@ -1,12 +1,14 @@
 import express from 'express';
 import { createCommonResponse } from './contracts/response.js';
 import { healthCheck } from './health';
+import { createPreviewGuard, createPreviewPreflight, previewOptionsFromEnvironment, type PreviewApiOptions } from './api/preview-guard.js';
 import { createPostgresDemoDataProvider, type DemoDataProvider } from './web/demo-data.js';
 
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
 
-export function createApp(provider: DemoDataProvider = createPostgresDemoDataProvider()) {
+export function createApp(provider: DemoDataProvider = createPostgresDemoDataProvider(), previewOptions: PreviewApiOptions = previewOptionsFromEnvironment()) {
   const app = express();
+  const previewGuard = createPreviewGuard(previewOptions);
   app.get('/health', (_req: express.Request, res: express.Response) => res.json(healthCheck()));
 
   app.get('/', (_req: express.Request, res: express.Response) => {
@@ -50,6 +52,11 @@ export function createApp(provider: DemoDataProvider = createPostgresDemoDataPro
   app.get('/api/demo/query', async (req, res) => {
     try { return res.json(await answerQuestion(String(req.query.q ?? ''), provider)); }
     catch (error: unknown) { return res.status(503).json(demoError('consulta guiada', error)); }
+  });
+  app.options('/api/preview/v1/catalog', createPreviewPreflight(previewOptions));
+  app.get('/api/preview/v1/catalog', previewGuard, async (_req, res) => {
+    try { return res.json(await provider.getPreviewCatalog()); }
+    catch (error: unknown) { return res.status(503).json(demoError('catalogo da previa privada', error)); }
   });
   app.get('/demo', (_req, res) => res.type('html').send(demoPage()));
   return app;

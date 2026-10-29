@@ -161,6 +161,12 @@ npm run alerts:weekly
 
 O relatório é direcionado a Marcelo e Rayzen, é gerado somente sob demanda e não envia mensagens externas. Consulte [Relatório semanal de alertas](F4_WEEKLY_ALERT_REPORT.md) para critérios, limites e revogação.
 
+## Prévia privada de API
+
+A rota `GET /api/preview/v1/catalog` foi preparada para convidados, mas permanece desligada por padrão e não possui servidor externo. Ela exige chave Bearer, origem permitida e aplica limite por chave. Mesmo quando habilitada localmente, só lista datasets explicitamente liberados para publicação; os datasets atuais não atendem a esse requisito.
+
+Não ative nem distribua chaves sem termos das fontes revisados, allowlist aprovada, responsável operacional e ApprovalGate humano. Veja [Prévia privada de API](F3_PRIVATE_PREVIEW_VALIDATION.md) para configuração e limites.
+
 ## Onde encontrar cada coisa
 
 | Necessidade | Caminho atual |

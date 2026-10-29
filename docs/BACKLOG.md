@@ -30,7 +30,7 @@
 | F3-01 | P2 | Contrato de resposta comum | F1-05 | [x] |
 | F3-02 | P2 | Catálogo navegável de datasets | F1-05 | [x] |
 | F3-04 | P2 | Interface web de consulta e demonstração para prefeituras e BBSIA | F3-01, F3-02 | [x] |
-| F3-03 | P2 | Avaliação de API pública | F3-01, F3-02 | [-] |
+| F3-03 | P2 | Avaliação e preparação de prévia privada | F3-01, F3-02 | [x] |
 | F4-01 | P2 | Regra de insight reproduzível | F1-06 | [x] |
 | F4-02 | P2 | Aplicar ADR-011 em consultas públicas | F4-01 | [x] |
 | F4-03 | P2 | Relatório semanal de alertas governados | F4-02 | [x] |

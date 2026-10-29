@@ -77,7 +77,7 @@
   - Aceite: contrato versionado e testes de compatibilidade.
 - [x] **F3-02 — Criar catálogo navegável de datasets.** O catálogo local usa o contrato `1.0` e exibe escopo, atualização, fonte, termos, status, artefatos e limitações do piloto F1. Evidência em `docs/F3_DATASET_CATALOG_VALIDATION.md`.
   - Aceite: piloto lista a fonte F1 e suas limitações.
-- [-] **F3-03 — Avaliar API pública, sem antecipá-la.** Avaliação de riscos, controles e alternativas registrada em `docs/F3_PUBLIC_API_EVALUATION.md`; decisão de Marcelo pendente.
+- [x] **F3-03 — Avaliar API pública, sem antecipá-la.** Marcelo aprovou preparar uma prévia privada, sem deploy externo; controles e limites estão registrados em `docs/F3_PUBLIC_API_EVALUATION.md` e `docs/F3_PRIVATE_PREVIEW_VALIDATION.md`.
   - Aceite: decisão explícita de seguir, adiar ou rejeitar.
 - [x] **F3-04 — Construir interface web de consulta e demonstração.** A demonstração local e somente leitura apresenta catálogo, entidades, evidências, cobertura e limites pelo contrato `1.0`, sem chamadas externas ou publicação. Evidência em `docs/F3_WEB_DEMO_VALIDATION.md`.
   - Aceite: fluxo demonstrável localmente com consulta, fonte/artefato/página visíveis, limites de cobertura e roteiro de demonstração; publicação externa somente após revisão humana de segurança, termos e conteúdo.
