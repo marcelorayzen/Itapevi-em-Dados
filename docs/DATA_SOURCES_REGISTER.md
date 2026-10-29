@@ -4,7 +4,7 @@ _Registro técnico inicial. Licenças, termos de uso, redistribuição e periodi
 
 | ID | Fonte | Uso atual | Estado | Termos e redistribuição |
 |---|---|---|---|---|
-| SRC-IBGE-001 | API de localidades e agregados do IBGE | Dados demográficos e PIB de Itapevi, código 3522505 | integração existente | dados abertos e termos do portal foram revisados em 25/10/2026; a licença aplicável ao dataset/API e as atribuições devem ser confirmadas antes de redistribuição |
+| SRC-IBGE-001 | API de localidades e indicador populacional do IBGE | identificação municipal e estimativa populacional de Itapevi, código 3522505, indicador 29171 | integração existente | dados abertos e termos do portal foram revisados em 25/10/2026; a licença aplicável ao dataset/API e as atribuições devem ser confirmadas antes de redistribuição |
 | SRC-DO-001 | Gazeta SP, publicidade legal de Itapevi | Busca de títulos, datas e links de publicações | experimental | evidência preliminar: [portal de publicidade legal](https://publicidadelegal.gazetasp.com.br/); não foi localizada permissão explícita de redistribuição no levantamento inicial; validar termos e scraping antes de uso derivado |
 | SRC-MM-001 | MeuMunicípio, perfil de Itapevi | Indicadores baseados no Censo 2010 | experimental | evidência preliminar: [termos de uso](https://meumunicipio.org.br/termos-de-uso); confirmar permissões de coleta e redistribuição antes de uso derivado |
 | SRC-PLACEHOLDER-001 | Despesas | Dados em memória no conector | mock/placeholder | não há fonte registrada; não usar como dado público |
