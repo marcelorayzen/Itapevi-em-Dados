@@ -79,8 +79,10 @@
   - Aceite: piloto lista a fonte F1 e suas limitações.
 - [x] **F3-03 — Avaliar API pública, sem antecipá-la.** Marcelo aprovou preparar uma prévia privada, sem deploy externo; controles e limites estão registrados em `docs/F3_PUBLIC_API_EVALUATION.md` e `docs/F3_PRIVATE_PREVIEW_VALIDATION.md`.
   - Aceite: decisão explícita de seguir, adiar ou rejeitar.
-- [x] **F3-04 — Construir interface web de consulta e demonstração.** A demonstração local e somente leitura apresenta catálogo, entidades, evidências, cobertura e limites pelo contrato `1.0`, sem chamadas externas ou publicação. Evidência em `docs/F3_WEB_DEMO_VALIDATION.md`.
-  - Aceite: fluxo demonstrável localmente com consulta, fonte/artefato/página visíveis, limites de cobertura e roteiro de demonstração; publicação externa somente após revisão humana de segurança, termos e conteúdo.
+- [x] **F3-04 — Construir console técnico web local.** A demonstração local e somente leitura apresenta catálogo, entidades, evidências, cobertura e limites pelo contrato `1.0`, sem chamadas externas ou publicação. Evidência em `docs/F3_WEB_DEMO_VALIDATION.md`.
+  - Aceite: fluxo demonstrável localmente para validação técnica, com consulta, fonte/artefato/página visíveis e limites de cobertura.
+- [-] **F3-05 — Construir portal de apresentação e testes institucionais.** O portal de usuário será uma entrega distinta do console técnico: terá narrativa pública, exploração guiada, painel de evidências, roteiro de avaliação e ambientes separados para demo estática e prévia privada. Especificação em `docs/PRODUCT_PORTAL_EXPERIENCE.md`.
+  - Aceite: fluxos testados por cidadão, vereador/assessor, prefeitura e BBSIA; dados demonstrativos e hospedagem explicitamente aprovados; nenhum conteúdo pendente ou segredo publicado.
 
 ## F4 — Inteligência responsável
 

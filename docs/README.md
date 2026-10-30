@@ -9,6 +9,7 @@ Esta pasta define a direção da V2 do **Itapevi em Dados**. É uma especificaç
 5. [Blueprint](engineering/implementation-blueprint.md) e [ADRs](architecture/adr/)
 6. [Plano de desenvolvimento](DEVELOPMENT_PLAN.md) e [backlog](BACKLOG.md)
 7. [Manual de uso local](USER_MANUAL.md)
+8. [Experiencia do portal e demonstracao](PRODUCT_PORTAL_EXPERIENCE.md)
 
 As ADRs são propostas até serem validadas por custo operacional e provas de conceito. Dados de origem e eventos continuam sendo a autoridade; projeções, LLMs e grafos são derivados reconstruíveis.
 
@@ -16,6 +17,7 @@ As ADRs são propostas até serem validadas por custo operacional e provas de co
 
 - [Status do Protótipo](PROTOTYPE_STATUS.md)
 - [Integração BBSIA](BBSIA_INTEGRATION.md)
+- [Pedido de avaliação institucional ao BBSIA](BBSIA_REVIEW_REQUEST.md)
 - [Estratégia de código aberto](OPEN_SOURCE_STRATEGY.md)
 - [Reuso e implantação](REUSE_AND_DEPLOYMENT.md)
 - [Governança de dados](DATA_GOVERNANCE.md)
@@ -33,6 +35,7 @@ As ADRs são propostas até serem validadas por custo operacional e provas de co
 - [Contrato comum de resposta da F3](F3_RESPONSE_CONTRACT.md)
 - [Validação do catálogo de datasets da F3](F3_DATASET_CATALOG_VALIDATION.md)
 - [Validação da demonstração web local da F3](F3_WEB_DEMO_VALIDATION.md)
+- [Experiência do portal e demonstração institucional](PRODUCT_PORTAL_EXPERIENCE.md)
 - [Avaliação de API pública da F3](F3_PUBLIC_API_EVALUATION.md)
 - [Prévia privada de API da F3](F3_PRIVATE_PREVIEW_VALIDATION.md)
 - [Validação da exportação municipal LAI](F1_LAI_EXPORT_VALIDATION.md)

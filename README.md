@@ -1,227 +1,110 @@
-# Itapevi em Dados — protótipo da plataforma Cidade em Dados
+# Itapevi em Dados
 
-Primeira implementação e protótipo da plataforma **Cidade em Dados**: um servidor MCP em TypeScript/Node.js para consultas a dados públicos de Itapevi (SP). O protótipo não substitui fontes oficiais; respostas e dados devem ser verificados na fonte de origem.
+Plataforma em desenvolvimento para transformar dados publicos municipais em consultas compreensiveis, verificaveis e rastreaveis. O projeto nao substitui os portais oficiais: cada resposta precisa conservar a fonte, o periodo, a cobertura e as evidencias que permitem sua verificacao.
 
-## 📋 Sobre o Projeto
+O codigo esta sob [Apache-2.0](LICENSE). Isso nao concede licenca sobre dados, documentos, PDFs, APIs ou dados derivados de terceiros. Cada fonte possui termos e condicoes proprios, registrados antes de qualquer redistribuicao.
 
-Itapevi em Dados é um servidor MCP que unifica informações de diversas fontes públicas da cidade de Itapevi, permitindo que qualquer pessoa (cidadão, vereador, jornalista, pesquisador) faça perguntas em português e receba respostas baseadas em dados reais.
+## Para que serve
 
-### Problema que resolve
-- Dados públicos existem mas estão espalhados em diferentes portais e formatos
-- Cidadãos e gestores têm dificuldade de acessar informações consolidadas
-- Decisões políticas muitas vezes são tomadas sem embasamento em dados
+O objetivo e apoiar cidadania, controle social e gestao publica com uma experiencia que permita:
 
-### Solução
-Um servidor MCP que expõe ferramentas de consulta a:
-- ✅ Portal da Transparência da Câmara (despesas, licitações, contratos)
-- ✅ Projeto "Pensando em Itapevi" (demandas da população por bairro)
-- ✅ Legislação municipal (leis, decretos, projetos)
-- ✅ Dados do IBGE (demografia, perfil socioeconômico)
-- ✅ (Em breve) Lei de Transparência Imobiliária
+- explorar execucao orcamentaria e compras por recortes declarados;
+- entender o que cada indicador cobre e o que ele nao permite concluir;
+- navegar da resposta ate fonte, artefato, periodo e criterio utilizados;
+- apresentar informacoes de forma descritiva e nao acusatoria;
+- evoluir de Itapevi para outras cidades sem duplicar o nucleo de governanca.
 
-## Status do Protótipo
+O produto nao declara fraude, irregularidade, favorecimento ou culpa. Indicadores de atencao sao descritivos, reproduziveis e vinculados a fontes e criterios; consulte [ADR-011](docs/architecture/adr/ADR-011-non-accusatory-public-insights.md).
 
-| Estado | Componentes |
-|---|---|
-| Implementado | Servidor MCP, cache, validação de entradas, health-check e testes iniciais. |
-| Experimental | Integrações IBGE, Diário Oficial e MeuMunicípio; dependem de disponibilidade e mudanças nas fontes. |
-| Mock ou placeholder | Despesas, legislação, licitações e demandas. Não devem ser usadas como evidência pública. |
-| Planejado V2 | Grafo de conhecimento, memória histórica, timeline, provenance/lineage/trust, alertas, portal web e API pública. |
+## Estado verificado em 29 de outubro de 2026
 
-Consulte a [documentação institucional e técnica](docs/README.md) para a distinção detalhada entre estado atual e arquitetura-alvo.
+| Componente | Estado | Limite importante |
+|---|---|---|
+| Catalogo, proveniencia, evidencias e eventos | Implementado no PostgreSQL local | Nao e ambiente de producao |
+| Ingestoes locais controladas (IBGE, LAI, compras LAI, LOA e piloto TCESP) | Implementadas e testadas | Termos de redistribuicao ainda estao em revisao humana |
+| Consulta guiada, insights de execucao e alertas semanais | Implementados localmente | Alertas nao sao enviados automaticamente |
+| Console `/demo` | Implementado | E uma ferramenta tecnica, nao o portal do usuario |
+| Previa privada de API | Preparada, desligada por padrao | Sem deploy externo e sem datasets liberados |
+| Portal de apresentacao ao publico/instituicoes | Planejado | Depende da decisao de dados demonstrativos e hospedagem |
 
-Para instalar, iniciar e testar o protótipo localmente — inclusive a página de diagnóstico disponível no navegador — siga o [Manual de uso local](docs/USER_MANUAL.md).
+O [Status do prototipo](docs/PROTOTYPE_STATUS.md) e a [documentacao V2](docs/README.md) detalham o que esta implementado, testado, planejado ou bloqueado.
 
-## 🚀 Começando
+## Como testar hoje
 
-### Pré-requisitos
-- Node.js 18+ ou Python 3.10+
-- npm ou yarn
-- (Opcional) Conta no Tavily para buscas avançadas
+### 1. Ambiente local controlado
 
-### Instalação
+Requisitos: Node.js 18+, npm e Docker Desktop.
 
-```bash
-# Clone o repositório
-git clone https://github.com/marcelorayzen/Itapevi-em-Dados.git
-cd Itapevi-em-Dados
-
-# Instale as dependências
+```powershell
 npm install
-# ou
-pip install -r requirements.txt
-
-# Configure as variáveis de ambiente
-cp .env.example .env
-# Edite .env com suas configurações
-```
-
-### PostgreSQL local para F1
-
-O PostgreSQL é a fonte de verdade do catálogo, artefatos, execuções e evidências da F1. Para desenvolvimento local, o Compose isola o banco em `127.0.0.1:55433`, evitando interferência com outras instâncias PostgreSQL.
-
-```bash
+Copy-Item .env.example .env
 docker compose up -d
 npm run db:migrate
 npm run db:bootstrap:f1
+npm run demo:start
 ```
 
-O valor de `DATABASE_URL` em `.env.example` já aponta para esse ambiente de desenvolvimento. A senha padrão é exclusivamente local; nunca a reutilize em homologação ou produção.
+Abra `http://localhost:3000/demo`. Essa tela confirma catalogo, evidencias e consultas guiadas em ambiente local. Ela nao deve ser usada como portal publico.
 
-### Distribuição por npm
+Para validar o codigo:
 
-Este protótipo **não está publicado como pacote npm**. A configuração via `npx itapevi-em-dados` não está disponível. Para executar ou integrar o servidor MCP, clone o repositório, instale as dependências e use os scripts locais descritos abaixo.
+```powershell
+npm run build
+npm test
+git diff --check
+```
 
-## 🛠️ Ferramentas declaradas no protótipo
+O [Manual de uso local](docs/USER_MANUAL.md) traz comandos, resultados esperados, perguntas guiadas, limites e procedimentos de diagnostico.
 
-As ferramentas de despesas, legislação, licitações e demandas estão classificadas como mock ou placeholder no [Status do Protótipo](docs/PROTOTYPE_STATUS.md). Elas não devem ser usadas como evidência pública até que suas fontes e comportamentos sejam validados.
+### 2. Demonstracao institucional
 
-| Ferramenta | Descrição | Parâmetros |
+O projeto tera duas modalidades separadas:
+
+| Modalidade | Finalidade | Dados permitidos |
 |---|---|---|
-| buscar_despesas | Consulta despesas da Prefeitura | ano, mês (opcional) |
-| buscar_licitacoes | Lista licitações por período | ano, modalidade (opcional) |
-| buscar_demandas_por_bairro | Demandas do "Pensando em Itapevi" | bairro (opcional) |
-| buscar_lei | Pesquisa legislação municipal | palavra_chave |
-| dados_ibge | Dados demográficos de Itapevi | (nenhum) |
-| buscar_contratos | Contratos vigentes | exercicio, contratado (opcional) |
-| dados_meumunicipio | Dados do censo 2010 pela MeuMunicipio.org.br | (nenhum) |
-| buscar_publicacoes_oficiais | Diário Oficial de Itapevi (Gazeta SP) | palavra_chave, limite |
+| Demo publica estatica (por exemplo, GitHub Pages) | Apresentar a proposta, fluxo de consulta e metodo | Conteudo sintetico ou explicitamente liberado |
+| Previa privada em subdominio | Validacao por convidados de uma versao proxima ao produto | Apenas agregados/datasets aprovados, com autenticacao e logs |
 
-## 📌 Integração de fontes reais
+GitHub Pages e adequado para uma demonstracao estatica e segura, mas nao para expor o PostgreSQL local, credenciais, documentos brutos ou dados ainda `pending_review`. Um subdominio de testes faz sentido depois de definir provedor, responsavel operacional, publico, dominio, dados liberados e ApprovalGate humano. A [especificacao do portal](docs/PRODUCT_PORTAL_EXPERIENCE.md) descreve a decisao e o roteiro de testes.
 
-1. API IBGE (recomendado)
-   - `src/tools/ibge.ts` usa o endpoint:
-     - `https://servicodados.ibge.gov.br/api/v1/localidades/municipios/3522505/estatisticas`
-     - `https://servicodados.ibge.gov.br/api/v3/agregados/5938/periodos/-6/variaveis/979?localidades=3522505`
-   - Cache de 30 dias em `utils/cache.ts`.
-   - Para alterar valores fictícios, ajuste as variáveis locais em `handler()`.
-   - Fonte de dados configurável em `.env`:
-     - `DATA_SOURCE=ibge` ou `DATA_SOURCE=csv`
-     - se CSV, lê `data/itapevi-dados.csv` com colunas `populacao`, `area`, `pib`.
+## Dados, confianca e licencas
 
-2. MeuMunicipio.org.br (censo 2010)
-   - `src/tools/meumunicipio.ts` faz scraping de:
-     - `https://meumunicipio.org.br/perfil-municipio/3522505-Itapevi-SP`
-   - Para migrar para CSV, use `scripts/download-dados-municipio.ts` e adapte a ferramenta.
+Cada fonte deve registrar origem, data de coleta, artefato, checksum, termos, condicao de uso e nivel de confianca. "Dado publico" nao significa automaticamente que pode ser redistribuido por este projeto.
 
-3. Diário Oficial (Gazeta SP)
-   - `src/tools/diario-oficial.ts` faz scraping de:
-     - `https://www.gazetasp.com.br/publicidade-legal/itapevi`
-   - Ajuste seletores se estrutura HTML mudar.
-   - Cache de 6 horas.
+- [Registro de fontes e datasets](docs/DATA_SOURCES_REGISTER.md)
+- [Revisao de termos e licencas](docs/P0_DATA_LICENSE_REVIEW.md)
+- [Governanca de dados](docs/DATA_GOVERNANCE.md)
+- [Checklist de seguranca e release](docs/SECURITY_AND_RELEASE_CHECKLIST.md)
 
-2. MeuMunicipio.org.br (censo 2010)
-   - `src/tools/meumunicipio.ts` faz scraping de:
-     - `https://meumunicipio.org.br/perfil-municipio/3522505-Itapevi-SP`
-   - Para migrar para CSV, use `scripts/download-dados-municipio.ts` e adapte a ferramenta.
+O BBSIA pode apoiar a revisao institucional e de governanca, desde que a conclusao seja registrada por escrito. Pesquisa em fontes oficiais na internet ajuda a localizar termos e atribuir fontes, mas nao substitui confirmacao do detentor da fonte, responsavel institucional ou parecer juridico quando os termos forem ambiguos.
 
-3. Diário Oficial (Gazeta SP)
-   - `src/tools/diario-oficial.ts` faz scraping de:
-     - `https://www.gazetasp.com.br/publicidade-legal/itapevi`
-   - Ajuste seletores se estrutura HTML mudar.
-   - Cache de 6 horas.
+## Documentacao principal
 
-## 💡 Exemplos de Uso
+- [Visao do produto](docs/vision.md) e [principios](docs/principles.md)
+- [Plano de desenvolvimento](docs/DEVELOPMENT_PLAN.md) e [backlog](docs/BACKLOG.md)
+- [Experiencia do portal e demonstracao](docs/PRODUCT_PORTAL_EXPERIENCE.md)
+- [Manual de uso local](docs/USER_MANUAL.md)
+- [Integracao e avaliacao BBSIA](docs/BBSIA_INTEGRATION.md)
+- [Pedido de avaliacao institucional ao BBSIA](docs/BBSIA_REVIEW_REQUEST.md)
+- [Arquitetura, ADRs e especificacoes](docs/README.md)
 
-### Via cliente MCP (Cursor, Claude etc.)
-Depois de configurar o servidor, você pode fazer perguntas como:
-- "Quais os bairros com maior demanda por postos de saúde?"
-- "Quanto foi gasto em saúde no Jardim São Paulo em 2025?"
-- "Mostre as licitações de 2024 acima de R$ 100 mil"
-- "Qual a população de Itapevi segundo o último censo?"
+## Estrutura resumida
 
-### Via linha de comando
-
-Não há CLI ou pacote npm publicado para este protótipo. Use os scripts locais `npm run build`, `npm start`, `npm run dev` e `npm test` conforme descritos neste README.
-
-## 🏗️ Estrutura do Projeto
-
-```
-itapevi-em-dados/
-├── src/
-│   ├── server.ts           # Servidor MCP principal
-│   ├── tools/
-│   │   ├── transparencia.ts # Portal da Transparência
-│   │   ├── demandas.ts      # Pensando em Itapevi
-│   │   ├── legislacao.ts    # Leis municipais
-│   │   ├── ibge.ts          # Dados do IBGE
-│   │   └── index.ts         # Exportação das tools
-│   ├── utils/
-│   │   ├── scraping.ts      # Funções de scraping
-│   │   └── cache.ts         # Cache para evitar requisições repetidas
-│   └── types/
-│       └── index.ts         # Tipos TypeScript
-├── scripts/
-│   └── dev.ts               # Script de desenvolvimento
-├── .env.example
-├── package.json
-├── tsconfig.json
-├── README.md
-└── LICENSE
+```text
+Fontes oficiais -> coleta controlada -> artefatos/evidencias
+                     -> normalizacao -> PostgreSQL (fonte de verdade)
+                     -> consultas e insights explicaveis
+                     -> portal, API e MCP
 ```
 
-## 🔧 Como Contribuir
+O grafo de conhecimento e uma projecao futura, somente se a consulta relacional convencional deixar de ser suficiente. Ele nunca substitui os fatos, artefatos ou evidencias de origem.
 
-Adoramos contribuições! Veja como você pode ajudar:
+## Contribuir
 
-## 🗂️ CSV de dados municipais (MeuMunicipio)
+Antes de abrir uma contribuicao, leia o [plano](docs/DEVELOPMENT_PLAN.md), os [ADRs](docs/architecture/adr/) e as regras de dados. Alteracoes em conectores precisam preservar proveniencia, termos, testes e limites de cobertura. Nao inclua artefatos brutos, credenciais ou dados sem condicao de redistribuicao confirmada no Git.
 
-O projeto possui script de download CSV em `scripts/download-dados-municipio.ts`.
-
-1. Atualize `scripts/download-dados-municipio.ts` com a URL real do dataset CSV.
-2. Rode:
-```bash
-npm run download:dados
-```
-3. O arquivo será salvo em `data/itapevi-dados.csv` e, com `DATA_SOURCE=csv`, `dados_ibge` usará essa base.
-
-## 🔧 Variáveis de ambiente
-
-- `DATA_SOURCE=ibge` (padrão) - usa API pública do IBGE
-- `DATA_SOURCE=csv` - usa CSV local em `data/itapevi-dados.csv`
-
-- `PORT=3000` - para endpoint HTTP de health
-
-
-## 🔧 Como Contribuir
-
-Adoramos contribuições! Veja como você pode ajudar:
-- Reportar bugs – Abra uma issue descrevendo o problema
-- Sugerir melhorias – Novas fontes de dados, ferramentas úteis
-- Enviar código – Faça um fork, crie uma branch e abra um Pull Request
-- Divulgar – Compartilhe o projeto com quem possa se interessar
-
-Diretrizes
-- Mantenha o código limpo e comentado
-- Atualize a documentação quando necessário
-- Teste suas alterações antes de enviar
-
-## � Endpoint de Health e supervisão
-
-Além do transporte MCP `stdio`, há um pequeno servidor HTTP para checagem de saúde:
-- `src/app.ts` expõe `GET /health` com estado e ferramentas.
-- Execute com:
-  - `node dist/app.js` (após `npm run build`) ou `npx tsx src/app.ts` em dev.
-
-### Verificação
-```bash
-curl http://localhost:3000/health
-```
-
-## �📄 Licença
-
-O código deste repositório é disponibilizado sob a [Apache License 2.0](LICENSE). Dados, documentos e fontes públicas podem ter licenças, termos de uso e responsabilidades próprios; a licença do código não concede direitos sobre esses materiais.
-
-## 🙏 Agradecimentos
-
-- Câmara Municipal de Itapevi, pelos dados do "Pensando em Itapevi"
-- Comunidade Open Source, pelas bibliotecas que tornaram isso possível
-- Todos os cidadãos que lutam por mais transparência
-
-## 📞 Contato
+## Contato
 
 - Autor: Marcelo Augusto
-- Organização/projeto: Rayzen Gov
-- GitHub: https://github.com/marcelorayzen
-
-Itapevi em Dados – Transformando informação em cidadania. 🏙️
+- Projeto: Rayzen Gov
+- GitHub: <https://github.com/marcelorayzen>

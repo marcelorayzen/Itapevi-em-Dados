@@ -1,8 +1,8 @@
-# F3 - Demonstracao web local
+# F3 - Console tecnico web local
 
 ## Escopo aprovado
 
-A primeira versao e local, somente leitura e sem login. Ela le exclusivamente o PostgreSQL local; nao faz scraping, nao consulta APIs externas e nao publica dados.
+A primeira versao e local, somente leitura e sem login. Ela le exclusivamente o PostgreSQL local; nao faz scraping, nao consulta APIs externas e nao publica dados. Ela e um **console tecnico de validacao**, nao a interface final para cidadaos, vereadores, prefeituras ou BBSIA.
 
 ## Como iniciar
 
@@ -30,3 +30,4 @@ As rotas somente leitura sao `GET /api/demo/catalog`, `GET /api/demo/entities` e
 - A demonstracao nao mostra documentos brutos, nem afirma que dados `needs_review` foram confirmados.
 - O uso em reunioes com prefeituras ou BBSIA deve apresentar a cobertura e as limitacoes de cada resultado.
 - Qualquer publicacao externa depende de revisao humana de seguranca, termos e conteudo.
+- O portal institucional e tratado separadamente em [Experiencia do portal e demonstracao](PRODUCT_PORTAL_EXPERIENCE.md).

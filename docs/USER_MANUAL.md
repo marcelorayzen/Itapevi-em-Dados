@@ -8,7 +8,7 @@ O projeto ainda **nao possui portal web publico, login, API publica ou painel de
 2. comandos de banco para conferir a cadeia de dados F1/F2;
 3. um servidor MCP por `stdio`, para ser conectado a um cliente MCP compativel.
 
-A pagina local e os comandos abaixo sao ferramentas de desenvolvimento. Eles nao tornam os dados publicos nem substituem a fonte oficial.
+A pagina local e os comandos abaixo sao ferramentas de desenvolvimento. Eles nao tornam os dados publicos nem substituem a fonte oficial. O endereco `/demo` e um console tecnico, e nao a interface destinada aos usuarios finais. O plano do portal institucional esta em [Experiencia do portal e demonstracao](PRODUCT_PORTAL_EXPERIENCE.md).
 
 ## Requisitos
 
@@ -185,4 +185,4 @@ Não ative nem distribua chaves sem termos das fontes revisados, allowlist aprov
 - O acesso HTTP e somente diagnostico local; nao e interface de consulta publica.
 - O PostgreSQL local e ambiente de desenvolvimento, nao producao.
 - Fontes, documentos e dados derivados possuem regras proprias de uso e redistribuicao.
-- Uma interface de consulta para usuarios sera tratada como entrega de produto em etapa posterior, com decisao de escopo, seguranca e revisao humana.
+- A interface de consulta para usuarios sera uma entrega de produto separada, com dados demonstrativos, hospedagem, seguranca e revisao humana definidos antes da publicacao. Veja [Experiencia do portal e demonstracao](PRODUCT_PORTAL_EXPERIENCE.md).
