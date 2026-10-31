@@ -69,7 +69,7 @@ GitHub Pages e adequado para uma demonstracao estatica e segura, mas nao para ex
 
 A demonstracao estatica fica em `public-demo/` e o workflow de Pages esta pronto. A ativacao do Pages no repositorio continua sendo uma configuracao administrativa do GitHub. A preparacao do subdominio privado esta detalhada em [Previa privada em subdominio](docs/PRIVATE_PREVIEW_DEPLOYMENT.md).
 
-A demonstracao publica esta disponivel em [itapevi-em-dados.rayzen.com.br](https://itapevi-em-dados.rayzen.com.br/). Ela apresenta a experiencia com conteudo ilustrativo; veja o [registro de publicacao](docs/PUBLIC_DEMO_DEPLOYMENT.md).
+A demonstracao publica esta disponivel em [itapevi-em-dados.rayzen.com.br](https://itapevi-em-dados.rayzen.com.br/). A pergunta sobre populacao consulta a fonte oficial do IBGE em tempo real; os demais indicadores visuais permanecem ilustrativos ate suas fontes serem liberadas. Veja o [registro de publicacao](docs/PUBLIC_DEMO_DEPLOYMENT.md).
 
 ## Dados, confianca e licencas
 

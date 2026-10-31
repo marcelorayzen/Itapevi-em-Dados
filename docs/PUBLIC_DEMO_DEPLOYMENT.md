@@ -19,11 +19,11 @@ O endereco anterior do GitHub Pages permanece disponivel como endereco tecnico:
 | DNS | CNAME para marcelorayzen.github.io |
 | Certificado HTTPS | Aprovado pelo GitHub Pages |
 | HTTPS obrigatorio | Ativo |
-| Conteudo | Interface estatica e dados ilustrativos |
+| Conteudo | Interface estatica; pergunta de populacao consulta o IBGE em tempo real; demais indicadores visuais permanecem ilustrativos |
 
 ## Limites da publicacao
 
-Esta publicacao nao expoe PostgreSQL, API privada, chaves, documentos brutos ou dados municipais ainda em revisao. Ela serve para apresentar a experiencia, o metodo de evidencia e os limites do produto.
+Esta publicacao nao expoe PostgreSQL, API privada, chaves, documentos brutos ou dados municipais ainda em revisao. A pergunta de populacao utiliza uma API publica separada, hospedada no Cloudflare Worker, e mostra a fonte oficial. Os demais elementos visuais permanecem ilustrativos. A publicacao serve para apresentar a experiencia, o metodo de evidencia e os limites do produto.
 
 A inclusao de dados reais exige, por dataset:
 

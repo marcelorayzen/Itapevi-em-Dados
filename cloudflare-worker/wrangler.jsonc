@@ -5,7 +5,7 @@
   "workers_dev": false,
   "routes": [
     {
-      "pattern": "api.itapevi-em-dados.rayzen.com.br",
+      "pattern": "api-dados.rayzen.com.br",
       "custom_domain": true
     }
   ]

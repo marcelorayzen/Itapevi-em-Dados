@@ -8,7 +8,7 @@ A API publica permite que o portal encaminhe perguntas livres sem utilizar o ser
 
 | Endereco | Finalidade | Estado em 31/10/2026 |
 |---|---|---|
-| https://api.itapevi-em-dados.rayzen.com.br/health | Diagnostico publico | Worker publicado; certificado HTTPS em provisionamento |
+| https://api-dados.rayzen.com.br/health | Diagnostico publico | Endpoint tecnico publico do Worker |
 | POST /v1/ask | Pergunta publica em JSON | Worker publicado e validado via HTTP enquanto HTTPS e emitido |
 
 ## Primeiro catalogo real
@@ -47,7 +47,7 @@ Resposta bem-sucedida inclui answer, data, evidence, coverage, limitations, conf
 - testes locais: pergunta de populacao e pergunta indisponivel aprovadas;
 - validacao sem deploy: bundle Worker gerado com sucesso;
 - validacao publicada via HTTP: pergunta de populacao retornou 243.967 habitantes para 2026, com fonte IBGE; pergunta de licitacoes retornou not_available;
-- integracao do portal aguarda HTTPS valido no subdominio da API.
+- a integracao do portal usa o subdominio tecnico api-dados.rayzen.com.br, separado do endereco publico do portal.
 
 ## Proximas etapas
 
