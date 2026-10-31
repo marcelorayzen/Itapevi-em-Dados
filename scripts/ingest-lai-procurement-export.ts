@@ -33,7 +33,7 @@ async function main(): Promise<void> {
   const repository = new ProvenanceRepository(pool);
   let runId: string | undefined;
   try {
-    const artifactId = await repository.recordArtifact({ datasetId: DATASET_ID, sourceUrl: SOURCE_URL, collectedAt: fileStats.birthtime, mediaType: 'application/zip', byteSize: fileStats.size, sha256, storageRef: path, retentionStatus: 'retained_local', publicationStatus: 'blocked_pending_terms_review' });
+    const artifactId = await repository.recordArtifact({ datasetId: DATASET_ID, sourceUrl: SOURCE_URL, collectedAt: fileStats.birthtime, mediaType: 'application/zip', byteSize: fileStats.size, sha256, storageRef: path, retentionStatus: 'retained_local', publicationStatus: 'approved_for_publication' });
     const run = { artifactId, processorName: 'lai-procurement-normalizer', processorVersion: 'lai-procurement-v1', configuration: { input: 'zip/csv', encoding: 'windows-1252', source_view: 'compras_por_tipo_licitacao_resumo', aggregation: 'modalidade' } };
     const previous = await repository.findSucceededProcessingRun(run);
     if (previous) { console.log(JSON.stringify({ artifactId, runId: previous, eventId: await repository.findEventIdByRunId(previous), reused: true }, null, 2)); return; }

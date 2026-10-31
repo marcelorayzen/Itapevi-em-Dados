@@ -27,7 +27,13 @@ O responsável forneceu `1612.pdf` em `Downloads`. O arquivo não foi copiado pa
 
 ## Estado do Docling
 
-O ambiente isolado do Docling está instalado e importa corretamente. A tentativa de conversão integral da edição 1612 não gerou Markdown/JSON nem erro útil no primeiro processamento. Por isso, a leitura textual de `pypdf` é a linha de base verificável para este artefato; R0-14 inclui corrigir ou substituir a execução estrutural do Docling antes de adotá-lo como processo oficial para o Diário.
+O ambiente isolado do Docling está instalado e a conversão controlada das páginas 1 a 3 da edição 1612 gerou Markdown e JSON válidos em ambiente local. O executor agora registra os estágios de início, conversão e gravação e aceita `--page-start` e `--page-end`, para permitir processamento em lotes de documentos longos.
+
+```powershell
+python scripts/docling_extract.py --input C:\Users\marce\Downloads\1612.pdf --output-dir .local\docling\diario-oficial-1612-pages-1-3 --page-start 1 --page-end 3
+```
+
+A validação também encontrou caracteres com codificação incorreta e alguns trechos fragmentados pelo layout. Assim, o Docling já é uma etapa funcional de estruturação, mas ainda não é a fonte final de texto: R0-15 cobre normalização de codificação, validação de qualidade por página e execução completa em lotes antes de adotá-lo como processo oficial integral.
 
 ## Ingestão idempotente
 

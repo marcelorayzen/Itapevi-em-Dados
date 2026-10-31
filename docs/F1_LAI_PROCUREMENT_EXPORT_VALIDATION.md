@@ -33,6 +33,21 @@ Na validação local de 27/10/2026, o artefato foi registrado como `099ad1d7-983
 
 Os testes versionados cobrem o agrupamento por modalidade, a rejeição de valor numérico inválido, a rejeição de CSV sem detalhe e a resposta guiada com evidência. Eles usam apenas dados sintéticos.
 
+## Execução real registrada em 31/10/2026
+
+O ZIP municipal fornecido pelo responsável foi mantido localmente e já possuía uma execução idempotente no PostgreSQL. A repetição reutilizou os mesmos identificadores, sem criar artefato, evento ou processamento duplicado.
+
+| Campo | Valor |
+|---|---|
+| Artefato | `099ad1d7-9838-4fa9-8bfa-25c719223e28` |
+| Execução | `f87a24de-81ae-41a0-9195-e88a955e29b2` |
+| Evento | `d2d8d0aa-e8e8-43a4-9a93-a21b3bb8f405` |
+| Registros no arquivo | 117 |
+| Modalidades | 8 |
+| Valor comprado no recorte | R$ 289.910.157,77 |
+
+O evento permanece `candidate`: os valores descrevem somente a exportação fornecida e não demonstram, por si, a cobertura total das contratações municipais. A reconciliação com período, filtros e painel oficial é a próxima etapa de qualidade.
+
 ## Limites
 
 - A exportação é um recorte do painel; como não há metadados de filtro no CSV, ela não deve ser apresentada como cobertura completa de um exercício.

@@ -120,6 +120,20 @@ npm run db:ingest:lai-procurement -- --input "C:\\caminho\\para\\compras-por-mod
 
 O comando registra o checksum do ZIP, mas nao move o arquivo para o repositorio nem o envia ao Git. Veja a cobertura e as limitacoes em [Validacao da exportacao de compras](F1_LAI_PROCUREMENT_EXPORT_VALIDATION.md).
 
+### Converter um lote do Diário Oficial com Docling
+
+Para PDFs extensos, processe um intervalo curto de páginas por vez. Isso torna o uso de memória, a duração e a qualidade de cada lote verificáveis:
+
+```powershell
+.\.venv-docling\Scripts\python.exe scripts\docling_extract.py `
+  --input "C:\Users\marce\Downloads\1612.pdf" `
+  --output-dir ".local\docling\diario-oficial-1612-pages-1-3" `
+  --page-start 1 `
+  --page-end 3
+```
+
+O processo não baixa nem publica documentos. Markdown e JSON ficam somente em `.local`. Antes de usar um trecho como dado público, confira a página original: a conversão pode conter falhas de leitura, codificação ou layout. O estado técnico e as limitações da edição 1612 estão em [Validação do Diário Oficial](F1_DAILY_OFFICIAL_SOURCE_VALIDATION.md).
+
 ## Terceiro teste: servidor MCP
 
 Compile o projeto e inicie o transporte MCP:
