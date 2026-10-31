@@ -2,7 +2,7 @@
 
 ## Resultado desta rodada
 
-Esta é uma revisão documental inicial, não parecer jurídico. Em 31/10/2026 houve uma exceção estreita e registrada: o agregado populacional do indicador 29171 do IBGE foi liberado pelo responsável do projeto para consulta pública, com atribuição e limites obrigatórios. Todas as demais fontes continuam a exigir evidência específica de licença/termos e decisão humana registrada por dataset antes de qualquer publicação.
+Esta é uma revisão documental inicial, não parecer jurídico. Em 31/10/2026, Marcelo confirmou o acesso, download e uso no projeto das fontes municipais oficiais já catalogadas (LOA, exportações LAI e Diário Oficial), além da exceção já registrada para o agregado populacional do IBGE. A confirmação exige atribuição, recorte e evidência em cada resposta; não transforma a licença Apache-2.0 do código em licença dos arquivos brutos nem autoriza conclusões sem contexto.
 
 ## Evidências encontradas
 
@@ -10,7 +10,8 @@ Esta é uma revisão documental inicial, não parecer jurídico. Em 31/10/2026 h
 |---|---|---|---|
 | IBGE - indicador 29171, estimativa populacional de Itapevi | [Dados Abertos do IBGE](https://www.ibge.gov.br/acesso-informacao/dados-abertos.html) publica o Plano de Dados Abertos; o [PDA 2024-2025](https://www.ibge.gov.br/np_download/novoportal/documentos_institucionais/Plano_de_Dados_Abertos_IBGE_2024_2025.pdf) define dados abertos como disponibilizados sob licença aberta | Em 31/10/2026, Marcelo aprovou a publicacao limitada do valor agregado deste indicador no portal, com atribuicao ao IBGE, URL da consulta, ano de referencia, data de coleta e limitacoes visiveis. A decisao nao se estende a outros indicadores ou a dados individualizados. | `allowed_for_public_aggregate` |
 | TCESP - despesas agregadas | O [Guia Técnico de Transparência Municipal](https://www.tce.sp.gov.br/sites/default/files/publicacoes/Guia%20T%C3%A9cnico%20de%20Transpar%C3%AAncia%20Municipal%20-%202019.pdf) descreve os requisitos de dados abertos, acesso automatizado e reutilização no contexto da LAI | O guia é orientação normativa, não termo específico da API de despesas utilizada; não prova sozinho permissão de republicar derivados pela aplicação | `pending_review` |
-| Prefeitura de Itapevi - LOA e painel LAI | O portal e os documentos são oficiais e o uso local controlado foi aprovado | Não foi localizado termo específico de redistribuição para a exportação do painel, o PDF da LOA ou seus derivados | `pending_review` |
+| Prefeitura de Itapevi - LOA e painel LAI | O portal e os documentos são oficiais; Marcelo confirmou em 31/10/2026 acesso, download e uso no projeto | Os derivados devem preservar fonte, período, filtros e limites. A confirmação institucional arquivável continua recomendada, mas não bloqueia a coleta e a demonstração baseada em evidência autorizadas pelo responsável. | `allowed_for_project_use` |
+| Prefeitura de Itapevi - Diário Oficial | [Página oficial do Diário Oficial](https://itapevi.sp.gov.br/diario-oficial/) identifica edições por número/data e disponibiliza PDF; a edição 1612 de 30/10/2026 foi verificada localmente | Marcelo confirmou em 31/10/2026 coleta e uso no projeto. O primeiro recorte é metadados e trechos estruturais citáveis, com edição, data, página e URL; PDF bruto fica fora do Git. | `allowed_for_project_use` |
 
 ## Cópias locais fornecidas pelo decisor
 
@@ -60,6 +61,8 @@ Só após isso podem ser atualizados, de forma coerente: `sources.redistribution
 
 Em 31/10/2026 foi feita nova tentativa técnica de consulta ao painel municipal `https://transparencia.itapevi.sp.gov.br/tdaportalclient.aspx?418`, procurando termos de uso, privacidade, LGPD, dados abertos e reutilização. O servidor respondeu `HTTP 503 Service Unavailable`; portanto, a indisponibilidade não é evidência de ausência de termos e não altera o estado do dataset.
 
-## Próximo ato humano recomendado
+## Decisão operacional municipal registrada
 
-Solicitar à Prefeitura de Itapevi a confirmação formal para os datasets municipais candidatos, usando o modelo em [MUNICIPAL_DATA_REUSE_REQUEST.md](MUNICIPAL_DATA_REUSE_REQUEST.md). A resposta precisa indicar recurso, atribuição, redistribuição, campos/granularidade e periodicidade. Enquanto ela não existir, LOA e exportações LAI ficam em uso local controlado.
+Marcelo confirmou em 31/10/2026 que os dados municipais oficiais já identificados podem ser acessados e baixados para uso no projeto. A decisão permite avançar com coleta, normalização, consultas e demonstração orientada a evidências. O projeto preserva os seguintes limites: não versionar PDFs/ZIPs brutos, não retirar contexto de período/filtros e não usar fatos extraídos para acusações ou conclusões de irregularidade.
+
+O modelo em [MUNICIPAL_DATA_REUSE_REQUEST.md](MUNICIPAL_DATA_REUSE_REQUEST.md) continua útil para obter confirmação institucional arquivável, mas deixa de bloquear a coleta técnica autorizada pelo responsável do projeto.

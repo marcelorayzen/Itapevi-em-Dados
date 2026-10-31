@@ -56,6 +56,7 @@ _Esta trilha não substitui as fases F1–F5. Ela organiza a passagem do protót
 | R0-11 | P2 | Integrar modelo de linguagem apenas como intérprete de pergunta e redator de resposta baseada nas evidências retornadas | R0-07, R0-09, R0-10 | [-] |
 | R0-12 | P2 | Reprojetar a interface como produto de consulta: busca, resultados, filtros, evidências, cobertura e feedback | R0-08, R0-11 | [ ] |
 | R0-13 | P2 | Piloto público monitorado com roteiro de avaliação e revisão semanal Marcelo/Rayzen | R0-09, R0-10, R0-12 | [ ] |
+| R0-14 | P1 | Ingerir metadados e estrutura do Diário Oficial oficial, começando pela edição 1612 | R0-01 | [-] |
 
 ## Registro de bloqueios
 
