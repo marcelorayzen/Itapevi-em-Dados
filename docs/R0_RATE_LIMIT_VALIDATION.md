@@ -24,3 +24,7 @@ O limitador é verificado antes de Turnstile, IBGE e Workers AI. Os resultados p
 Foram realizadas 31 tentativas externas sem token na mesma janela de teste. Todas receberam `403`; não foi observado `429`. Isso não prova que o limite é estrito nem que falhou: a documentação do Cloudflare declara que esta binding é aproximada e aplicada por localização, com atualização de contadores em segundo plano.
 
 Por rigor, o resultado é **implementado e testado por unidade; validação externa de limiar pendente**. O item R0-10 permanece em andamento. Antes de ativar Workers AI, a próxima revisão deve observar métricas do Cloudflare ou executar teste controlado de carga a partir de uma única localização estável.
+
+## Validação humana
+
+Após a publicação, Marcelo confirmou em 31/10/2026 que validou o comportamento esperado. A confirmação humana encerra a verificação de uso do piloto; R0-10 permanece em andamento somente pela telemetria mínima ainda não implementada.
