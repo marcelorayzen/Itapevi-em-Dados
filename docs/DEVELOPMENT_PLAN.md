@@ -42,6 +42,10 @@ Uma pessoa deve conseguir perguntar, por exemplo, “quanto foi previsto e reali
 5. **Acrescentar IA com guarda-corpos.** O modelo apenas classifica a pergunta, seleciona uma consulta permitida e redige a resposta a partir do resultado estruturado. Ele não acessa PDFs brutos, banco livremente, segredos ou fontes sem allowlist.
 6. **Pilotar publicamente.** Aplicar proteção contra abuso, observabilidade proporcional, botão de feedback e revisão semanal Marcelo/Rayzen.
 
+### Marco complementar: Diário Oficial
+
+A edição 1612 do Diário Oficial de Itapevi foi persistida localmente com artefato, checksum, evento e duas evidências de página; o reprocessamento reutilizou os mesmos registros. A extração estrutural integral de PDFs longos com Docling ainda não foi validada e permanece como trabalho explícito, sem ser apresentada como capacidade entregue.
+
 ### Critérios de aceite do R0
 
 - Três domínios de pergunta publicados: população, execução orçamentária e compras/licitações agregadas.

@@ -38,3 +38,17 @@ npm run db:ingest:daily-official -- --input C:\Users\marce\Downloads\1612.pdf --
 ```
 
 Uma repetição com os mesmos parâmetros deve reutilizar a execução concluída, sem duplicar evento ou evidências.
+
+## Execução real registrada em 31/10/2026
+
+Com PostgreSQL 16 local saudável e as migrações aplicadas, o comando foi executado duas vezes com os mesmos parâmetros.
+
+| Registro | Resultado da primeira execução |
+|---|---|
+| Artefato | `e5a6e845-339f-40e6-b165-d81be1ca77df` |
+| Execução de processamento | `d14835dd-40d8-46f9-b0be-c6ab15ee647b` |
+| Evento aceito | `806bbdda-8beb-420d-b8a3-73f275ed6472` |
+| Evidências | 2 (capa e primeira página de conteúdo) |
+| Reprocessamento | a segunda execução retornou `reused: true`, com o mesmo artefato e a mesma execução |
+
+Isto comprova a persistência controlada de metadados, evento e evidências da edição 1612. Não comprova ainda a extração estrutural integral do PDF: essa parte continua dependente de tornar o Docling observável e reprodutível para documentos longos.
