@@ -25,6 +25,31 @@
 | F3 — Entrega controlada | Expor catálogo e consultas consistentes | contrato único para MCP/API futura, sem prometer API pública |
 | F4 — Inteligência responsável | Produzir insights descritivos | regra, período, cobertura e fontes mostrados em cada insight |
 | F5 — Multi-cidade | Reutilizar o núcleo | segunda configuração municipal isolada e testada |
+| R0 — Demonstração pública útil | Responder perguntas reais com dados reais e evidências | três temas aprovados, respostas reproduzíveis, interface pública compreensível e piloto monitorado |
+
+## R0 — Produto público verificável
+
+### Resultado esperado
+
+Uma pessoa deve conseguir perguntar, por exemplo, “quanto foi previsto e realizado por órgão?” ou “como se distribuem as compras por modalidade?”, receber um resultado objetivo e abrir a evidência que mostra fonte, período, filtros, cálculo, cobertura e limites. O sistema não deve completar lacunas com linguagem persuasiva nem declarar irregularidade.
+
+### Ordem de entrega
+
+1. **Governar a fonte.** Confirmar por dataset a condição de uso público; manter em ambiente local os dados municipais ainda pendentes.
+2. **Transformar dados reais em consulta.** Ingerir, normalizar e reconciliar população, execução e compras como fatos PostgreSQL com proveniência.
+3. **Responder sem IA generativa.** Criar intenções determinísticas e respostas citáveis para as perguntas priorizadas. Isso já entrega utilidade e permite testar verdade, cobertura e UX.
+4. **Avaliar.** Executar uma bateria de perguntas reais e registrar respostas esperadas, evidências e recusas corretas.
+5. **Acrescentar IA com guarda-corpos.** O modelo apenas classifica a pergunta, seleciona uma consulta permitida e redige a resposta a partir do resultado estruturado. Ele não acessa PDFs brutos, banco livremente, segredos ou fontes sem allowlist.
+6. **Pilotar publicamente.** Aplicar proteção contra abuso, observabilidade proporcional, botão de feedback e revisão semanal Marcelo/Rayzen.
+
+### Critérios de aceite do R0
+
+- Três domínios de pergunta publicados: população, execução orçamentária e compras/licitações agregadas.
+- Cada resposta aprovada contém ao menos uma evidência navegável e informa período, cobertura e limitações.
+- Perguntas fora do catálogo recebem recusa útil, sem criar números, vínculos, suspeitas ou acusações.
+- Todo dado municipal público passou por decisão documentada de uso; dados ainda pendentes continuam fora da API e do site.
+- Testes automatizados cobrem cálculo, fonte indisponível, dados ausentes, filtro de período, origem da evidência e entradas adversariais.
+- O piloto público contém proteção de requisições, registro técnico mínimo e caminho de correção/feedback.
 
 ## P0 — Base confiável
 
