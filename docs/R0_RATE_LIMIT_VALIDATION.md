@@ -39,4 +39,4 @@ O Worker envia um contador não bloqueante ao dataset `itapevi_em_dados_public_a
 
 Não são enviados pergunta, resposta, IP, token Turnstile, user-agent, identificação de cidadão ou fonte consultada. A plataforma Cloudflare mantém esse dataset por até três meses, segundo sua política técnica.
 
-Em 31/10/2026, o código, os oito testes e o bundle foram aprovados, mas o deploy foi recusado pela API da Cloudflare com erro `10089`: Analytics Engine não está habilitado na conta. Portanto, a telemetria ainda não está ativa e R0-10 permanece bloqueado até a habilitação no painel. Turnstile, limite de requisições e o Worker já implantados não foram alterados por essa falha.
+Em 31/10/2026, o primeiro deploy foi recusado pela API da Cloudflare com erro `10089`: Analytics Engine não estava habilitado na conta. Após habilitação humana, o Worker foi publicado com sucesso na versão `cdbdef23-ae2e-4deb-a3cf-a044c881c01e`. Uma tentativa sem token retornou `403 verification_required`, mantendo fonte e IA sem consulta e exercitando o evento técnico de bloqueio. R0-10 está concluído para o escopo do piloto.
