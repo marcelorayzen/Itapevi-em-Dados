@@ -17,6 +17,7 @@ Validação externa após o deploy:
 - `GET /v1/public-config` retornou `turnstileEnabled: true` e a sitekey pública;
 - uma pergunta sem token recebeu `403` com `verification_required`;
 - o portal público respondeu `200` e contém o script oficial do Turnstile.
+- o responsável realizou em navegador uma pergunta populacional após o desafio e confirmou que recebeu a resposta esperada.
 
 ## Ativação de produção
 
