@@ -69,6 +69,8 @@ GitHub Pages e adequado para uma demonstracao estatica e segura, mas nao para ex
 
 A demonstracao estatica fica em `public-demo/` e o workflow de Pages esta pronto. A ativacao do Pages no repositorio continua sendo uma configuracao administrativa do GitHub. A preparacao do subdominio privado esta detalhada em [Previa privada em subdominio](docs/PRIVATE_PREVIEW_DEPLOYMENT.md).
 
+A demonstracao publica esta disponivel em [itapevi-em-dados.rayzen.com.br](https://itapevi-em-dados.rayzen.com.br/). Ela apresenta a experiencia com conteudo ilustrativo; veja o [registro de publicacao](docs/PUBLIC_DEMO_DEPLOYMENT.md).
+
 ## Dados, confianca e licencas
 
 Cada fonte deve registrar origem, data de coleta, artefato, checksum, termos, condicao de uso e nivel de confianca. "Dado publico" nao significa automaticamente que pode ser redistribuido por este projeto.
@@ -89,6 +91,7 @@ O BBSIA pode apoiar a revisao institucional e de governanca, desde que a conclus
 - [Integracao e avaliacao BBSIA](docs/BBSIA_INTEGRATION.md)
 - [Pedido de avaliacao institucional ao BBSIA](docs/BBSIA_REVIEW_REQUEST.md)
 - [Previa privada em subdominio](docs/PRIVATE_PREVIEW_DEPLOYMENT.md)
+- [Publicacao da demonstracao estatica](docs/PUBLIC_DEMO_DEPLOYMENT.md)
 - [Arquitetura, ADRs e especificacoes](docs/README.md)
 
 ## Estrutura resumida
