@@ -45,3 +45,13 @@ Os testes unitários simulam a validação do servidor e confirmam que o hostnam
 - Tokens expiram em cinco minutos e são de uso único.
 - O Turnstile verifica que há um navegador legítimo; ele não define a licença de um dataset nem permite consultas fora da allowlist.
 - O Turnstile é a primeira parte de R0-10. Limite de requisições e telemetria mínima ainda precisam ser implementados antes de ativar a IA pública.
+
+## Limite de requisições
+
+Em 31/10/2026, Marcelo aprovou o limite inicial de dez perguntas por minuto por origem. O Worker usa a binding nativa `PUBLIC_QUERY_RATE_LIMITER` do Cloudflare antes de chamar Turnstile, IBGE ou Workers AI.
+
+- A origem é transformada localmente em hash SHA-256 para a chave do limitador; o projeto não grava IP ou pergunta em logs próprios.
+- Quando o limite é atingido, a API retorna `429 rate_limited` e orienta aguardar um minuto.
+- Se a binding configurada falhar, a API fecha a consulta com `503 rate_limit_unavailable`; não libera o caminho sem proteção.
+- O contador do Cloudflare é aproximado e regional. É apropriado para o piloto, mas não é um controle global estrito.
+- A evidência e o limite de validação externa estão registrados em [R0_RATE_LIMIT_VALIDATION.md](R0_RATE_LIMIT_VALIDATION.md).

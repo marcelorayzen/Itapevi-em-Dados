@@ -89,6 +89,24 @@ function publicConfig(env) {
   };
 }
 
+async function rateLimitKey(request) {
+  const origin = request.headers.get('CF-Connecting-IP') || 'unknown-origin';
+  const material = new TextEncoder().encode(`itapevi-em-dados-public-query:${origin}`);
+  const digest = await crypto.subtle.digest('SHA-256', material);
+  return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('');
+}
+
+export async function publicQueryRateLimit(request, env) {
+  if (env?.RATE_LIMIT_ENABLED !== 'true') return { allowed: true, status: 'disabled' };
+  if (!env?.PUBLIC_QUERY_RATE_LIMITER?.limit) return { allowed: false, status: 'unavailable' };
+  try {
+    const { success } = await env.PUBLIC_QUERY_RATE_LIMITER.limit({ key: await rateLimitKey(request) });
+    return { allowed: success === true, status: success === true ? 'allowed' : 'limited' };
+  } catch {
+    return { allowed: false, status: 'unavailable' };
+  }
+}
+
 export async function answerQuestion(question, fetchImpl = fetch, collectedAt = new Date().toISOString(), ai = null) {
   const query = normalized(question);
   const deterministicMatch = populationQuestion(query);
@@ -157,6 +175,14 @@ export default {
       const question = typeof body?.question === 'string' ? body.question.trim() : '';
       if (question.length < 3 || question.length > 500) {
         return response({ status: 'invalid_request', message: 'Envie uma pergunta entre 3 e 500 caracteres.' }, 400, origin);
+      }
+      const rateLimit = await publicQueryRateLimit(request, env);
+      if (!rateLimit.allowed) {
+        const status = rateLimit.status === 'limited' ? 429 : 503;
+        const message = rateLimit.status === 'limited'
+          ? 'Limite temporario de perguntas atingido. Aguarde um minuto e tente novamente.'
+          : 'A protecao de requisicoes esta indisponivel no momento. Tente novamente mais tarde.';
+        return response({ status: rateLimit.status === 'limited' ? 'rate_limited' : 'rate_limit_unavailable', message }, status, origin);
       }
       if (turnstileEnabled(env)) {
         const valid = await verifyTurnstile(body?.turnstileToken, env.TURNSTILE_SECRET_KEY, request.headers.get('CF-Connecting-IP'));

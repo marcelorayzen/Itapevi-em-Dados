@@ -12,8 +12,19 @@
   "ai": {
     "binding": "AI"
   },
+  "ratelimits": [
+    {
+      "name": "PUBLIC_QUERY_RATE_LIMITER",
+      "namespace_id": "3522505",
+      "simple": {
+        "limit": 10,
+        "period": 60
+      }
+    }
+  ],
   "vars": {
     "AI_PILOT_ENABLED": "false",
+    "RATE_LIMIT_ENABLED": "true",
     "TURNSTILE_ENABLED": "true",
     "TURNSTILE_SITE_KEY": "0x4AAAAAAFudgJvfL-D8dC2t"
   }

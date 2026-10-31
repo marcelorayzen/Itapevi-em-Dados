@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { answerQuestion, classifyAllowedIntent, verifyTurnstile } from '../src/index.mjs';
+import { answerQuestion, classifyAllowedIntent, publicQueryRateLimit, verifyTurnstile } from '../src/index.mjs';
 
 const ibgePayload = [{ res: [{ res: { '2025': '240961', '2026': '243967' } }] }];
 
@@ -41,5 +41,23 @@ test('aceita apenas token Turnstile validado para o hostname publico', async () 
   const wrongHostname = await verifyTurnstile('valid-token', 'secret', '203.0.113.4', async () => new Response(JSON.stringify({ success: true, hostname: 'attacker.example', action: 'itapevi-question' })));
   assert.equal(valid, true);
   assert.equal(wrongHostname, false);
+});
+
+test('limita consultas publicas sem guardar IP em texto claro', async () => {
+  let capturedKey = '';
+  const request = new Request('https://api-dados.rayzen.com.br/v1/ask', { headers: { 'CF-Connecting-IP': '203.0.113.4' } });
+  const env = { RATE_LIMIT_ENABLED: 'true', PUBLIC_QUERY_RATE_LIMITER: { limit: async ({ key }) => { capturedKey = key; return { success: false }; } } };
+  const result = await publicQueryRateLimit(request, env);
+  assert.equal(result.allowed, false);
+  assert.equal(result.status, 'limited');
+  assert.match(capturedKey, /^[a-f0-9]{64}$/);
+  assert.doesNotMatch(capturedKey, /203\.0\.113\.4/);
+});
+
+test('falha de forma fechada se o limitador configurado estiver indisponivel', async () => {
+  const request = new Request('https://api-dados.rayzen.com.br/v1/ask');
+  const result = await publicQueryRateLimit(request, { RATE_LIMIT_ENABLED: 'true' });
+  assert.equal(result.allowed, false);
+  assert.equal(result.status, 'unavailable');
 });
 
