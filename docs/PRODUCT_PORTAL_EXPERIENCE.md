@@ -50,7 +50,7 @@ Cada resultado precisa exibir, no minimo:
 | Ambiente | Publico | Conteudo | Estado |
 |---|---|---|---|
 | Local tecnico | Equipe do projeto | Dados locais controlados, console e testes | Disponivel |
-| Demo estatica publica | BBSIA e apresentacoes abertas | Dados sinteticos ou fontes liberadas; sem backend | Planejado |
+| Demo estatica publica | BBSIA e apresentacoes abertas | Dados sinteticos ou fontes liberadas; sem backend | Implementada; publicacao no Pages pendente de ativacao administrativa |
 | Previa privada | Convidados identificados | Apenas datasets liberados e agregados aprovados | Preparada tecnicamente, desligada |
 | Portal publico | Populacao | Dados e funcoes aprovados para publicacao | Futuro |
 
@@ -109,5 +109,5 @@ Antes de implementar ou publicar a interface, precisam ser escolhidos:
 4. quais pessoas/grupos poderao testar e quem responde pelo suporte;
 5. quais datasets/campos receberam liberacao documentada.
 
-Enquanto essas decisoes nao existirem, a equipe pode evoluir wireframes, testes locais, conteudo institucional e documentacao, mas nao deve publicar dados reais.
+Enquanto essas decisoes nao existirem, a equipe pode evoluir wireframes, testes locais, conteudo institucional e documentacao, mas nao deve publicar dados reais. A configuracao operacional do segundo ambiente esta em [Previa privada em subdominio](PRIVATE_PREVIEW_DEPLOYMENT.md).
 

@@ -67,6 +67,8 @@ O projeto tera duas modalidades separadas:
 
 GitHub Pages e adequado para uma demonstracao estatica e segura, mas nao para expor o PostgreSQL local, credenciais, documentos brutos ou dados ainda `pending_review`. Um subdominio de testes faz sentido depois de definir provedor, responsavel operacional, publico, dominio, dados liberados e ApprovalGate humano. A [especificacao do portal](docs/PRODUCT_PORTAL_EXPERIENCE.md) descreve a decisao e o roteiro de testes.
 
+A demonstracao estatica fica em `public-demo/` e o workflow de Pages esta pronto. A ativacao do Pages no repositorio continua sendo uma configuracao administrativa do GitHub. A preparacao do subdominio privado esta detalhada em [Previa privada em subdominio](docs/PRIVATE_PREVIEW_DEPLOYMENT.md).
+
 ## Dados, confianca e licencas
 
 Cada fonte deve registrar origem, data de coleta, artefato, checksum, termos, condicao de uso e nivel de confianca. "Dado publico" nao significa automaticamente que pode ser redistribuido por este projeto.
@@ -86,6 +88,7 @@ O BBSIA pode apoiar a revisao institucional e de governanca, desde que a conclus
 - [Manual de uso local](docs/USER_MANUAL.md)
 - [Integracao e avaliacao BBSIA](docs/BBSIA_INTEGRATION.md)
 - [Pedido de avaliacao institucional ao BBSIA](docs/BBSIA_REVIEW_REQUEST.md)
+- [Previa privada em subdominio](docs/PRIVATE_PREVIEW_DEPLOYMENT.md)
 - [Arquitetura, ADRs e especificacoes](docs/README.md)
 
 ## Estrutura resumida
