@@ -10,6 +10,8 @@ O portal busca `GET /v1/public-config`. Quando `TURNSTILE_ENABLED=true`, o Worke
 
 A chave secreta fica apenas como secret do Worker, em `TURNSTILE_SECRET_KEY`. Ela nunca deve ser adicionada a `.env`, ao Git, ao HTML ou a mensagens de chat.
 
+Em 31/10/2026, a sitekey pública de produção foi recebida e registrada na configuração do Worker. O segredo e a ativação continuam pendentes.
+
 ## Ativação de produção
 
 No painel Cloudflare:
