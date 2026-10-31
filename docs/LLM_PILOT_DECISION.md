@@ -42,12 +42,16 @@ O login usado no Codex é apropriado para uma pessoa usar o Codex localmente. El
 
 Caso a conta seja elegível, créditos da API associados a ChatGPT Pro ou Business podem ser vinculados a uma organização da API e usados para testes. Isso continua sendo uma integração de API separada; não converte a sessão do Codex em backend público e não deve expor token ou arquivo de autenticação.
 
-## Decisão ainda necessária
+## Decisão registrada
+
+Em 31/10/2026, Marcelo aprovou a opção **Workers AI gratuito para piloto**. A implementação começa com uma allowlist de intenção para o indicador populacional já liberado. A variável `AI_PILOT_ENABLED` permanece `false` até que os testes, a proteção de requisições e a revisão de deploy sejam concluídos.
+
+## Próxima decisão necessária
 
 Antes de implementar a camada de IA, Marcelo deve escolher uma das opções:
 
-1. **Workers AI gratuito para piloto** — recomendado: sem custo planejado, quota diária, fallback determinístico e avaliação de qualidade.
-2. **OpenAI API com créditos ou orçamento limitado** — melhor qualidade potencial, exige organização/API key, teto de gasto e segredo no Worker.
-3. **Sem IA na primeira demonstração** — entrega consultas estruturadas, rápidas e auditáveis; a IA entra após validar dados e experiência.
+1. **Habilitar em produção o piloto Workers AI** após R0-10 — quota diária, fallback determinístico e avaliação de qualidade.
+2. **Migrar para OpenAI API com créditos ou orçamento limitado** — melhor qualidade potencial, exige organização/API key, teto de gasto e segredo no Worker.
+3. **Manter a primeira demonstração sem IA ativa** — entrega consultas estruturadas, rápidas e auditáveis; a IA entra após validar dados e experiência.
 
 Independentemente da opção, R0-03 a R0-10 continuam necessários: o modelo não pode responder sobre licitações antes de existir um dataset municipal aprovado e consultável.

@@ -8,6 +8,12 @@
       "pattern": "api-dados.rayzen.com.br",
       "custom_domain": true
     }
-  ]
+  ],
+  "ai": {
+    "binding": "AI"
+  },
+  "vars": {
+    "AI_PILOT_ENABLED": "false"
+  }
 }
 

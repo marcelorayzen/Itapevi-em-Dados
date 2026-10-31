@@ -53,7 +53,7 @@ _Esta trilha não substitui as fases F1–F5. Ela organiza a passagem do protót
 | R0-08 | P1 | Construir página de evidência por resposta: fonte, arquivo, período, filtros, cálculo, cobertura e limites | R0-07 | [ ] |
 | R0-09 | P1 | Criar conjunto de avaliação com perguntas reais de cidadão, vereador, prefeitura e BBSIA | R0-07 | [ ] |
 | R0-10 | P1 | Aplicar limite de requisições, telemetria mínima sem dados pessoais e resposta segura a abuso | R0-06 | [ ] |
-| R0-11 | P2 | Integrar modelo de linguagem apenas como intérprete de pergunta e redator de resposta baseada nas evidências retornadas | R0-07, R0-09, R0-10 | [ ] |
+| R0-11 | P2 | Integrar modelo de linguagem apenas como intérprete de pergunta e redator de resposta baseada nas evidências retornadas | R0-07, R0-09, R0-10 | [-] |
 | R0-12 | P2 | Reprojetar a interface como produto de consulta: busca, resultados, filtros, evidências, cobertura e feedback | R0-08, R0-11 | [ ] |
 | R0-13 | P2 | Piloto público monitorado com roteiro de avaliação e revisão semanal Marcelo/Rayzen | R0-09, R0-10, R0-12 | [ ] |
 
