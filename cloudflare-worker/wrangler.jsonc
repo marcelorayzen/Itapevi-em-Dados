@@ -1,0 +1,13 @@
+{
+  "name": "itapevi-em-dados-public-api",
+  "main": "src/index.mjs",
+  "compatibility_date": "2026-10-31",
+  "workers_dev": false,
+  "routes": [
+    {
+      "pattern": "api.itapevi-em-dados.rayzen.com.br",
+      "custom_domain": true
+    }
+  ]
+}
+
