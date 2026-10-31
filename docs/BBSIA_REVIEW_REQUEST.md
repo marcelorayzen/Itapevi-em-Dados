@@ -25,8 +25,8 @@ Solicitar ao BBSIA uma avaliacao tecnica e institucional do **Itapevi em Dados**
 
 ### Demonstracao e seguranca
 
-- A primeira demonstracao aberta deve conter somente dados sinteticos ou ha algum dataset agregado ja aprovado?
-- O BBSIA prefere inicialmente uma pagina estatica no GitHub Pages ou uma previa privada autenticada?
+- A demonstracao publica atual consulta somente o agregado populacional do IBGE; o BBSIA concorda com a manutencao desta allowlist limitada enquanto as fontes municipais passam por revisao?
+- O BBSIA recomenda complementar a demonstracao publica com uma previa privada para os datasets municipais ainda pendentes de termos?
 - Quem serao os avaliadores, por quanto tempo e com qual canal para relatar problemas?
 - Quais requisitos minimos de acessibilidade, identidade visual, hospedagem, logs e suporte devem constar da demonstracao?
 - Que criterio objetivo declara a demonstracao apta para ser apresentada a prefeituras e camaras?

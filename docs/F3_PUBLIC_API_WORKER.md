@@ -13,7 +13,7 @@ A API publica permite que o portal encaminhe perguntas livres sem utilizar o ser
 
 ## Primeiro catalogo real
 
-A primeira pergunta publicada e a estimativa populacional de Itapevi. A API consulta o indicador 29171 do IBGE para o municipio 3522505 e retorna:
+A primeira pergunta publicada e a estimativa populacional de Itapevi. A API consulta o indicador 29171 do IBGE para o municipio 3522505. A publicacao deste agregado foi aprovada pelo responsavel do projeto em 31/10/2026, com atribuicao e limites obrigatorios. A API retorna:
 
 - ano de referencia;
 - populacao retornada pela serie;

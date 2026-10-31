@@ -2,13 +2,13 @@
 
 ## Resultado desta rodada
 
-Esta é uma revisão documental inicial, não parecer jurídico. Nenhuma fonte teve seu estado alterado para `allowed`, pois uma prévia privada ou publicação exige evidência específica de licença/termos e decisão humana registrada por dataset.
+Esta é uma revisão documental inicial, não parecer jurídico. Em 31/10/2026 houve uma exceção estreita e registrada: o agregado populacional do indicador 29171 do IBGE foi liberado pelo responsável do projeto para consulta pública, com atribuição e limites obrigatórios. Todas as demais fontes continuam a exigir evidência específica de licença/termos e decisão humana registrada por dataset antes de qualquer publicação.
 
 ## Evidências encontradas
 
 | Fonte/dataset | Evidência oficial | Leitura conservadora | Estado após revisão |
 |---|---|---|---|
-| IBGE - localidades e indicador 29171 | [Dados Abertos do IBGE](https://www.ibge.gov.br/acesso-informacao/dados-abertos.html) publica o Plano de Dados Abertos; o [PDA 2024-2025](https://www.ibge.gov.br/np_download/novoportal/documentos_institucionais/Plano_de_Dados_Abertos_IBGE_2024_2025.pdf) define dados abertos como disponibilizados sob licença aberta | Há fundamento institucional para abertura, mas a revisão ainda precisa confirmar a licença, atribuição e escopo aplicáveis ao indicador/API usado | `pending_review` |
+| IBGE - indicador 29171, estimativa populacional de Itapevi | [Dados Abertos do IBGE](https://www.ibge.gov.br/acesso-informacao/dados-abertos.html) publica o Plano de Dados Abertos; o [PDA 2024-2025](https://www.ibge.gov.br/np_download/novoportal/documentos_institucionais/Plano_de_Dados_Abertos_IBGE_2024_2025.pdf) define dados abertos como disponibilizados sob licença aberta | Em 31/10/2026, Marcelo aprovou a publicacao limitada do valor agregado deste indicador no portal, com atribuicao ao IBGE, URL da consulta, ano de referencia, data de coleta e limitacoes visiveis. A decisao nao se estende a outros indicadores ou a dados individualizados. | `allowed_for_public_aggregate` |
 | TCESP - despesas agregadas | O [Guia Técnico de Transparência Municipal](https://www.tce.sp.gov.br/sites/default/files/publicacoes/Guia%20T%C3%A9cnico%20de%20Transpar%C3%AAncia%20Municipal%20-%202019.pdf) descreve os requisitos de dados abertos, acesso automatizado e reutilização no contexto da LAI | O guia é orientação normativa, não termo específico da API de despesas utilizada; não prova sozinho permissão de republicar derivados pela aplicação | `pending_review` |
 | Prefeitura de Itapevi - LOA e painel LAI | O portal e os documentos são oficiais e o uso local controlado foi aprovado | Não foi localizado termo específico de redistribuição para a exportação do painel, o PDF da LOA ou seus derivados | `pending_review` |
 
@@ -30,6 +30,12 @@ O leitor local `pypdf 6.21.4` foi usado somente para consulta dos arquivos em `D
 
 Essas passagens fortalecem a justificativa de transparência e abertura, mas não identificam um termo de uso, licença, atribuição ou escopo específico para a API do TCESP, o painel LAI de Itapevi ou os derivados deste projeto. Por isso, os estados permanecem `pending_review`.
 
+## Decisao operacional registrada: IBGE 29171
+
+O indicador populacional 29171 para o municipio 3522505 esta na allowlist publica do Worker. A decisao se baseia na fonte institucional aberta, no recorte municipal agregado e na aprovacao humana registrada em 31/10/2026. A API deve manter atribuicao, URL, ano, coleta, cobertura e limites em toda resposta.
+
+Esta decisao operacional nao e parecer juridico e nao libera automaticamente localidades, outros indicadores, microdados ou qualquer fonte municipal.
+
 ## Critério para liberar um dataset na prévia privada
 
 O responsável pela revisão deve confirmar e registrar, para cada dataset:
@@ -50,6 +56,10 @@ Só após isso podem ser atualizados, de forma coerente: `sources.redistribution
 - a autorização para teste local controlado;
 - a inexistência de bloqueio técnico de download.
 
+## Verificação de disponibilidade do portal municipal
+
+Em 31/10/2026 foi feita nova tentativa técnica de consulta ao painel municipal `https://transparencia.itapevi.sp.gov.br/tdaportalclient.aspx?418`, procurando termos de uso, privacidade, LGPD, dados abertos e reutilização. O servidor respondeu `HTTP 503 Service Unavailable`; portanto, a indisponibilidade não é evidência de ausência de termos e não altera o estado do dataset.
+
 ## Próximo ato humano recomendado
 
-Começar pelo indicador populacional do IBGE, por ser agregado, sem dado pessoal no recorte e já usado no conector. Confirmar no canal oficial do IBGE a licença/atribuição aplicável ao indicador 29171 e registrar a decisão antes de disponibilizá-lo na prévia privada.
+Solicitar à Prefeitura de Itapevi a confirmação formal para os datasets municipais candidatos, usando o modelo em [MUNICIPAL_DATA_REUSE_REQUEST.md](MUNICIPAL_DATA_REUSE_REQUEST.md). A resposta precisa indicar recurso, atribuição, redistribuição, campos/granularidade e periodicidade. Enquanto ela não existir, LOA e exportações LAI ficam em uso local controlado.
