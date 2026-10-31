@@ -14,7 +14,7 @@
   },
   "vars": {
     "AI_PILOT_ENABLED": "false",
-    "TURNSTILE_ENABLED": "false",
+    "TURNSTILE_ENABLED": "true",
     "TURNSTILE_SITE_KEY": "0x4AAAAAAFudgJvfL-D8dC2t"
   }
 }

@@ -10,7 +10,13 @@ O portal busca `GET /v1/public-config`. Quando `TURNSTILE_ENABLED=true`, o Worke
 
 A chave secreta fica apenas como secret do Worker, em `TURNSTILE_SECRET_KEY`. Ela nunca deve ser adicionada a `.env`, ao Git, ao HTML ou a mensagens de chat.
 
-Em 31/10/2026, a sitekey pública de produção foi recebida e registrada na configuração do Worker. O segredo e a ativação continuam pendentes.
+Em 31/10/2026, a sitekey pública de produção foi recebida e registrada na configuração do Worker. O segredo foi inserido interativamente pelo responsável, sem ser revelado ao projeto. A proteção foi implantada no Worker `itapevi-em-dados-public-api`, versão `cd2396bd-54ef-4956-85fe-9762b9ac8cf0`.
+
+Validação externa após o deploy:
+
+- `GET /v1/public-config` retornou `turnstileEnabled: true` e a sitekey pública;
+- uma pergunta sem token recebeu `403` com `verification_required`;
+- o portal público respondeu `200` e contém o script oficial do Turnstile.
 
 ## Ativação de produção
 
@@ -37,4 +43,4 @@ Os testes unitários simulam a validação do servidor e confirmam que o hostnam
 
 - Tokens expiram em cinco minutos e são de uso único.
 - O Turnstile verifica que há um navegador legítimo; ele não define a licença de um dataset nem permite consultas fora da allowlist.
-- A ativação não deve ocorrer junto da IA pública antes da revisão de R0-10 e do deploy humano aprovado.
+- O Turnstile é a primeira parte de R0-10. Limite de requisições e telemetria mínima ainda precisam ser implementados antes de ativar a IA pública.
