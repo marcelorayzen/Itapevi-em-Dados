@@ -28,3 +28,15 @@ Por rigor, o resultado é **implementado e testado por unidade; validação exte
 ## Validação humana
 
 Após a publicação, Marcelo confirmou em 31/10/2026 que validou o comportamento esperado. A confirmação humana encerra a verificação de uso do piloto; R0-10 permanece em andamento somente pela telemetria mínima ainda não implementada.
+
+## Telemetria mínima
+
+O Worker envia um contador não bloqueante ao dataset `itapevi_em_dados_public_api` do Cloudflare Analytics Engine. Cada ponto contém somente:
+
+- evento técnico: `question` ou `request`;
+- resultado técnico: `answer_ok`, `not_available`, `verification_required`, `rate_limited`, `rate_limit_unavailable`, `invalid_request`, `unavailable` ou `not_found`;
+- valor constante `1` para agregação.
+
+Não são enviados pergunta, resposta, IP, token Turnstile, user-agent, identificação de cidadão ou fonte consultada. A plataforma Cloudflare mantém esse dataset por até três meses, segundo sua política técnica.
+
+Em 31/10/2026, o código, os oito testes e o bundle foram aprovados, mas o deploy foi recusado pela API da Cloudflare com erro `10089`: Analytics Engine não está habilitado na conta. Portanto, a telemetria ainda não está ativa e R0-10 permanece bloqueado até a habilitação no painel. Turnstile, limite de requisições e o Worker já implantados não foram alterados por essa falha.

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { answerQuestion, classifyAllowedIntent, publicQueryRateLimit, verifyTurnstile } from '../src/index.mjs';
+import { answerQuestion, classifyAllowedIntent, publicQueryRateLimit, recordMetric, verifyTurnstile } from '../src/index.mjs';
 
 const ibgePayload = [{ res: [{ res: { '2025': '240961', '2026': '243967' } }] }];
 
@@ -59,5 +59,13 @@ test('falha de forma fechada se o limitador configurado estiver indisponivel', a
   const result = await publicQueryRateLimit(request, { RATE_LIMIT_ENABLED: 'true' });
   assert.equal(result.allowed, false);
   assert.equal(result.status, 'unavailable');
+});
+
+test('telemetria minima nao registra pergunta, IP ou token', () => {
+  const points = [];
+  recordMetric({ METRICS: { writeDataPoint: (point) => points.push(point) } }, 'question', 'verification_required');
+  assert.deepEqual(points, [{ blobs: ['question', 'verification_required'], doubles: [1], indexes: ['public-api-v1'] }]);
+  assert.equal(JSON.stringify(points).includes('203.0.113.4'), false);
+  assert.equal(JSON.stringify(points).includes('pergunta secreta'), false);
 });
 

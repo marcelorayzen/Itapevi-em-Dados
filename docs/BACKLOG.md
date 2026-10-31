@@ -52,7 +52,7 @@ _Esta trilha não substitui as fases F1–F5. Ela organiza a passagem do protót
 | R0-07 | P1 | Implementar respostas determinísticas para população, previsto × realizado e compras por modalidade | R0-06 | [ ] |
 | R0-08 | P1 | Construir página de evidência por resposta: fonte, arquivo, período, filtros, cálculo, cobertura e limites | R0-07 | [ ] |
 | R0-09 | P1 | Criar conjunto de avaliação com perguntas reais de cidadão, vereador, prefeitura e BBSIA | R0-07 | [ ] |
-| R0-10 | P1 | Aplicar limite de requisições, telemetria mínima sem dados pessoais e resposta segura a abuso | R0-06 | [-] |
+| R0-10 | P1 | Aplicar limite de requisições, telemetria mínima sem dados pessoais e resposta segura a abuso | R0-06 | [!] |
 | R0-11 | P2 | Integrar modelo de linguagem apenas como intérprete de pergunta e redator de resposta baseada nas evidências retornadas | R0-07, R0-09, R0-10 | [-] |
 | R0-12 | P2 | Reprojetar a interface como produto de consulta: busca, resultados, filtros, evidências, cobertura e feedback | R0-08, R0-11 | [ ] |
 | R0-13 | P2 | Piloto público monitorado com roteiro de avaliação e revisão semanal Marcelo/Rayzen | R0-09, R0-10, R0-12 | [ ] |
@@ -65,6 +65,7 @@ _Esta trilha não substitui as fases F1–F5. Ela organiza a passagem do protót
 
 | 2026-10-29 | F3-05 | Definicao pendente: dados demonstrativos, destino de hospedagem, publico de teste e responsavel operacional | Marcelo decide o formato inicial; equipe prepara UX, conteudo, testes e documentacao | Marcelo / Rayzen |
 | 2026-10-31 | R0-02 | Ainda não há confirmação específica de redistribuição para as exportações municipais LAI/LOA; o portal oficial retornou HTTP 503 na nova verificação de termos | Enviar solicitação institucional pronta em `docs/MUNICIPAL_DATA_REUSE_REQUEST.md` e registrar a resposta por dataset | Prefeitura de Itapevi / Marcelo |
+| 2026-10-31 | R0-10 | Cloudflare Analytics Engine não está habilitado na conta; deploy da telemetria recusado com erro `10089` | Habilitar Analytics Engine no painel Cloudflare e repetir deploy/teste | Marcelo |
 
 ## Registro de decisões operacionais
 

@@ -22,6 +22,12 @@
       }
     }
   ],
+  "analytics_engine_datasets": [
+    {
+      "binding": "METRICS",
+      "dataset": "itapevi_em_dados_public_api"
+    }
+  ],
   "vars": {
     "AI_PILOT_ENABLED": "false",
     "RATE_LIMIT_ENABLED": "true",

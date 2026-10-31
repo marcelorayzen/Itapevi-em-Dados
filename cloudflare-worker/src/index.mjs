@@ -89,6 +89,18 @@ function publicConfig(env) {
   };
 }
 
+export function recordMetric(env, event, outcome) {
+  try {
+    env?.METRICS?.writeDataPoint?.({
+      blobs: [event, outcome],
+      doubles: [1],
+      indexes: ['public-api-v1'],
+    });
+  } catch {
+    // Observabilidade nunca deve impedir uma resposta pública segura.
+  }
+}
+
 async function rateLimitKey(request) {
   const origin = request.headers.get('CF-Connecting-IP') || 'unknown-origin';
   const material = new TextEncoder().encode(`itapevi-em-dados-public-query:${origin}`);
@@ -167,6 +179,7 @@ export default {
       return response(publicConfig(env), 200, origin);
     }
     if (url.pathname !== '/v1/ask' || request.method !== 'POST') {
+      recordMetric(env, 'request', 'not_found');
       return response({ status: 'not_found', message: 'Use POST /v1/ask ou GET /health.' }, 404, origin);
     }
 
@@ -174,6 +187,7 @@ export default {
       const body = await request.json();
       const question = typeof body?.question === 'string' ? body.question.trim() : '';
       if (question.length < 3 || question.length > 500) {
+        recordMetric(env, 'question', 'invalid_request');
         return response({ status: 'invalid_request', message: 'Envie uma pergunta entre 3 e 500 caracteres.' }, 400, origin);
       }
       const rateLimit = await publicQueryRateLimit(request, env);
@@ -182,15 +196,23 @@ export default {
         const message = rateLimit.status === 'limited'
           ? 'Limite temporario de perguntas atingido. Aguarde um minuto e tente novamente.'
           : 'A protecao de requisicoes esta indisponivel no momento. Tente novamente mais tarde.';
-        return response({ status: rateLimit.status === 'limited' ? 'rate_limited' : 'rate_limit_unavailable', message }, status, origin);
+        const outcome = rateLimit.status === 'limited' ? 'rate_limited' : 'rate_limit_unavailable';
+        recordMetric(env, 'question', outcome);
+        return response({ status: outcome, message }, status, origin);
       }
       if (turnstileEnabled(env)) {
         const valid = await verifyTurnstile(body?.turnstileToken, env.TURNSTILE_SECRET_KEY, request.headers.get('CF-Connecting-IP'));
-        if (!valid) return response({ status: 'verification_required', message: 'Confirme a verificacao de seguranca antes de enviar a pergunta.' }, 403, origin);
+        if (!valid) {
+          recordMetric(env, 'question', 'verification_required');
+          return response({ status: 'verification_required', message: 'Confirme a verificacao de seguranca antes de enviar a pergunta.' }, 403, origin);
+        }
       }
       const ai = env?.AI && env?.AI_PILOT_ENABLED === 'true' ? env.AI : null;
-      return response(await answerQuestion(question, fetch, new Date().toISOString(), ai), 200, origin);
+      const answer = await answerQuestion(question, fetch, new Date().toISOString(), ai);
+      recordMetric(env, 'question', answer.status === 'ok' ? 'answer_ok' : 'not_available');
+      return response(answer, 200, origin);
     } catch (error) {
+      recordMetric(env, 'question', 'unavailable');
       return response({
         status: 'unavailable',
         message: 'Nao foi possivel consultar a fonte oficial neste momento. Tente novamente mais tarde.',
