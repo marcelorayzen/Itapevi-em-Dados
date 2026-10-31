@@ -71,6 +71,8 @@ A demonstracao estatica fica em `public-demo/` e o workflow de Pages esta pronto
 
 A demonstracao publica esta disponivel em [itapevi-em-dados.rayzen.com.br](https://itapevi-em-dados.rayzen.com.br/). A pergunta sobre populacao consulta a fonte oficial do IBGE em tempo real; os demais indicadores visuais permanecem ilustrativos ate suas fontes serem liberadas. Veja o [registro de publicacao](docs/PUBLIC_DEMO_DEPLOYMENT.md).
 
+A protecao contra automacao da consulta publica esta preparada com Cloudflare Turnstile, mas permanece desligada enquanto a chave de producao e a revisao de deploy nao forem concluídas. Veja [configuração do Turnstile](docs/TURNSTILE_SETUP.md).
+
 ## Dados, confianca e licencas
 
 Cada fonte deve registrar origem, data de coleta, artefato, checksum, termos, condicao de uso e nivel de confianca. "Dado publico" nao significa automaticamente que pode ser redistribuido por este projeto.

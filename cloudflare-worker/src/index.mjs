@@ -3,6 +3,7 @@ const POPULATION_INDICATOR = '29171';
 const IBGE_POPULATION_URL = `https://servicodados.ibge.gov.br/api/v1/pesquisas/indicadores/${POPULATION_INDICATOR}/resultados/${MUNICIPALITY_CODE}`;
 const PORTAL_ORIGIN = 'https://itapevi-em-dados.rayzen.com.br';
 const AI_MODEL = '@cf/google/gemma-4-26b-a4b-it';
+const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 
 function response(body, status = 200, origin = '') {
   return new Response(JSON.stringify(body), {
@@ -61,6 +62,33 @@ export async function classifyAllowedIntent(question, ai) {
   }
 }
 
+export async function verifyTurnstile(token, secret, remoteIp, fetchImpl = fetch) {
+  if (typeof token !== 'string' || token.length < 1 || token.length > 2048 || !secret) return false;
+  const body = new FormData();
+  body.set('secret', secret);
+  body.set('response', token);
+  if (remoteIp) body.set('remoteip', remoteIp);
+
+  try {
+    const verification = await fetchImpl(TURNSTILE_VERIFY_URL, { method: 'POST', body });
+    const result = await verification.json();
+    return verification.ok && result?.success === true && result?.hostname === 'itapevi-em-dados.rayzen.com.br' && result?.action === 'itapevi-question';
+  } catch {
+    return false;
+  }
+}
+
+function turnstileEnabled(env) {
+  return env?.TURNSTILE_ENABLED === 'true' && typeof env?.TURNSTILE_SITE_KEY === 'string' && typeof env?.TURNSTILE_SECRET_KEY === 'string';
+}
+
+function publicConfig(env) {
+  return {
+    turnstileEnabled: turnstileEnabled(env),
+    turnstileSiteKey: turnstileEnabled(env) ? env.TURNSTILE_SITE_KEY : null,
+  };
+}
+
 export async function answerQuestion(question, fetchImpl = fetch, collectedAt = new Date().toISOString(), ai = null) {
   const query = normalized(question);
   const deterministicMatch = populationQuestion(query);
@@ -105,7 +133,7 @@ export default {
         status: 204,
         headers: {
           'access-control-allow-origin': origin === PORTAL_ORIGIN ? origin : PORTAL_ORIGIN,
-          'access-control-allow-methods': 'POST, OPTIONS',
+          'access-control-allow-methods': 'GET, POST, OPTIONS',
           'access-control-allow-headers': 'content-type',
           'access-control-max-age': '86400',
           'vary': 'Origin',
@@ -117,6 +145,9 @@ export default {
     if (url.pathname === '/health') {
       return response({ status: 'ok', service: 'itapevi-em-dados-public-api', catalog: ['ibge_population'] }, 200, origin);
     }
+    if (url.pathname === '/v1/public-config' && request.method === 'GET') {
+      return response(publicConfig(env), 200, origin);
+    }
     if (url.pathname !== '/v1/ask' || request.method !== 'POST') {
       return response({ status: 'not_found', message: 'Use POST /v1/ask ou GET /health.' }, 404, origin);
     }
@@ -126,6 +157,10 @@ export default {
       const question = typeof body?.question === 'string' ? body.question.trim() : '';
       if (question.length < 3 || question.length > 500) {
         return response({ status: 'invalid_request', message: 'Envie uma pergunta entre 3 e 500 caracteres.' }, 400, origin);
+      }
+      if (turnstileEnabled(env)) {
+        const valid = await verifyTurnstile(body?.turnstileToken, env.TURNSTILE_SECRET_KEY, request.headers.get('CF-Connecting-IP'));
+        if (!valid) return response({ status: 'verification_required', message: 'Confirme a verificacao de seguranca antes de enviar a pergunta.' }, 403, origin);
       }
       const ai = env?.AI && env?.AI_PILOT_ENABLED === 'true' ? env.AI : null;
       return response(await answerQuestion(question, fetch, new Date().toISOString(), ai), 200, origin);

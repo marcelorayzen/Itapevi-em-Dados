@@ -1,4 +1,8 @@
 const API_URL = 'https://api-dados.rayzen.com.br/v1/ask';
+const PUBLIC_CONFIG_URL = 'https://api-dados.rayzen.com.br/v1/public-config';
+let turnstileConfig = { turnstileEnabled: false, turnstileSiteKey: null };
+let turnstileToken = '';
+let turnstileWidgetId = null;
 
 const topics = {
   orcamento: { name: 'Execução orçamentária', value: '67,4', suffix: '%', caption: 'do valor previsto no recorte selecionado', note: 'Este resultado é ilustrativo até que a fonte municipal correspondente seja liberada para publicação.', rows: [['Previsto', '100%', 'R$ 8,4 mi', ''], ['Realizado', '67.4%', 'R$ 5,7 mi', 'green']] },
@@ -26,13 +30,38 @@ function renderAnswer(payload) {
 
 async function ask(question) {
   const box = document.getElementById('answer-box');
+  if (turnstileConfig.turnstileEnabled && !turnstileToken) {
+    box.innerHTML = '<span class="answer-icon">!</span><p><strong>Conclua a verificacao de seguranca antes de enviar a pergunta.</strong></p>';
+    return;
+  }
   box.innerHTML = '<span class="answer-icon">…</span><p>Consultando dados publicados...</p>';
   try {
-    const result = await fetch(API_URL, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ question }) });
+    const result = await fetch(API_URL, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ question, turnstileToken }) });
     const payload = await result.json();
     renderAnswer(payload);
+    if (turnstileWidgetId !== null && window.turnstile) { window.turnstile.reset(turnstileWidgetId); turnstileToken = ''; }
   } catch {
     box.innerHTML = '<span class="answer-icon">!</span><p><strong>A API pública ainda está em ativação.</strong> Tente novamente em alguns instantes. A demonstração não substitui a fonte oficial.</p>';
+  }
+}
+
+async function configureTurnstile() {
+  const slot = document.getElementById('turnstile-slot');
+  try {
+    const result = await fetch(PUBLIC_CONFIG_URL);
+    turnstileConfig = await result.json();
+    if (!turnstileConfig.turnstileEnabled || !turnstileConfig.turnstileSiteKey || !window.turnstile) return;
+    turnstileWidgetId = window.turnstile.render(slot, {
+      sitekey: turnstileConfig.turnstileSiteKey,
+      theme: 'dark',
+      size: 'flexible',
+      action: 'itapevi-question',
+      callback: (token) => { turnstileToken = token; },
+      'expired-callback': () => { turnstileToken = ''; },
+      'error-callback': () => { turnstileToken = ''; },
+    });
+  } catch {
+    slot.textContent = '';
   }
 }
 
@@ -52,3 +81,4 @@ const dialog = document.getElementById('evidence-modal');
 document.querySelectorAll('[data-modal-open]').forEach((button) => button.addEventListener('click', () => dialog.showModal()));
 document.querySelectorAll('[data-modal-close]').forEach((button) => button.addEventListener('click', () => dialog.close()));
 dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+configureTurnstile();

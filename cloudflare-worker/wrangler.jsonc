@@ -13,7 +13,8 @@
     "binding": "AI"
   },
   "vars": {
-    "AI_PILOT_ENABLED": "false"
+    "AI_PILOT_ENABLED": "false",
+    "TURNSTILE_ENABLED": "false"
   }
 }
 

@@ -46,6 +46,8 @@ Caso a conta seja elegível, créditos da API associados a ChatGPT Pro ou Busine
 
 Em 31/10/2026, Marcelo aprovou a opção **Workers AI gratuito para piloto**. A implementação começa com uma allowlist de intenção para o indicador populacional já liberado. A variável `AI_PILOT_ENABLED` permanece `false` até que os testes, a proteção de requisições e a revisão de deploy sejam concluídos.
 
+O Turnstile foi implementado no código como primeira proteção contra automação. Sua configuração pública e a chave secreta ainda não foram criadas no painel Cloudflare; o procedimento controlado está em [TURNSTILE_SETUP.md](TURNSTILE_SETUP.md).
+
 ## Próxima decisão necessária
 
 Antes de implementar a camada de IA, Marcelo deve escolher uma das opções:
