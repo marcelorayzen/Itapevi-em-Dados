@@ -28,3 +28,13 @@ O responsável forneceu `1612.pdf` em `Downloads`. O arquivo não foi copiado pa
 ## Estado do Docling
 
 O ambiente isolado do Docling está instalado e importa corretamente. A tentativa de conversão integral da edição 1612 não gerou Markdown/JSON nem erro útil no primeiro processamento. Por isso, a leitura textual de `pypdf` é a linha de base verificável para este artefato; R0-14 inclui corrigir ou substituir a execução estrutural do Docling antes de adotá-lo como processo oficial para o Diário.
+
+## Ingestão idempotente
+
+O comando abaixo registra a fonte, dataset, PDF local, checksum, execução, evento e duas evidências de página no PostgreSQL local. O PDF não é copiado.
+
+```powershell
+npm run db:ingest:daily-official -- --input C:\Users\marce\Downloads\1612.pdf --source-url https://itapevi.sp.gov.br/wp-content/uploads/2026/10/1612.pdf --edition 1612 --published-on 2026-10-30 --pages 110 --first-content-page 3 --storage-ref C:\Users\marce\Downloads\1612.pdf
+```
+
+Uma repetição com os mesmos parâmetros deve reutilizar a execução concluída, sem duplicar evento ou evidências.
