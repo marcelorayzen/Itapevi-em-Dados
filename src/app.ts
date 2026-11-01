@@ -100,10 +100,11 @@ export async function answerQuestion(question: string, provider: DemoDataProvide
   }
   if (normalized.includes('licitac') || normalized.includes('compra') || normalized.includes('modalidade')) {
     const response = await provider.getProcurementSummary();
-    const item = (response.data.exports[0] ?? {}) as { records?: number; totals?: { purchasedAmount: number; estimatedAmount: number }; modalities?: Array<{ modality: string; purchasedAmount: number }> };
-    const top = [...(item.modalities ?? [])].sort((a, b) => b.purchasedAmount - a.purchasedAmount)[0];
-    const values = item.totals;
-    return { ...response, data: { question, answer: values ? `A exportacao local resume ${item.records} registros de compras, com R$ ${values.purchasedAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })} em valor comprado e R$ ${values.estimatedAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })} em valor estimado.${top ? ` A modalidade com maior valor comprado no recorte foi ${top.modality}, com R$ ${top.purchasedAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}.` : ''} Isto descreve somente o arquivo exportado.` : 'Nao ha exportacao de compras carregada.' } };
+    const items = response.data.exports as Array<{ records?: number; totals?: { purchasedAmount: number; estimatedAmount: number }; exerciseYear?: number }>;
+    const records = items.reduce((total, item) => total + (item.records ?? 0), 0);
+    const purchased = items.reduce((total, item) => total + (item.totals?.purchasedAmount ?? 0), 0);
+    const estimated = items.reduce((total, item) => total + (item.totals?.estimatedAmount ?? 0), 0);
+    return { ...response, data: { question, answer: items.length ? `Nos ${items.length} recortes carregados, há ${records} licitações, com R$ ${purchased.toLocaleString('pt-BR', { minimumFractionDigits: 2 })} em valor comprado e R$ ${estimated.toLocaleString('pt-BR', { minimumFractionDigits: 2 })} em valor estimado. Os totais descrevem somente os arquivos exportados.` : 'Nao ha exportacao de compras carregada.' } };
   }
   if ((normalized.includes('tcesp') || normalized.includes('historico') || normalized.includes('2019')) && !normalized.includes('maior') && !normalized.includes('mais')) {
     const response = await provider.getHistoricalExpenses(); const item = (response.data.periods[0] ?? {}) as { period?: string; recordCount?: number; groups?: number };
