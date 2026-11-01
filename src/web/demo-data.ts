@@ -138,19 +138,17 @@ export function createPostgresDemoDataProvider(): DemoDataProvider {
     async getProcurementSummary() {
       const pool = createDatabasePool();
       try {
-        const result = await pool.query<{ payload: { records: number; totals: Record<string, number>; modalities: unknown[] }; sha256: string; dataset_name: string }>(`
-          SELECT e.payload, a.sha256, d.name AS dataset_name
-          FROM events e JOIN processing_runs pr ON pr.run_id = e.run_id
-          JOIN artifacts a ON a.artifact_id = pr.artifact_id JOIN datasets d ON d.dataset_id = a.dataset_id
-          WHERE e.event_type = 'municipal_procurement_modalities_exported' AND e.status = 'candidate'
-          ORDER BY e.created_at DESC;
+        const result = await pool.query<{ sha256: string; exercise_year: number; records: string; purchased_amount: string; estimated_amount: string }>(`
+          SELECT a.sha256, p.exercise_year, count(*) AS records, sum(p.purchased_amount) AS purchased_amount, sum(p.estimated_amount) AS estimated_amount
+          FROM procurement_records p JOIN artifacts a ON a.artifact_id = p.artifact_id
+          GROUP BY a.sha256, p.exercise_year ORDER BY p.exercise_year, a.sha256;
         `);
-        const exports = result.rows.map((row) => ({ ...row.payload, artifactSha256: row.sha256, datasetName: row.dataset_name }));
+        const exports = result.rows.map((row) => ({ records: Number(row.records), totals: { purchasedAmount: Number(row.purchased_amount), estimatedAmount: Number(row.estimated_amount) }, artifactSha256: row.sha256, exerciseYear: row.exercise_year }));
         return createCommonResponse({
           status: 'ok', data: { exports },
-          evidence: result.rows.map((row) => ({ sourceId: 'SRC-PREF-LAI-001', datasetId: 'DS-LAI-COMPRAS-MODALIDADE-2026', artifactSha256: row.sha256 })),
-          coverage: { scope: 'exportacoes agregadas de compras por modalidade do painel LAI', status: 'pilot' },
-          limitations: ['O piloto guarda somente totais e agrupamentos por modalidade.', 'Processos, objetos e documentos continuam no artefato bruto local e nao sao exibidos.'],
+          evidence: result.rows.map((row) => ({ sourceId: 'SRC-PREF-LAI-PROCUREMENT-001', datasetId: 'DS-LAI-COMPRAS-MODALIDADE-2026', artifactSha256: row.sha256 })),
+          coverage: { scope: 'licitações detalhadas agregadas por artefato e exercício', status: 'pilot' },
+          limitations: ['Totais refletem somente os arquivos exportados.', 'Não expõe processos individuais, CPF ou documentos brutos.'],
           confidence: 'needs_review', metadata: { municipality: 'Itapevi' },
         });
       } finally { await pool.end(); }
