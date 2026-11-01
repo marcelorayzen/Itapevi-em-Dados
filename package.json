@@ -22,6 +22,7 @@
     "db:bootstrap:tcesp": "tsx scripts/bootstrap-tcesp-catalog.ts",
     "db:ingest:lai": "tsx scripts/ingest-lai-export.ts",
     "db:ingest:lai-procurement": "tsx scripts/ingest-lai-procurement-export.ts",
+    "db:ingest:lai-procurement-details": "tsx scripts/ingest-lai-procurement-details.ts",
     "db:ingest:lai-contracts": "tsx scripts/ingest-lai-contracts-export.ts",
     "db:ingest:ibge": "tsx scripts/ingest-ibge-estimate.ts",
     "db:ingest:tcesp": "tsx scripts/ingest-tcesp-aggregate.ts",
