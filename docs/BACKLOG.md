@@ -46,7 +46,7 @@ _Esta trilha não substitui as fases F1–F5. Ela organiza a passagem do protót
 | R0-01 | P0 | Definir recorte da primeira demonstração real: população, execução orçamentária e compras/licitações agregadas | P0-05 | [-] |
 | R0-02 | P0 | Confirmar por fonte as regras de atribuição e redistribuição pública dos dados municipais | R0-01 | [!] |
 | R0-03 | P1 | Consolidar ingestão real de compras por modalidade em PostgreSQL, com artefato, checksum e reprocessamento | R0-02 | [x] |
-| R0-04 | P1 | Modelar licitação, modalidade, período, órgão e fornecedor como fatos/evidências — sem presumir identidade de empresa | R0-03 | [ ] |
+| R0-04 | P1 | Modelar licitação, modalidade, período, órgão e fornecedor como fatos/evidências — sem presumir identidade de empresa | R0-03 | [x] |
 | R0-05 | P1 | Validar qualidade: totalizações, período, filtros de origem, duplicidade e reconciliação com o painel oficial | R0-03 | [ ] |
 | R0-06 | P1 | Publicar somente agregados aprovados em uma API de consulta citável | R0-02, R0-05 | [ ] |
 | R0-07 | P1 | Implementar respostas determinísticas para população, previsto × realizado e compras por modalidade | R0-06 | [ ] |
