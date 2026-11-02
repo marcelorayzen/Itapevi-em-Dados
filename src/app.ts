@@ -102,6 +102,12 @@ export async function answerQuestion(question: string, provider: DemoDataProvide
     const response = await provider.getBudgetSummary(); const item = (response.data.exports[0] ?? {}) as { totals?: { plannedAmount: number; realizedAmount: number }; filters?: Record<string, string> };
     return { ...response, data: { question, answer: item.totals ? `No recorte ${item.filters?.['Data Inicial']} a ${item.filters?.['Data Final']}, o painel LAI retornou R$ ${item.totals.plannedAmount.toLocaleString('pt-BR',{minimumFractionDigits:2})} previstos e R$ ${item.totals.realizedAmount.toLocaleString('pt-BR',{minimumFractionDigits:2})} realizados.` : 'Nao ha exportacao LAI carregada.' } };
   }
+  if (normalized.includes('contrato') || normalized.includes('contratado') || normalized.includes('secretaria')) {
+    const response = await provider.getContractSummary();
+    const items = response.data.secretariats as Array<{ secretariat: string; contracts: number; contractedAmount: number; paidAmount: number }>;
+    const top = [...items].sort((a, b) => b.contractedAmount - a.contractedAmount)[0];
+    return { ...response, data: { question, answer: top ? `No recorte de contratos carregado, a maior soma contratada está em ${top.secretariat}: R$ ${top.contractedAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}, em ${top.contracts} contratos. O valor pago agregado é R$ ${top.paidAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}.` : 'Não há contratos carregados.' } };
+  }
   if (normalized.includes('licitac') || normalized.includes('compra') || normalized.includes('modalidade')) {
     const response = await provider.getProcurementSummary();
     const items = response.data.exports as Array<{ records?: number; totals?: { purchasedAmount: number; estimatedAmount: number }; exerciseYear?: number }>;
