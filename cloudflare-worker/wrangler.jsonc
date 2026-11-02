@@ -12,6 +12,12 @@
   "ai": {
     "binding": "AI"
   },
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      "id": "f274ae5ca9ba4482a40b50a6ab5b4efb"
+    }
+  ],
   "ratelimits": [
     {
       "name": "PUBLIC_QUERY_RATE_LIMITER",

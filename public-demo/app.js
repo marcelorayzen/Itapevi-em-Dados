@@ -11,6 +11,7 @@ const topics = {
 };
 
 const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
+const checksumMarkup = (value) => (Array.isArray(value) ? value : [value]).filter(Boolean).map((item) => { const text = String(item); return `<button class="checksum" type="button" data-checksum="${escapeHtml(text)}" title="Copiar checksum completo">${escapeHtml(text.length > 24 ? `${text.slice(0, 12)}…${text.slice(-8)}` : text)}</button>`; }).join(' ');
 
 function renderTopic(key) {
   const t = topics[key];
@@ -25,7 +26,7 @@ function renderAnswer(payload) {
   const evidence = payload.evidence?.[0];
   const source = evidence?.source || evidence?.sourceId || 'Fonte identificada';
   const sourceHtml = evidence?.url ? '<a href="' + escapeHtml(evidence.url) + '" target="_blank" rel="noreferrer">' + escapeHtml(source) + '</a>' : escapeHtml(source);
-  const evidenceHtml = evidence ? '<p class="answer-evidence"><strong>Evidência:</strong> ' + sourceHtml + (evidence.datasetId ? ' · Dataset ' + escapeHtml(evidence.datasetId) : '') + (evidence.artifactSha256 ? ' · Checksum ' + escapeHtml(evidence.artifactSha256) : '') + '</p>' : '';
+  const evidenceHtml = evidence ? '<p class="answer-evidence"><strong>Evidência:</strong> ' + sourceHtml + (evidence.datasetId ? ' · Dataset ' + escapeHtml(evidence.datasetId) : '') + (evidence.artifactSha256 ? ' · Checksum ' + checksumMarkup(evidence.artifactSha256) : '') + '</p>' : '';
   const coverageHtml = payload.coverage?.scope ? '<p class="answer-limit"><strong>Cobertura:</strong> ' + escapeHtml(payload.coverage.scope) + '</p>' : '';
   const limitHtml = payload.limitations?.length ? '<p class="answer-limit"><strong>Limites:</strong> ' + escapeHtml(payload.limitations[0]) + '</p>' : '';
   document.getElementById('answer-box').innerHTML = '<span class="answer-icon">✓</span><p><strong>' + escapeHtml(payload.answer || payload.message) + '</strong></p>' + evidenceHtml + coverageHtml + limitHtml;
@@ -59,7 +60,7 @@ async function configureTurnstile() {
       theme: 'dark',
       size: 'flexible',
       action: 'itapevi-question',
-      callback: (token) => { turnstileToken = token; },
+      callback: (token) => { turnstileToken = token; slot.classList.add('turnstile-complete'); },
       'expired-callback': () => { turnstileToken = ''; },
       'error-callback': () => { turnstileToken = ''; },
     });

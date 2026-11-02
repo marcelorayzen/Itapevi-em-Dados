@@ -34,6 +34,33 @@ function populationQuestion(query) {
   return ['populacao', 'habitante', 'demograf'].some((term) => query.includes(term));
 }
 
+function contractQuestion(query) {
+  return ['contrato', 'contratada', 'secretaria'].some((term) => query.includes(term));
+}
+
+function procurementQuestion(query) {
+  return ['licitacao', 'compra', 'pregao', 'modalidade'].some((term) => query.includes(term));
+}
+
+export async function publicFactAnswer(question, env) {
+  const query = normalized(question);
+  if (!env?.HYPERDRIVE?.connectionString || (!contractQuestion(query) && !procurementQuestion(query))) return null;
+  const client = new Client({ connectionString: env.HYPERDRIVE.connectionString });
+  await client.connect();
+  try {
+    if (contractQuestion(query)) {
+      const result = await client.query(`SELECT managing_secretariat, SUM(contract_count)::integer AS contract_count, SUM(contracted_amount)::numeric AS contracted_amount, SUM(paid_amount)::numeric AS paid_amount, ARRAY_AGG(DISTINCT sha) AS checksums FROM public_api.contract_summary, UNNEST(artifact_sha256s) AS sha GROUP BY managing_secretariat ORDER BY SUM(contracted_amount) DESC LIMIT 1`);
+      const row = result.rows[0];
+      if (!row) return null;
+      return { status: 'ok', question, answer: `Nos recortes públicos carregados, ${row.managing_secretariat} concentra o maior valor contratado: R$ ${Number(row.contracted_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}, em ${row.contract_count} contratos.`, evidence: [{ source: 'Portal da Transparência de Itapevi', datasetId: 'DS-LAI-CONTRACTS', artifactSha256: row.checksums }], coverage: { scope: 'contratos municipais carregados de 2024 a 2026', status: 'partial' }, limitations: ['A resposta usa os recortes oficiais atualmente carregados e não conclui regularidade, favorecimento ou culpa.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
+    }
+    const result = await client.query(`SELECT SUM(procurement_count)::integer AS procurement_count, SUM(purchased_amount)::numeric AS purchased_amount, SUM(estimated_amount)::numeric AS estimated_amount, ARRAY_AGG(DISTINCT sha) AS checksums FROM public_api.procurement_summary, UNNEST(artifact_sha256s) AS sha`);
+    const row = result.rows[0];
+    if (!row) return null;
+    return { status: 'ok', question, answer: `Nos recortes públicos carregados, há ${row.procurement_count} licitações, com R$ ${Number(row.purchased_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} em valores comprados e R$ ${Number(row.estimated_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} estimados.`, evidence: [{ source: 'Portal da Transparência de Itapevi', datasetId: 'DS-LAI-COMPRAS-MODALIDADE-2026', artifactSha256: row.checksums }], coverage: { scope: 'licitações municipais carregadas de 2024 a 2026', status: 'partial' }, limitations: ['Os totais refletem os recortes oficiais carregados e devem ser lidos com seus checksums e período.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
+  } finally { await client.end(); }
+}
+
 function extractAiText(result) {
   if (typeof result === 'string') return result;
   if (typeof result?.response === 'string') return result.response;
@@ -119,8 +146,10 @@ export async function publicQueryRateLimit(request, env) {
   }
 }
 
-export async function answerQuestion(question, fetchImpl = fetch, collectedAt = new Date().toISOString(), ai = null) {
+export async function answerQuestion(question, fetchImpl = fetch, collectedAt = new Date().toISOString(), ai = null, factReader = null) {
   const query = normalized(question);
+  const publicFact = factReader ? await factReader(question) : null;
+  if (publicFact) return publicFact;
   const deterministicMatch = populationQuestion(query);
   const aiIntent = deterministicMatch ? null : await classifyAllowedIntent(question, ai).catch(() => null);
   const isPopulationQuestion = deterministicMatch || aiIntent === 'population';
@@ -173,7 +202,7 @@ export default {
 
     const url = new URL(request.url);
     if (url.pathname === '/health') {
-      return response({ status: 'ok', service: 'itapevi-em-dados-public-api', catalog: ['ibge_population'] }, 200, origin);
+      return response({ status: 'ok', service: 'itapevi-em-dados-public-api', catalog: ['ibge_population', 'municipal_contract_summary', 'municipal_procurement_summary'] }, 200, origin);
     }
     if (url.pathname === '/v1/public-config' && request.method === 'GET') {
       return response(publicConfig(env), 200, origin);
@@ -208,7 +237,7 @@ export default {
         }
       }
       const ai = env?.AI && env?.AI_PILOT_ENABLED === 'true' ? env.AI : null;
-      const answer = await answerQuestion(question, fetch, new Date().toISOString(), ai);
+      const answer = await answerQuestion(question, fetch, new Date().toISOString(), ai, (value) => publicFactAnswer(value, env));
       recordMetric(env, 'question', answer.status === 'ok' ? 'answer_ok' : 'not_available');
       return response(answer, 200, origin);
     } catch (error) {
@@ -221,4 +250,6 @@ export default {
     }
   },
 };
+
+import { Client } from 'pg';
 
