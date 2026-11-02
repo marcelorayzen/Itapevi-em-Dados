@@ -32,3 +32,9 @@ describe('perguntas guiadas de compras', () => {
     expect(response.evidence).toEqual([{ sourceId: 'SRC-PREF-LAI-001', datasetId: 'DS-LAI-COMPRAS-MODALIDADE-2026', artifactSha256: 'CHECKSUM-TESTE' }]);
   });
 });
+
+it('recusa alegacao acusatoria sem consultar dados', async () => {
+  const response = await answerQuestion('Qual empresa cometeu fraude?', provider);
+  expect(response.status).toBe('not_found');
+  expect(response.data.answer).not.toContain('cometeu fraude');
+});
