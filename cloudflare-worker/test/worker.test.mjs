@@ -20,6 +20,27 @@ test('nao inventa resposta para tema indisponivel', async () => {
   assert.match(response.answer, /nao ha um dado publico governado/i);
 });
 
+test('responde consulta institucional somente com fato agregado e evidencia', async () => {
+  const fact = {
+    status: 'ok',
+    answer: 'Nos recortes públicos carregados, a secretaria X concentra o maior valor contratado.',
+    evidence: [{ source: 'Portal da Transparência de Itapevi', datasetId: 'DS-LAI-CONTRACTS', artifactSha256: ['ABC'] }],
+    coverage: { scope: 'contratos municipais carregados de 2024 a 2026', status: 'partial' },
+    limitations: ['Não conclui regularidade, favorecimento ou culpa.'],
+    confidence: 'high',
+  };
+  const response = await answerQuestion('Qual secretaria possui maior valor contratado?', undefined, undefined, null, async () => fact);
+  assert.equal(response, fact);
+  assert.equal(response.evidence[0].datasetId, 'DS-LAI-CONTRACTS');
+  assert.match(response.limitations[0], /não conclui/i);
+});
+
+test('recusa pergunta acusatoria mesmo com catalogo municipal publicado', async () => {
+  const response = await answerQuestion('Qual empresa fraudou uma licitação?', undefined, undefined, null, async () => null);
+  assert.equal(response.status, 'not_available');
+  assert.match(response.answer, /nao ha um dado publico governado/i);
+});
+
 test('classifica pergunta livre de populacao apenas pela allowlist de IA', async () => {
   const ai = { run: async () => ({ response: '{"intent":"population"}' }) };
   const response = await answerQuestion('Quantas pessoas moram em Itapevi?', async () => new Response(JSON.stringify(ibgePayload)), '2026-10-31T00:00:00.000Z', ai);
