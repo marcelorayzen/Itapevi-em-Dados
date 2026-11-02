@@ -19,7 +19,7 @@ const provider: DemoDataProvider = {
     evidence: [{ sourceId: 'SRC-PREF-LAI-001', datasetId: 'DS-LAI-COMPRAS-MODALIDADE-2026', artifactSha256: 'CHECKSUM-TESTE' }],
     coverage: { scope: 'teste de compras agregadas', status: 'pilot' }, limitations: ['Sem processos individuais.'], confidence: 'needs_review', metadata: { municipality: 'Itapevi' },
   }),
-  getContractSummary: async () => createCommonResponse({ status: 'ok', data: { secretariats: [] }, evidence: [], coverage: { scope: 'teste', status: 'pilot' }, limitations: [], confidence: 'high', metadata: { municipality: 'Itapevi' } }),
+  getContractSummary: async () => createCommonResponse({ status: 'ok', data: { secretariats: [{ secretariat: 'Secretaria Teste', contracts: 3, contractedAmount: 100, paidAmount: 40 }] }, evidence: [{ sourceId: 'SRC', datasetId: 'DS', artifactSha256: 'CHECKSUM' }], coverage: { scope: 'teste', status: 'pilot' }, limitations: [], confidence: 'high', metadata: { municipality: 'Itapevi' } }),
 };
 
 describe('perguntas guiadas de compras', () => {
@@ -37,4 +37,11 @@ it('recusa alegacao acusatoria sem consultar dados', async () => {
   const response = await answerQuestion('Qual empresa cometeu fraude?', provider);
   expect(response.status).toBe('not_found');
   expect(response.data.answer).not.toContain('cometeu fraude');
+});
+
+it('responde contrato por secretaria com evidencia', async () => {
+  const response = await answerQuestion('Qual secretaria teve maior valor contratado?', provider);
+  expect(response.status).toBe('ok');
+  expect(response.data.answer).toContain('Secretaria Teste');
+  expect(response.evidence[0].artifactSha256).toBe('CHECKSUM');
 });
