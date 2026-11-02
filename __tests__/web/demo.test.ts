@@ -26,6 +26,7 @@ const provider = {
   getProcurementSummary: async () => createCommonResponse({
     status: 'ok', data: { exports: [] }, evidence: [{ sourceId: 'SRC', datasetId: 'DS' }], coverage: { scope: 'teste', status: 'pilot' }, limitations: [], confidence: 'high', metadata: { municipality: 'Itapevi' },
   }),
+  getContractSummary: async () => createCommonResponse({ status: 'ok', data: { secretariats: [] }, evidence: [{ sourceId: 'SRC', datasetId: 'DS' }], coverage: { scope: 'teste', status: 'pilot' }, limitations: [], confidence: 'high', metadata: { municipality: 'Itapevi' } }),
   getPreviewCatalog: async () => createCommonResponse({
     status: 'partial', data: { datasets: [] }, evidence: [], coverage: { scope: 'teste', status: 'pilot' }, limitations: [], confidence: 'needs_review', metadata: { municipality: 'Itapevi' },
   }),
@@ -42,6 +43,7 @@ describe('demonstracao web local', () => {
     const demographics = await request(app).get('/api/demo/demographics');
     const historical = await request(app).get('/api/demo/historical-expenses');
     const procurement = await request(app).get('/api/demo/procurement');
+    const contracts = await request(app).get('/api/demo/contracts');
 
     expect(page.status).toBe(200);
     expect(page.text).toContain('Demonstracao local');
@@ -51,6 +53,7 @@ describe('demonstracao web local', () => {
     expect(demographics.body.data.estimates).toEqual([]);
     expect(historical.body.data.periods).toEqual([]);
     expect(procurement.body.data.exports).toEqual([]);
+    expect(contracts.body.data.secretariats).toEqual([]);
   });
 
   it('recusa classificacao acusatoria e explica o limite do ADR-011', async () => {

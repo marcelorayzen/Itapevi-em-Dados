@@ -20,6 +20,7 @@ export interface DemoDataProvider {
   getDemographics(): Promise<CommonResponse<{ estimates: unknown[] }>>;
   getHistoricalExpenses(): Promise<CommonResponse<{ periods: unknown[] }>>;
   getProcurementSummary(): Promise<CommonResponse<{ exports: unknown[] }>>;
+  getContractSummary(): Promise<CommonResponse<{ secretariats: unknown[] }>>;
   getPreviewCatalog(): Promise<CommonResponse<{ datasets: unknown[] }>>;
 }
 
@@ -151,6 +152,14 @@ export function createPostgresDemoDataProvider(): DemoDataProvider {
           limitations: ['Totais refletem somente os arquivos exportados.', 'Não expõe processos individuais, CPF ou documentos brutos.'],
           confidence: 'needs_review', metadata: { municipality: 'Itapevi' },
         });
+      } finally { await pool.end(); }
+    },
+    async getContractSummary() {
+      const pool = createDatabasePool();
+      try {
+        const result = await pool.query<{ secretariat: string; contracts: string; contracted_amount: string; paid_amount: string; sha256: string }>(`SELECT coalesce(x.canonical_name,c.managing_secretariat) AS secretariat, count(*) AS contracts, sum(c.contracted_amount) AS contracted_amount, sum(c.paid_amount) AS paid_amount, min(a.sha256) AS sha256 FROM contract_records c JOIN artifacts a ON a.artifact_id=c.artifact_id LEFT JOIN contract_secretariat_aliases x ON x.alias=c.managing_secretariat AND x.decision='accepted' GROUP BY 1 ORDER BY sum(c.contracted_amount) DESC;`);
+        const secretariats = result.rows.map((row) => ({ secretariat: row.secretariat, contracts: Number(row.contracts), contractedAmount: Number(row.contracted_amount), paidAmount: Number(row.paid_amount), artifactSha256: row.sha256 }));
+        return createCommonResponse({ status: 'ok', data: { secretariats }, evidence: result.rows.map((row) => ({ sourceId: 'SRC-PREF-LAI-CONTRACTS-001', datasetId: 'DS-LAI-CONTRACTS', artifactSha256: row.sha256 })), coverage: { scope: 'contratos detalhados agregados por secretaria normalizada', status: 'pilot' }, limitations: ['Totais refletem somente os arquivos exportados.', 'Não expõe CPF, gestor, fiscal ou documento bruto.'], confidence: 'high', metadata: { municipality: 'Itapevi' } });
       } finally { await pool.end(); }
     },
     async getPreviewCatalog() {

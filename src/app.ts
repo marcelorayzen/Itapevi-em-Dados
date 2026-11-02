@@ -49,6 +49,10 @@ export function createApp(provider: DemoDataProvider = createPostgresDemoDataPro
     try { return res.json(await provider.getProcurementSummary()); }
     catch (error: unknown) { return res.status(503).json(demoError('compras por modalidade', error)); }
   });
+  app.get('/api/demo/contracts', async (_req, res) => {
+    try { return res.json(await provider.getContractSummary()); }
+    catch (error: unknown) { return res.status(503).json(demoError('contratos por secretaria', error)); }
+  });
   app.get('/api/demo/query', async (req, res) => {
     try { return res.json(await answerQuestion(String(req.query.q ?? ''), provider)); }
     catch (error: unknown) { return res.status(503).json(demoError('consulta guiada', error)); }

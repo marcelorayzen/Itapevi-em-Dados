@@ -19,6 +19,7 @@ const provider: DemoDataProvider = {
     evidence: [{ sourceId: 'SRC-PREF-LAI-001', datasetId: 'DS-LAI-COMPRAS-MODALIDADE-2026', artifactSha256: 'CHECKSUM-TESTE' }],
     coverage: { scope: 'teste de compras agregadas', status: 'pilot' }, limitations: ['Sem processos individuais.'], confidence: 'needs_review', metadata: { municipality: 'Itapevi' },
   }),
+  getContractSummary: async () => createCommonResponse({ status: 'ok', data: { secretariats: [] }, evidence: [], coverage: { scope: 'teste', status: 'pilot' }, limitations: [], confidence: 'high', metadata: { municipality: 'Itapevi' } }),
 };
 
 describe('perguntas guiadas de compras', () => {
