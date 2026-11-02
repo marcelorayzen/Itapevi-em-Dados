@@ -23,9 +23,12 @@ function renderTopic(key) {
 
 function renderAnswer(payload) {
   const evidence = payload.evidence?.[0];
-  const evidenceHtml = evidence ? '<p class="answer-evidence"><strong>Fonte:</strong> <a href="' + escapeHtml(evidence.url) + '" target="_blank" rel="noreferrer">' + escapeHtml(evidence.source) + '</a> · Indicador ' + escapeHtml(evidence.indicator) + '</p>' : '';
+  const source = evidence?.source || evidence?.sourceId || 'Fonte identificada';
+  const sourceHtml = evidence?.url ? '<a href="' + escapeHtml(evidence.url) + '" target="_blank" rel="noreferrer">' + escapeHtml(source) + '</a>' : escapeHtml(source);
+  const evidenceHtml = evidence ? '<p class="answer-evidence"><strong>Evidência:</strong> ' + sourceHtml + (evidence.datasetId ? ' · Dataset ' + escapeHtml(evidence.datasetId) : '') + (evidence.artifactSha256 ? ' · Checksum ' + escapeHtml(evidence.artifactSha256) : '') + '</p>' : '';
+  const coverageHtml = payload.coverage?.scope ? '<p class="answer-limit"><strong>Cobertura:</strong> ' + escapeHtml(payload.coverage.scope) + '</p>' : '';
   const limitHtml = payload.limitations?.length ? '<p class="answer-limit"><strong>Limites:</strong> ' + escapeHtml(payload.limitations[0]) + '</p>' : '';
-  document.getElementById('answer-box').innerHTML = '<span class="answer-icon">✓</span><p><strong>' + escapeHtml(payload.answer || payload.message) + '</strong></p>' + evidenceHtml + limitHtml;
+  document.getElementById('answer-box').innerHTML = '<span class="answer-icon">✓</span><p><strong>' + escapeHtml(payload.answer || payload.message) + '</strong></p>' + evidenceHtml + coverageHtml + limitHtml;
 }
 
 async function ask(question) {
