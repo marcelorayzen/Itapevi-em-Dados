@@ -3,6 +3,7 @@ const PUBLIC_CONFIG_URL = 'https://api-dados.rayzen.com.br/v1/public-config';
 let turnstileConfig = { turnstileEnabled: false, turnstileSiteKey: null };
 let turnstileToken = '';
 let turnstileWidgetId = null;
+let latestAnswer = null;
 
 const topics = {
   orcamento: { name: 'Execução orçamentária', value: '67,4', suffix: '%', caption: 'do valor previsto no recorte selecionado', note: 'Este resultado é ilustrativo até que a fonte municipal correspondente seja liberada para publicação.', rows: [['Previsto', '100%', 'R$ 8,4 mi', ''], ['Realizado', '67.4%', 'R$ 5,7 mi', 'green']] },
@@ -23,13 +24,23 @@ function renderTopic(key) {
 }
 
 function renderAnswer(payload) {
+  latestAnswer = payload;
   const evidence = payload.evidence?.[0];
   const source = evidence?.source || evidence?.sourceId || 'Fonte identificada';
   const sourceHtml = evidence?.url ? '<a href="' + escapeHtml(evidence.url) + '" target="_blank" rel="noreferrer">' + escapeHtml(source) + '</a>' : escapeHtml(source);
   const evidenceHtml = evidence ? '<p class="answer-evidence"><strong>Evidência:</strong> ' + sourceHtml + (evidence.datasetId ? ' · Dataset ' + escapeHtml(evidence.datasetId) : '') + (evidence.artifactSha256 ? ' · Checksum ' + checksumMarkup(evidence.artifactSha256) : '') + '</p>' : '';
   const coverageHtml = payload.coverage?.scope ? '<p class="answer-limit"><strong>Cobertura:</strong> ' + escapeHtml(payload.coverage.scope) + '</p>' : '';
   const limitHtml = payload.limitations?.length ? '<p class="answer-limit"><strong>Limites:</strong> ' + escapeHtml(payload.limitations[0]) + '</p>' : '';
-  document.getElementById('answer-box').innerHTML = '<span class="answer-icon">✓</span><p><strong>' + escapeHtml(payload.answer || payload.message) + '</strong></p>' + evidenceHtml + coverageHtml + limitHtml;
+  document.getElementById('answer-box').innerHTML = '<span class="answer-icon">✓</span><p><strong>' + escapeHtml(payload.answer || payload.message) + '</strong></p>' + evidenceHtml + coverageHtml + limitHtml + (evidence ? '<button class="evidence-trigger" type="button" data-response-evidence>Ver evidência completa</button>' : '');
+}
+
+function openResponseEvidence() {
+  if (!latestAnswer) return;
+  const evidence = latestAnswer.evidence?.[0] || {};
+  const dialog = document.getElementById('evidence-modal');
+  dialog.querySelector('#modal-title').textContent = 'Evidência desta resposta';
+  dialog.querySelector('.evidence-list').innerHTML = [['Fonte', evidence.source || evidence.sourceId || 'Não informada'], ['Dataset', evidence.datasetId || 'Não informado'], ['Checksum', Array.isArray(evidence.artifactSha256) ? evidence.artifactSha256.join('\n') : (evidence.artifactSha256 || 'Não informado')], ['Cobertura e limites', `${latestAnswer.coverage?.scope || 'Não informada'}\n${latestAnswer.limitations?.[0] || 'Sem limite adicional informado.'}`]].map(([label, value]) => `<li><span>•</span><div><b>${escapeHtml(label)}</b><p style="white-space:pre-wrap;overflow-wrap:anywhere">${escapeHtml(value)}</p></div></li>`).join('');
+  dialog.showModal();
 }
 
 async function ask(question) {
@@ -76,6 +87,7 @@ document.querySelectorAll('.topic-card').forEach((button) => {
   });
 });
 document.querySelectorAll('[data-question]').forEach((button) => button.addEventListener('click', () => ask(button.dataset.question)));
+document.addEventListener('click', (event) => { if (event.target.closest('[data-response-evidence]')) openResponseEvidence(); });
 document.getElementById('question-form').addEventListener('submit', (event) => {
   event.preventDefault();
   const question = document.getElementById('question-input').value.trim();
