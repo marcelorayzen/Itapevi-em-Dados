@@ -10,14 +10,35 @@ permissions:
   contents: read
 
 jobs:
-  validate:
+  core:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install core dependencies
+        run: pnpm install --no-frozen-lockfile
+      - name: Build core
+        run: pnpm run build
+      - name: Test core
+        run: pnpm test
+
+  public-worker:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: cloudflare-worker
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
           cache: npm
-      - run: npm ci
-      - run: npm run build
-      - run: npm test
+          cache-dependency-path: cloudflare-worker/package-lock.json
+      - name: Install Worker dependencies
+        run: npm ci
+      - name: Test public Worker
+        run: npm test
