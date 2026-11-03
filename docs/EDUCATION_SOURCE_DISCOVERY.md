@@ -1,6 +1,6 @@
 # Descoberta de fontes — Educação e Escolas do Futuro
 
-**Estado:** descoberta documentada; ainda não publicada como dataset nem usada em respostas públicas.
+**Estado:** pipeline e modelo prontos; a coleta está pendente porque a página e a API pública municipal retornaram HTTP 500 em 02/11/2026. O catálogo ainda não foi publicado como dataset nem usado em respostas públicas.
 
 ## Fontes oficiais identificadas
 
@@ -14,7 +14,7 @@
 
 ## Próximo pipeline
 
-1. Coletar cópia rastreável de cada fonte e registrar checksum, data e condições de uso.
+1. Coletar cópia rastreável de cada fonte quando a página oficial estiver disponível e registrar checksum, data e condições de uso.
 2. Extrair o catálogo de unidades como entidades geográficas/institucionais, sem inferir capacidade ou desempenho.
 3. Processar atos do Diário Oficial com Docling, mantendo edição, página e trecho que sustenta cada fato.
 4. Relacionar uma obra, contrato ou gasto a uma escola somente quando o identificador ou objeto oficial permitir a vinculação reproduzível.

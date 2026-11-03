@@ -30,6 +30,7 @@
     "db:ingest:ibge": "tsx scripts/ingest-ibge-estimate.ts",
     "db:ingest:tcesp": "tsx scripts/ingest-tcesp-aggregate.ts",
     "db:ingest:daily-official": "tsx scripts/ingest-diario-oficial.ts",
+    "db:ingest:school-catalog": "tsx scripts/ingest-school-catalog.ts",
     "db:inspect:f2": "tsx scripts/inspect-entity-evidence.ts",
     "db:catalog": "tsx scripts/inspect-dataset-catalog.ts",
     "alerts:weekly": "tsx scripts/weekly-alert-report.ts",
