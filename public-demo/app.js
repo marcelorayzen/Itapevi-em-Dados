@@ -94,6 +94,15 @@ document.getElementById('question-form').addEventListener('submit', (event) => {
   if (question) ask(question);
 });
 const dialog = document.getElementById('evidence-modal');
+document.getElementById('explorar').hidden = true;
+document.querySelector('.demo-banner').innerHTML = '<strong>Portal público em validação</strong><span>As respostas exibem somente recortes reais publicados, com fonte, período, cobertura e limites.</span>';
+document.querySelector('.footer-note').textContent = 'Portal público com dados verificáveis · 2026';
+document.title = 'Itapevi em Dados | Consultas verificáveis';
+document.querySelector('.hero-text').textContent = 'Consulte dados públicos reais de Itapevi. Cada resposta apresenta período, fonte, cobertura, evidências e limites para conferência.';
+document.querySelector('.hero-actions .button').textContent = 'Fazer uma consulta';
+document.querySelector('.hero-actions .button').setAttribute('href', '#testar');
+const facts = document.querySelectorAll('.hero-facts div');
+if (facts[2]) { facts[2].querySelector('dt').textContent = 'Dados reais'; facts[2].querySelector('dd').textContent = 'recortes publicados'; }
 document.querySelectorAll('[data-modal-open]').forEach((button) => button.addEventListener('click', () => dialog.showModal()));
 document.querySelectorAll('[data-modal-close]').forEach((button) => button.addEventListener('click', () => dialog.close()));
 dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });

@@ -42,12 +42,39 @@ function procurementQuestion(query) {
   return ['licitacao', 'compra', 'pregao', 'modalidade'].some((term) => query.includes(term));
 }
 
+function budgetQuestion(query) {
+  return ['previsto', 'realizado', 'empenhado', 'orcamento', 'orçamento'].some((term) => query.includes(term));
+}
+
+function healthUnitQuestion(query) {
+  return /(pronto.?socorro|\bps\b|samu|central de resgate)/.test(query);
+}
+
+function explicitMonth(query) {
+  const months = { janeiro: '01', fevereiro: '02', marco: '03', abril: '04', maio: '05', junho: '06', julho: '07', agosto: '08', setembro: '09', outubro: '10', novembro: '11', dezembro: '12' };
+  const match = Object.entries(months).find(([name]) => query.includes(name));
+  const year = query.match(/20\d{2}/)?.[0];
+  return match && year ? `${year}-${match[1]}-01` : null;
+}
+
 export async function publicFactAnswer(question, env) {
   const query = normalized(question);
-  if (!env?.HYPERDRIVE?.connectionString || (!contractQuestion(query) && !procurementQuestion(query))) return null;
+  if (!env?.HYPERDRIVE?.connectionString || (!contractQuestion(query) && !procurementQuestion(query) && !budgetQuestion(query) && !healthUnitQuestion(query))) return null;
   const client = new Client({ connectionString: env.HYPERDRIVE.connectionString });
   await client.connect();
   try {
+    if (healthUnitQuestion(query)) {
+      const month = explicitMonth(query); const unit = /samu|central de resgate/.test(query) ? 'samu' : 'pronto_socorro';
+      if (!month) return { status: 'not_available', question, answer: 'Informe mês e ano para consultar gastos por unidade de saúde. Exemplo: quanto foi pago ao pronto-socorro em janeiro de 2026?', evidence: [], coverage: { scope: 'consulta mensal por unidade com vínculo explícito', status: 'partial' }, limitations: ['Não assumo mês ou período quando ele não foi informado.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'deterministic-clarification' } };
+      const result = await client.query('SELECT record_count, committed_amount, processed_amount, paid_amount, artifact_sha256s FROM public_api.health_unit_monthly_summary WHERE health_unit=$1 AND month=$2', [unit, month]);
+      const row = result.rows[0]; if (!row) return { status: 'not_available', question, answer: 'Não há registro publicado para essa unidade e mês no recorte atualmente carregado.', evidence: [], coverage: { scope: 'empenhos com vínculo explícito à unidade', status: 'partial' }, limitations: ['Ausência no recorte não demonstra ausência de gasto.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
+      return { status: 'ok', question, answer: `No recorte oficial, ${unit === 'samu' ? 'o SAMU' : 'o pronto-socorro'} teve R$ ${Number(row.paid_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} pagos em ${month.slice(5,7)}/${month.slice(0,4)}.`, evidence: [{ source: 'Portal da Transparência de Itapevi', datasetId: 'DS-LAI-EMPENHOS-DETALHADOS', artifactSha256: row.artifact_sha256s }], coverage: { scope: 'empenhos com referência explícita à unidade, no mês consultado', status: 'partial' }, limitations: ['O total não inclui despesas sem vínculo explícito à unidade.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
+    }
+    if (budgetQuestion(query)) {
+      const result = await client.query(`SELECT responsible_body, record_count, planned_amount, realized_amount, artifact_sha256s FROM public_api.budget_execution_summary ORDER BY planned_amount DESC LIMIT 1`);
+      const row = result.rows[0]; if (!row) return null;
+      return { status: 'ok', question, answer: `No recorte oficial carregado, ${row.responsible_body} possui R$ ${Number(row.planned_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} previstos e R$ ${Number(row.realized_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} realizados.`, evidence: [{ source: 'Portal da Transparência de Itapevi', datasetId: 'DS-LAI-PREVISTO-EMPENHADO-2026', artifactSha256: row.artifact_sha256s }], coverage: { scope: '01/09/2026 a 30/09/2026; filtro por data de empenho; órgãos e programas retornados pelo painel', status: 'partial' }, limitations: ['O recorte cobre somente as linhas retornadas pelo painel no período informado; não mede desempenho, legalidade ou responsabilidade.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
+    }
     if (contractQuestion(query)) {
       const result = await client.query(`SELECT managing_secretariat, SUM(contract_count)::integer AS contract_count, SUM(contracted_amount)::numeric AS contracted_amount, SUM(paid_amount)::numeric AS paid_amount, ARRAY_AGG(DISTINCT sha) AS checksums FROM public_api.contract_summary, UNNEST(artifact_sha256s) AS sha GROUP BY managing_secretariat ORDER BY SUM(contracted_amount) DESC LIMIT 1`);
       const row = result.rows[0];

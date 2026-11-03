@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { createHash } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import { readFile, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import unzipper from 'unzipper';
@@ -43,6 +43,15 @@ async function main(): Promise<void> {
       artifactId, processorName: 'lai-budget-normalizer', processorVersion: 'lai-v2',
       configuration: { input: 'zip_json', encoding: 'windows-1252', source_view: 'previsto_empenhado_por_programa_secretaria' },
     };
+    for (const record of normalized.records) {
+      const recordKey = createHash('sha256').update(JSON.stringify(record)).digest('hex');
+      await pool.query(
+        `INSERT INTO budget_execution_records (budget_execution_id, artifact_id, record_key, program, action, responsible_body, planned_amount, realized_amount)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
+         ON CONFLICT (record_key) DO UPDATE SET artifact_id = EXCLUDED.artifact_id`,
+        [randomUUID(), artifactId, recordKey, record.program, record.action, record.responsibleBody, record.plannedAmount, record.realizedAmount],
+      );
+    }
     const previous = await repository.findSucceededProcessingRun(run);
     if (previous) {
       console.log(JSON.stringify({ artifactId, runId: previous, eventId: await repository.findEventIdByRunId(previous), reused: true }, null, 2));
@@ -53,6 +62,15 @@ async function main(): Promise<void> {
     if (!started.created) {
       console.log(JSON.stringify({ artifactId, runId, eventId: await repository.findEventIdByRunId(runId), reused: true }, null, 2));
       return;
+    }
+    for (const record of normalized.records) {
+      const recordKey = createHash('sha256').update(JSON.stringify(record)).digest('hex');
+      await pool.query(
+        `INSERT INTO budget_execution_records (budget_execution_id, artifact_id, record_key, program, action, responsible_body, planned_amount, realized_amount)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
+         ON CONFLICT (record_key) DO UPDATE SET artifact_id = EXCLUDED.artifact_id`,
+        [randomUUID(), artifactId, recordKey, record.program, record.action, record.responsibleBody, record.plannedAmount, record.realizedAmount],
+      );
     }
     const evidenceId = await repository.recordEvidence({ artifactId, locator: { export_format: 'zip/json', filters: normalized.filters, record_count: normalized.records.length, encoding: 'windows-1252' } });
     const eventId = await repository.recordEvent({

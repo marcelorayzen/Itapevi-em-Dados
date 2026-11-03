@@ -61,6 +61,15 @@ _Esta trilha não substitui as fases F1–F5. Ela organiza a passagem do protót
 
 ## Registro de bloqueios
 
+## Expansão de consultas reais
+
+| ID | Prioridade | Item | Dependência | Estado |
+|---|---|---|---|---|
+| R1-01 | P1 | Ingerir execução detalhada de saúde por mês, órgão, programa, ação e unidade | fonte oficial detalhada | [ ] |
+| R1-02 | P1 | Modelar unidades de saúde e sinônimos governados, incluindo pronto-socorro, PS e urgência | R1-01 | [ ] |
+| R1-03 | P1 | Publicar consulta citável de gasto por unidade de saúde e período | R1-01, R1-02 | [ ] |
+| R1-04 | P1 | Recusar com explicação perguntas cujo período ou unidade não esteja coberto | R1-03 | [ ] |
+
 | Data | Item | Bloqueio | Próxima ação | Responsável |
 |---|---|---|---|---|
 | — | — | — | — | — |

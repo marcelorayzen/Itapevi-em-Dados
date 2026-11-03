@@ -16,16 +16,16 @@ O objetivo e apoiar cidadania, controle social e gestao publica com uma experien
 
 O produto nao declara fraude, irregularidade, favorecimento ou culpa. Indicadores de atencao sao descritivos, reproduziveis e vinculados a fontes e criterios; consulte [ADR-011](docs/architecture/adr/ADR-011-non-accusatory-public-insights.md).
 
-## Estado verificado em 29 de outubro de 2026
+## Estado verificado em 03 de novembro de 2026
 
 | Componente | Estado | Limite importante |
 |---|---|---|
-| Catalogo, proveniencia, evidencias e eventos | Implementado no PostgreSQL local | Nao e ambiente de producao |
+| Catalogo, proveniencia, evidencias e eventos | Implementado no PostgreSQL de produção | Artefatos brutos permanecem locais |
 | Ingestoes locais controladas (IBGE, LAI, compras LAI, LOA e piloto TCESP) | Implementadas e testadas | Termos de redistribuicao ainda estao em revisao humana |
 | Consulta guiada, insights de execucao e alertas semanais | Implementados localmente | Alertas nao sao enviados automaticamente |
 | Console `/demo` | Implementado | E uma ferramenta tecnica, nao o portal do usuario |
 | Previa privada de API | Preparada, desligada por padrao | Sem deploy externo e sem datasets liberados |
-| Portal de apresentacao ao publico/instituicoes | Planejado | Depende da decisao de dados demonstrativos e hospedagem |
+| Portal e API pública | Publicados com Cloudflare Worker, Hyperdrive e PostgreSQL | Somente recortes aprovados e agregados |
 
 O [Status do prototipo](docs/PROTOTYPE_STATUS.md) e a [documentacao V2](docs/README.md) detalham o que esta implementado, testado, planejado ou bloqueado.
 
@@ -69,7 +69,7 @@ GitHub Pages e adequado para uma demonstracao estatica e segura, mas nao para ex
 
 A demonstracao estatica fica em `public-demo/` e o workflow de Pages esta pronto. A ativacao do Pages no repositorio continua sendo uma configuracao administrativa do GitHub. A preparacao do subdominio privado esta detalhada em [Previa privada em subdominio](docs/PRIVATE_PREVIEW_DEPLOYMENT.md).
 
-A demonstracao publica esta disponivel em [itapevi-em-dados.rayzen.com.br](https://itapevi-em-dados.rayzen.com.br/). A pergunta sobre populacao consulta a fonte oficial do IBGE em tempo real; os demais indicadores visuais permanecem ilustrativos ate suas fontes serem liberadas. Veja o [registro de publicacao](docs/PUBLIC_DEMO_DEPLOYMENT.md).
+O portal público está em [itapevi-em-dados.rayzen.com.br](https://itapevi-em-dados.rayzen.com.br/). Ele consulta recortes reais aprovados de população, contratos, licitações, execução orçamentária e empenhos com vínculo explícito a pronto-socorro ou SAMU. Cada resposta informa cobertura, período, fonte, checksum e limites.
 
 A protecao contra automacao da consulta publica esta ativa com Cloudflare Turnstile. A pergunta exige uma verificacao do navegador antes de chegar ao Worker; isso nao substitui os limites de requisicao e a telemetria minima ainda pendentes no backlog. Veja [configuração do Turnstile](docs/TURNSTILE_SETUP.md).
 

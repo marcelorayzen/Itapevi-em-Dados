@@ -2,7 +2,7 @@
 
 ## O que esta disponivel hoje
 
-O projeto ainda **nao possui portal web publico, login, API publica ou painel de consultas**. Nesta etapa ele oferece tres formas locais de verificacao:
+O projeto possui portal e API públicos para recortes aprovados, além de ferramentas locais de desenvolvimento. O portal público é `https://itapevi-em-dados.rayzen.com.br` e não exige login.
 
 1. uma pagina de diagnostico no navegador;
 2. comandos de banco para conferir a cadeia de dados F1/F2;
