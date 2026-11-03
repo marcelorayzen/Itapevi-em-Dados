@@ -1,118 +1,57 @@
 # Itapevi em Dados
 
-Plataforma em desenvolvimento para transformar dados publicos municipais em consultas compreensiveis, verificaveis e rastreaveis. O projeto nao substitui os portais oficiais: cada resposta precisa conservar a fonte, o periodo, a cobertura e as evidencias que permitem sua verificacao.
+Observatório público de dados municipais que transforma fontes oficiais dispersas em consultas verificáveis. Cada resposta informa recorte, período, fonte, evidência e limitações.
 
-O codigo esta sob [Apache-2.0](LICENSE). Isso nao concede licenca sobre dados, documentos, PDFs, APIs ou dados derivados de terceiros. Cada fonte possui termos e condicoes proprios, registrados antes de qualquer redistribuicao.
+**Portal público:** [itapevi-em-dados.rayzen.com.br](https://itapevi-em-dados.rayzen.com.br/)
 
-## Para que serve
+## Capacidades publicadas
 
-O objetivo e apoiar cidadania, controle social e gestao publica com uma experiencia que permita:
+| Domínio | Cobertura atual |
+|---|---|
+| População | Estimativa oficial IBGE de Itapevi. |
+| Contratos | Agregados municipais de 2024 a 2026 por secretaria. |
+| Licitações | Agregados municipais de 2024 a 2026. |
+| Execução orçamentária | Previsto e realizado por órgão/programa no recorte oficial carregado. |
+| Urgência e emergência | Empenhos com referência explícita a pronto-socorro ou SAMU, por mês. |
 
-- explorar execucao orcamentaria e compras por recortes declarados;
-- entender o que cada indicador cobre e o que ele nao permite concluir;
-- navegar da resposta ate fonte, artefato, periodo e criterio utilizados;
-- apresentar informacoes de forma descritiva e nao acusatoria;
-- evoluir de Itapevi para outras cidades sem duplicar o nucleo de governanca.
+Perguntas fora da cobertura recebem explicação clara sobre a lacuna. O portal não supõe entidade, período, métrica ou vínculo não comprovado.
 
-O produto nao declara fraude, irregularidade, favorecimento ou culpa. Indicadores de atencao sao descritivos, reproduziveis e vinculados a fontes e criterios; consulte [ADR-011](docs/architecture/adr/ADR-011-non-accusatory-public-insights.md).
+## Arquitetura
 
-## Estado verificado em 03 de novembro de 2026
+```text
+Fontes oficiais → coleta controlada → normalização e reconciliação
+→ PostgreSQL: fatos, proveniência e evidências
+→ visões públicas agregadas e restritas
+→ Cloudflare Worker / Hyperdrive → portal com evidências
+```
 
-| Componente | Estado | Limite importante |
-|---|---|---|
-| Catalogo, proveniencia, evidencias e eventos | Implementado no PostgreSQL de produção | Artefatos brutos permanecem locais |
-| Ingestoes locais controladas (IBGE, LAI, compras LAI, LOA e piloto TCESP) | Implementadas e testadas | Termos de redistribuicao ainda estao em revisao humana |
-| Consulta guiada, insights de execucao e alertas semanais | Implementados localmente | Alertas nao sao enviados automaticamente |
-| Console `/demo` | Implementado | E uma ferramenta tecnica, nao o portal do usuario |
-| Previa privada de API | Preparada, desligada por padrao | Sem deploy externo e sem datasets liberados |
-| Portal e API pública | Publicados com Cloudflare Worker, Hyperdrive e PostgreSQL | Somente recortes aprovados e agregados |
+PostgreSQL é a fonte de verdade. Documentos brutos não são expostos pela API pública. A API usa credencial de leitura limitada a visões agregadas.
 
-O [Status do prototipo](docs/PROTOTYPE_STATUS.md) e a [documentacao V2](docs/README.md) detalham o que esta implementado, testado, planejado ou bloqueado.
+## Documentação
 
-## Como testar hoje
+- [Visão de produto](docs/vision.md)
+- [Arquitetura](docs/architecture/architecture.md)
+- [Capacidades e cobertura](docs/CAPABILITIES.md)
+- [Operação e segurança](docs/OPERATIONS.md)
+- [Modelo de dados](docs/data/ontology.md)
+- [Decisões arquiteturais](docs/architecture/adr/)
+- [Plano e backlog](docs/DEVELOPMENT_PLAN.md)
+- [Índice completo](docs/README.md)
 
-### 1. Ambiente local controlado
+## Desenvolvimento
 
-Requisitos: Node.js 18+, npm e Docker Desktop.
+Requer Node.js 18+, npm e Docker Desktop.
 
 ```powershell
 npm install
 Copy-Item .env.example .env
 docker compose up -d
 npm run db:migrate
-npm run db:bootstrap:f1
-npm run demo:start
-```
-
-Abra `http://localhost:3000/demo`. Essa tela confirma catalogo, evidencias e consultas guiadas em ambiente local. Ela nao deve ser usada como portal publico.
-
-Para validar o codigo:
-
-```powershell
-npm run build
 npm test
-git diff --check
 ```
 
-O [Manual de uso local](docs/USER_MANUAL.md) traz comandos, resultados esperados, perguntas guiadas, limites e procedimentos de diagnostico.
+Consulte o [manual técnico](docs/USER_MANUAL.md). Credenciais, artefatos brutos e dados locais não devem ser versionados.
 
-### 2. Demonstracao institucional
+## Licença e dados
 
-O projeto tera duas modalidades separadas:
-
-| Modalidade | Finalidade | Dados permitidos |
-|---|---|---|
-| Demo publica estatica (por exemplo, GitHub Pages) | Apresentar a proposta, fluxo de consulta e metodo | Conteudo sintetico ou explicitamente liberado |
-| Previa privada em subdominio | Validacao por convidados de uma versao proxima ao produto | Apenas agregados/datasets aprovados, com autenticacao e logs |
-
-GitHub Pages e adequado para uma demonstracao estatica e segura, mas nao para expor o PostgreSQL local, credenciais, documentos brutos ou dados ainda `pending_review`. Um subdominio de testes faz sentido depois de definir provedor, responsavel operacional, publico, dominio, dados liberados e ApprovalGate humano. A [especificacao do portal](docs/PRODUCT_PORTAL_EXPERIENCE.md) descreve a decisao e o roteiro de testes.
-
-A demonstracao estatica fica em `public-demo/` e o workflow de Pages esta pronto. A ativacao do Pages no repositorio continua sendo uma configuracao administrativa do GitHub. A preparacao do subdominio privado esta detalhada em [Previa privada em subdominio](docs/PRIVATE_PREVIEW_DEPLOYMENT.md).
-
-O portal público está em [itapevi-em-dados.rayzen.com.br](https://itapevi-em-dados.rayzen.com.br/). Ele consulta recortes reais aprovados de população, contratos, licitações, execução orçamentária e empenhos com vínculo explícito a pronto-socorro ou SAMU. Cada resposta informa cobertura, período, fonte, checksum e limites.
-
-A protecao contra automacao da consulta publica esta ativa com Cloudflare Turnstile. A pergunta exige uma verificacao do navegador antes de chegar ao Worker; isso nao substitui os limites de requisicao e a telemetria minima ainda pendentes no backlog. Veja [configuração do Turnstile](docs/TURNSTILE_SETUP.md).
-
-## Dados, confianca e licencas
-
-Cada fonte deve registrar origem, data de coleta, artefato, checksum, termos, condicao de uso e nivel de confianca. "Dado publico" nao significa automaticamente que pode ser redistribuido por este projeto.
-
-- [Registro de fontes e datasets](docs/DATA_SOURCES_REGISTER.md)
-- [Revisao de termos e licencas](docs/P0_DATA_LICENSE_REVIEW.md)
-- [Governanca de dados](docs/DATA_GOVERNANCE.md)
-- [Checklist de seguranca e release](docs/SECURITY_AND_RELEASE_CHECKLIST.md)
-
-O BBSIA pode apoiar a revisao institucional e de governanca, desde que a conclusao seja registrada por escrito. Pesquisa em fontes oficiais na internet ajuda a localizar termos e atribuir fontes, mas nao substitui confirmacao do detentor da fonte, responsavel institucional ou parecer juridico quando os termos forem ambiguos.
-
-## Documentacao principal
-
-- [Visao do produto](docs/vision.md) e [principios](docs/principles.md)
-- [Plano de desenvolvimento](docs/DEVELOPMENT_PLAN.md) e [backlog](docs/BACKLOG.md)
-- [Experiencia do portal e demonstracao](docs/PRODUCT_PORTAL_EXPERIENCE.md)
-- [Manual de uso local](docs/USER_MANUAL.md)
-- [Integracao e avaliacao BBSIA](docs/BBSIA_INTEGRATION.md)
-- [Pedido de avaliacao institucional ao BBSIA](docs/BBSIA_REVIEW_REQUEST.md)
-- [Previa privada em subdominio](docs/PRIVATE_PREVIEW_DEPLOYMENT.md)
-- [Publicacao da demonstracao estatica](docs/PUBLIC_DEMO_DEPLOYMENT.md)
-- [Arquitetura, ADRs e especificacoes](docs/README.md)
-
-## Estrutura resumida
-
-```text
-Fontes oficiais -> coleta controlada -> artefatos/evidencias
-                     -> normalizacao -> PostgreSQL (fonte de verdade)
-                     -> consultas e insights explicaveis
-                     -> portal, API e MCP
-```
-
-O grafo de conhecimento e uma projecao futura, somente se a consulta relacional convencional deixar de ser suficiente. Ele nunca substitui os fatos, artefatos ou evidencias de origem.
-
-## Contribuir
-
-Antes de abrir uma contribuicao, leia o [plano](docs/DEVELOPMENT_PLAN.md), os [ADRs](docs/architecture/adr/) e as regras de dados. Alteracoes em conectores precisam preservar proveniencia, termos, testes e limites de cobertura. Nao inclua artefatos brutos, credenciais ou dados sem condicao de redistribuicao confirmada no Git.
-
-## Contato
-
-- Autor: Marcelo Augusto
-- Projeto: Rayzen Gov
-- GitHub: <https://github.com/marcelorayzen>
+O código está sob [Apache-2.0](LICENSE). A licença do código não concede direitos sobre dados, documentos, APIs ou artefatos de terceiros. Cada fonte possui registro de origem, condição de uso e evidência associada.
