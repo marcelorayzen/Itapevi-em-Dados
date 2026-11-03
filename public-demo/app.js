@@ -100,18 +100,6 @@ document.getElementById('question-form').addEventListener('submit', (event) => {
   if (question) ask(question);
 });
 const dialog = document.getElementById('evidence-modal');
-document.getElementById('explorar').hidden = true;
-document.querySelector('.demo-banner').innerHTML = '<strong>Itapevi em Dados</strong><span>Consultas públicas com fonte, período, cobertura e evidências.</span>';
-document.querySelector('.footer-note').textContent = 'Informação pública verificável · 2026';
-document.title = 'Itapevi em Dados | Consultas verificáveis';
-document.querySelector('.hero-text').textContent = 'Consulte dados públicos reais de Itapevi. Cada resposta apresenta período, fonte, cobertura, evidências e limites para conferência.';
-document.querySelector('.hero-actions .button').textContent = 'Fazer uma consulta';
-document.querySelector('.hero-actions .button').setAttribute('href', '#testar');
-const facts = document.querySelectorAll('.hero-facts div');
-if (facts[2]) { facts[2].querySelector('dt').textContent = 'Dados reais'; facts[2].querySelector('dd').textContent = 'recortes publicados'; }
-document.querySelectorAll('nav a[href="#explorar"], .hero-actions .text-link').forEach((item) => item.remove());
-document.querySelector('.next-section').innerHTML = '<p class="eyebrow">INFORMAÇÃO VERIFICÁVEL</p><h2>Consulte. Confira. Acompanhe.</h2><p>As respostas mostram o recorte consultado, a fonte utilizada, o período, a cobertura e os limites conhecidos.</p><div class="next-links"><a href="#testar">Fazer uma consulta <span>→</span></a><a href="#evidencias">Entender as evidências <span>→</span></a></div>';
-document.querySelector('footer > p:not(.footer-note)').textContent = 'Observatório público de dados municipais.';
 document.querySelectorAll('[data-modal-open]').forEach((button) => button.addEventListener('click', () => dialog.showModal()));
 document.querySelectorAll('[data-modal-close]').forEach((button) => button.addEventListener('click', () => dialog.close()));
 dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
