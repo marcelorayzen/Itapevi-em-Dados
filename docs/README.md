@@ -32,6 +32,7 @@ As ADRs são propostas até serem validadas por custo operacional e provas de co
 - [Validação da resolução de entidades da F2](F2_ENTITY_RESOLUTION_VALIDATION.md)
 - [Avaliação relacional da F2](F2_RELATIONAL_PROJECTION_EVALUATION.md)
 - [Validação da consulta citável da F2](F2_CITABLE_QUERY_VALIDATION.md)
+- [Validação atual da consulta pública](R0_PUBLIC_QUERY_VALIDATION_2026-11-03.md)
 - [Contrato comum de resposta da F3](F3_RESPONSE_CONTRACT.md)
 - [Validação do catálogo de datasets da F3](F3_DATASET_CATALOG_VALIDATION.md)
 - [Validação da demonstração web local da F3](F3_WEB_DEMO_VALIDATION.md)
