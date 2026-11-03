@@ -1,3 +1,5 @@
+import { Client } from 'pg';
+
 const MUNICIPALITY_CODE = '3522505';
 const POPULATION_INDICATOR = '29171';
 const IBGE_POPULATION_URL = `https://servicodados.ibge.gov.br/api/v1/pesquisas/indicadores/${POPULATION_INDICATOR}/resultados/${MUNICIPALITY_CODE}`;
@@ -229,7 +231,7 @@ export default {
 
     const url = new URL(request.url);
     if (url.pathname === '/health') {
-      return response({ status: 'ok', service: 'itapevi-em-dados-public-api', catalog: ['ibge_population', 'municipal_contract_summary', 'municipal_procurement_summary'] }, 200, origin);
+      return response({ status: 'ok', service: 'itapevi-em-dados-public-api', catalog: ['ibge_population', 'municipal_contract_summary', 'municipal_procurement_summary', 'municipal_budget_execution_summary', 'municipal_health_unit_monthly_summary'] }, 200, origin);
     }
     if (url.pathname === '/v1/public-config' && request.method === 'GET') {
       return response(publicConfig(env), 200, origin);
@@ -277,6 +279,4 @@ export default {
     }
   },
 };
-
-import { Client } from 'pg';
 
