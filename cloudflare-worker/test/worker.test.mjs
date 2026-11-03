@@ -36,13 +36,15 @@ test('responde consulta institucional somente com fato agregado e evidencia', as
 });
 
 test('recusa pergunta acusatoria mesmo com catalogo municipal publicado', async () => {
-  const response = await answerQuestion('Qual empresa fraudou uma licitação?', undefined, undefined, null, async () => null);
+  let factReaderCalled = false;
+  const response = await answerQuestion('Qual empresa fraudou uma licitação?', undefined, undefined, null, async () => { factReaderCalled = true; return null; });
   assert.equal(response.status, 'not_available');
+  assert.equal(factReaderCalled, false);
   assert.match(response.answer, /consulta pública reproduzível/i);
 });
 
 test('classifica pergunta livre de populacao apenas pela allowlist de IA', async () => {
-  const ai = { run: async () => ({ response: '{"intent":"population"}' }) };
+  const ai = { run: async () => ({ response: '{"intent":"population","entity":"municipality","confidence":"high"}' }) };
   const response = await answerQuestion('Quantas pessoas moram em Itapevi?', async () => new Response(JSON.stringify(ibgePayload)), '2026-10-31T00:00:00.000Z', ai);
   assert.equal(response.status, 'ok');
   assert.equal(response.metadata.mode, 'ai-classified-allowlist');
@@ -101,6 +103,29 @@ test('classificador natural so devolve estrutura validada', async () => {
   };
   const result = await classifyNaturalLanguageIntent('Quanto foi realizado pela Saude em 2026?', ai);
   assert.deepEqual(result, { intent: 'budget_by_body', entity: 'budget_body', body: 'saude', period: { year: 2026 }, confidence: 'high' });
+});
+
+test('roteia pergunta nao deterministica apenas pela intencao validada', async () => {
+  let routedIntent = null;
+  const ai = {
+    run: async () => ({ response: JSON.stringify({ intent: 'budget_by_body', entity: 'budget_body', confidence: 'high' }) }),
+  };
+  const response = await answerQuestion('Quais orgaos recebem orcamento?', undefined, undefined, ai, async (_question, intent) => {
+    routedIntent = intent;
+    return { status: 'not_available', answer: 'Esclarecimento controlado.', evidence: [] };
+  });
+  assert.equal(response.answer, 'Esclarecimento controlado.');
+  assert.deepEqual(routedIntent, { intent: 'budget_by_body', entity: 'budget_body', confidence: 'high' });
+});
+
+test('nao consulta fatos quando a interpretacao natural e invalida', async () => {
+  let factReaderCalled = false;
+  const ai = {
+    run: async () => ({ response: JSON.stringify({ intent: 'budget_by_body', entity: 'budget_body', confidence: 'medium' }) }),
+  };
+  const response = await answerQuestion('Quais orgaos recebem orcamento?', undefined, undefined, ai, async () => { factReaderCalled = true; return {}; });
+  assert.equal(response.status, 'not_available');
+  assert.equal(factReaderCalled, false);
 });
 
 test('aceita apenas token Turnstile validado para o hostname publico', async () => {

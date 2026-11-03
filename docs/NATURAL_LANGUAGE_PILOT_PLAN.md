@@ -63,10 +63,10 @@ O classificador não poderá devolver `empresa vencedora`, `fraude`, `regularida
 
 ### N2 — Roteador semântico
 
-- [ ] Adicionar chamada ao Workers AI apenas para perguntas que não correspondam às regras determinísticas atuais.
-- [ ] Converter o JSON validado em chamada de função interna, não em SQL construído pelo modelo.
-- [ ] Reaproveitar as mesmas funções de evidência, limites e linguagem não acusatória.
-- [ ] Exibir indisponibilidade explicável quando faltar período, órgão ou unidade necessários.
+- [x] Adicionar chamada ao Workers AI apenas para perguntas que não correspondam às regras determinísticas atuais.
+- [x] Converter o JSON validado em chamada de função interna, não em SQL construído pelo modelo.
+- [x] Reaproveitar as mesmas funções de evidência, limites e linguagem não acusatória.
+- [x] Exibir indisponibilidade explicável quando faltar período, órgão ou unidade necessários.
 
 **Aceite:** perguntas como “quais órgãos recebem orçamento?” resultam em uma intenção clara ou em pedido objetivo de esclarecimento; nunca retornam outro órgão por padrão.
 
