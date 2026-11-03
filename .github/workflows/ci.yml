@@ -17,14 +17,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Enable pnpm
-        run: corepack enable
       - name: Install core dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: npm install --ignore-scripts
       - name: Build core
-        run: pnpm run build
+        run: npm run build
       - name: Test core
-        run: pnpm test
+        run: npm test
 
   public-worker:
     runs-on: ubuntu-latest
