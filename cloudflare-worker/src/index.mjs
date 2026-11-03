@@ -187,10 +187,10 @@ export async function answerQuestion(question, fetchImpl = fetch, collectedAt = 
     return {
       status: 'not_available',
       question,
-      answer: 'Ainda nao ha um dado publico governado para responder a esta pergunta. O portal nao infere nem inventa informacoes: publiquei inicialmente a estimativa populacional do IBGE e vou ampliar o catalogo com execucao orcamentaria e compras apos revisao das fontes.',
+      answer: 'Esta pergunta ainda não possui uma consulta pública reproduzível no catálogo atual. O portal não infere nem inventa informações.',
       evidence: [],
-      coverage: { scope: 'catalogo publico inicial: estimativa populacional de Itapevi', status: 'partial' },
-      limitations: ['Perguntas sobre orcamento, compras, contratos, empresas ou pessoas ainda nao possuem dataset publico aprovado nesta API.', 'Uma ausencia de resposta nao e uma conclusao sobre os fatos solicitados.'],
+      coverage: { scope: 'população, contratos, licitações, execução orçamentária e recortes mensais de unidades de saúde', status: 'partial' },
+      limitations: ['A pergunta precisa corresponder a um recorte publicado, com fonte, período e critério verificáveis.', 'Uma ausencia de resposta nao e uma conclusao sobre os fatos solicitados.'],
       confidence: 'high',
       metadata: { municipality: 'Itapevi', mode: 'deterministic-question-routing' },
     };
@@ -231,7 +231,7 @@ export default {
 
     const url = new URL(request.url);
     if (url.pathname === '/health') {
-      return response({ status: 'ok', service: 'itapevi-em-dados-public-api', catalog: ['ibge_population', 'municipal_contract_summary', 'municipal_procurement_summary', 'municipal_budget_execution_summary', 'municipal_health_unit_monthly_summary'] }, 200, origin);
+      return response({ status: 'ok', service: 'itapevi-em-dados-public-api', hyperdriveConfigured: Boolean(env?.HYPERDRIVE?.connectionString), catalog: ['ibge_population', 'municipal_contract_summary', 'municipal_procurement_summary', 'municipal_budget_execution_summary', 'municipal_health_unit_monthly_summary'] }, 200, origin);
     }
     if (url.pathname === '/v1/public-config' && request.method === 'GET') {
       return response(publicConfig(env), 200, origin);

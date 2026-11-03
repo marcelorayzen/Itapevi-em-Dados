@@ -17,7 +17,7 @@ test('nao inventa resposta para tema indisponivel', async () => {
   const response = await answerQuestion('Quais empresas venceram mais licitacoes?');
   assert.equal(response.status, 'not_available');
   assert.equal(response.evidence.length, 0);
-  assert.match(response.answer, /nao ha um dado publico governado/i);
+  assert.match(response.answer, /consulta pública reproduzível/i);
 });
 
 test('responde consulta institucional somente com fato agregado e evidencia', async () => {
@@ -38,7 +38,7 @@ test('responde consulta institucional somente com fato agregado e evidencia', as
 test('recusa pergunta acusatoria mesmo com catalogo municipal publicado', async () => {
   const response = await answerQuestion('Qual empresa fraudou uma licitação?', undefined, undefined, null, async () => null);
   assert.equal(response.status, 'not_available');
-  assert.match(response.answer, /nao ha um dado publico governado/i);
+  assert.match(response.answer, /consulta pública reproduzível/i);
 });
 
 test('classifica pergunta livre de populacao apenas pela allowlist de IA', async () => {

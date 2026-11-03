@@ -86,7 +86,13 @@ document.querySelectorAll('.topic-card').forEach((button) => {
     button.classList.add('active'); button.setAttribute('aria-pressed', 'true'); renderTopic(button.dataset.topic);
   });
 });
-document.querySelectorAll('[data-question]').forEach((button) => button.addEventListener('click', () => ask(button.dataset.question)));
+document.querySelectorAll('[data-question]').forEach((button) => {
+  if (/empresas.*licitac/i.test(button.dataset.question)) {
+    button.dataset.question = 'Quantas licitações constam nos recortes publicados?';
+    button.textContent = 'Quantas licitações constam nos recortes publicados?';
+  }
+  button.addEventListener('click', () => ask(button.dataset.question));
+});
 document.addEventListener('click', (event) => { if (event.target.closest('[data-response-evidence]')) openResponseEvidence(); });
 document.getElementById('question-form').addEventListener('submit', (event) => {
   event.preventDefault();
