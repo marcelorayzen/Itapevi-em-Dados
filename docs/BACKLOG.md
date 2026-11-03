@@ -65,10 +65,19 @@ _Esta trilha não substitui as fases F1–F5. Ela organiza a passagem do protót
 
 | ID | Prioridade | Item | Dependência | Estado |
 |---|---|---|---|---|
-| R1-01 | P1 | Ingerir execução detalhada de saúde por mês, órgão, programa, ação e unidade | fonte oficial detalhada | [ ] |
-| R1-02 | P1 | Modelar unidades de saúde e sinônimos governados, incluindo pronto-socorro, PS e urgência | R1-01 | [ ] |
-| R1-03 | P1 | Publicar consulta citável de gasto por unidade de saúde e período | R1-01, R1-02 | [ ] |
-| R1-04 | P1 | Recusar com explicação perguntas cujo período ou unidade não esteja coberto | R1-03 | [ ] |
+| R1-01 | P1 | Ingerir execução detalhada de saúde por mês, órgão, programa, ação e unidade | fonte oficial detalhada | [x] |
+| R1-02 | P1 | Modelar unidades de saúde e sinônimos governados, incluindo pronto-socorro, PS e urgência | R1-01 | [x] |
+| R1-03 | P1 | Publicar consulta citável de gasto por unidade de saúde e período | R1-01, R1-02 | [x] |
+| R1-04 | P1 | Recusar com explicação perguntas cujo período ou unidade não esteja coberto | R1-03 | [x] |
+
+## Expansão de educação e Escolas do Futuro
+
+| ID | Prioridade | Item | Dependência | Estado |
+|---|---|---|---|---|
+| R2-01 | P1 | Registrar o catálogo oficial de unidades escolares municipais, com nome, endereço, contato, fonte e data de coleta | página oficial de escolas | [-] |
+| R2-02 | P1 | Ingerir e estruturar atos oficiais sobre Escolas do Futuro, preservando edição, página e trecho de evidência | R0-14, R0-15 | [-] |
+| R2-03 | P2 | Relacionar obras, contratos e unidades escolares somente quando o vínculo constar na fonte oficial | R2-01, contratos com objeto verificável | [ ] |
+| R2-04 | P2 | Publicar consultas sobre cobertura e status documentado de unidades, com data de referência e limites visíveis | R2-01, R2-02 | [ ] |
 
 | Data | Item | Bloqueio | Próxima ação | Responsável |
 |---|---|---|---|---|
@@ -76,6 +85,7 @@ _Esta trilha não substitui as fases F1–F5. Ela organiza a passagem do protót
 
 | 2026-10-29 | F3-05 | Definicao pendente: dados demonstrativos, destino de hospedagem, publico de teste e responsavel operacional | Marcelo decide o formato inicial; equipe prepara UX, conteudo, testes e documentacao | Marcelo / Rayzen |
 | 2026-10-31 | R0-02 | Ainda não há confirmação específica de redistribuição para as exportações municipais LAI/LOA; o portal oficial retornou HTTP 503 na nova verificação de termos | Enviar solicitação institucional pronta em `docs/MUNICIPAL_DATA_REUSE_REQUEST.md` e registrar a resposta por dataset | Prefeitura de Itapevi / Marcelo |
+| 2026-11-02 | R2-01/R2-02 | Nenhum bloqueio técnico; a descoberta identificou catálogo municipal de escolas e atos/notícias oficiais para Escolas do Futuro. Ainda não há artefato de coleta registrado. | Coletar os artefatos oficiais, revisar estrutura e criar dataset antes de publicar consultas. | Rayzen / Marcelo |
 
 ## Registro de decisões operacionais
 
@@ -83,3 +93,4 @@ _Esta trilha não substitui as fases F1–F5. Ela organiza a passagem do protót
 |---|---|---|---|
 | — | — | — | — |
 | 2026-10-31 | A primeira fonte pública real fica limitada ao agregado IBGE 29171; perguntas livres não podem ampliar o catálogo nem inferir fatos sem evidência | `docs/P0_DATA_LICENSE_REVIEW.md`, ADR-009 e ADR-011 | Protege a demonstração enquanto a ingestão municipal e as permissões são concluídas |
+| 2026-11-02 | O export oficial de empenhos detalhados é reprocessado com artefato, checksum, execução, evento e evidência próprios; duplicidades idênticas anteriores foram removidas em transação após validação por todos os campos de negócio. | `scripts/ingest-lai-detailed-commitments.ts`, checksum `5EB1B2B8...F03753` | Consultas públicas de unidades de saúde passam a referenciar o artefato correto. |
