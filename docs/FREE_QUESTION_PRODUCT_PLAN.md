@@ -6,7 +6,7 @@ Permitir pergunta em linguagem natural sem transformar texto livre em acesso liv
 
 ## Etapa A - Base e segurança
 
-- [ ] Remover conteúdo ilustrativo do portal e alinhar texto, manual, README e backlog ao estado real.
+- [x] Remover conteúdo ilustrativo da experiência renderizada e alinhar o portal ao catálogo público atual; o HTML histórico permanece como material técnico, mas não é apresentado ao usuário.
 - [ ] Formalizar catálogo de capacidades públicas: população, contratos, licitações e execução orçamentária.
 - [ ] Versionar visões públicas, testes de permissão e teste de reconciliação por artefato.
 - [ ] Registrar decisões de termos e publicação por dataset.
