@@ -54,10 +54,10 @@ O classificador não poderá devolver `empresa vencedora`, `fraude`, `regularida
 
 ### N1 — Contrato de interpretação
 
-- [ ] Definir esquema JSON de intenção, entidade, período e nível de confiança.
-- [ ] Criar validador Zod com lista fechada de intenções e filtros.
-- [ ] Implementar fallback determinístico para JSON inválido, baixa confiança e indisponibilidade do modelo.
-- [ ] Adicionar teste de prompt injection e tentativa de SQL livre.
+- [x] Definir esquema JSON de intenção, entidade, período e nível de confiança.
+- [x] Criar validador Zod com lista fechada de intenções e filtros.
+- [x] Implementar fallback determinístico para JSON inválido, baixa confiança e indisponibilidade do modelo.
+- [x] Adicionar teste de prompt injection e tentativa de SQL livre.
 
 **Aceite:** nenhuma saída do modelo chega ao banco sem validação local.
 

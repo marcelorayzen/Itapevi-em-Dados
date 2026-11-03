@@ -35,6 +35,7 @@ As ADRs são propostas até serem validadas por custo operacional e provas de co
 - [Validação atual da consulta pública](R0_PUBLIC_QUERY_VALIDATION_2026-11-03.md)
 - [Check-up de prontidão para testes públicos](PUBLIC_TEST_READINESS_CHECK_2026-11-03.md)
 - [Plano do piloto de perguntas naturais](NATURAL_LANGUAGE_PILOT_PLAN.md)
+  - [Validação N1 do contrato de perguntas naturais](NATURAL_LANGUAGE_PILOT_N1_VALIDATION.md)
 - [Contrato comum de resposta da F3](F3_RESPONSE_CONTRACT.md)
 - [Validação do catálogo de datasets da F3](F3_DATASET_CATALOG_VALIDATION.md)
 - [Validação da demonstração web local da F3](F3_WEB_DEMO_VALIDATION.md)
