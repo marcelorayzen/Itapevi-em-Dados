@@ -63,5 +63,13 @@
   <dialog id="evidence-modal" aria-labelledby="modal-title"><button class="modal-close" data-modal-close aria-label="Fechar">×</button><p class="eyebrow">TRILHA DE EVIDÊNCIA</p><h2 id="modal-title">O que acompanha uma resposta confiável</h2><ul class="evidence-list"><li><span>01</span><div><b>Fonte identificada</b><p>Quem publicou o dado e onde ele foi obtido.</p></div></li><li><span>02</span><div><b>Artefato e data</b><p>Arquivo, consulta ou página, com data de coleta e checksum quando aplicável.</p></div></li><li><span>03</span><div><b>Recorte e transformação</b><p>Período, filtros e regra usada para formar o indicador.</p></div></li><li><span>04</span><div><b>Limites explícitos</b><p>O que a informação cobre — e o que ela não permite concluir.</p></div></li></ul></dialog>
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
   <script src="./app.js" defer></script>
+  <script>
+    document.querySelectorAll('[data-question]').forEach((button) => {
+      if (/empresas.*licitac/i.test(button.textContent)) {
+        button.dataset.question = 'Quantas licitações constam nos recortes publicados?';
+        button.textContent = 'Quantas licitações constam nos recortes publicados?';
+      }
+    });
+  </script>
 </body>
 </html>
