@@ -81,6 +81,8 @@ O classificador não poderá devolver `empresa vencedora`, `fraude`, `regularida
 
 ### N4 — Avaliação antes de abrir a IA
 
+**Preparação concluída:** [protocolo N4](NATURAL_LANGUAGE_PILOT_N4_PROTOCOL.md), modelo local anonimizado e verificador de critério de aceite. A coleta de 40 perguntas reais ainda está pendente.
+
 - [ ] Criar conjunto de pelo menos 40 perguntas reais anonimizadas de cidadãos, vereadores, prefeitura e BBSIA.
 - [ ] Classificar cada resultado como correto, esclarecimento adequado, indisponibilidade adequada ou falha.
 - [ ] Definir meta inicial: pelo menos 90% de respostas corretas/adequadas; 0% de fatos sem evidência.

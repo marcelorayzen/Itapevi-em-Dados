@@ -27,6 +27,8 @@ Cada resposta deve trazer a conclusão descritiva, fonte, dataset, checksum, per
 
 Na consulta orçamentária por órgão, o recorte público atual cobre 01/09/2026 a 30/09/2026. A lista de órgãos representa somente as linhas retornadas pelo painel nesse período. Veja [Validação N3 da cobertura orçamentária](NATURAL_LANGUAGE_PILOT_N3_VALIDATION.md).
 
+Para contribuir com a avaliação do portal, envie uma pergunta real anonimizável, a expectativa e a dificuldade encontrada para `marcelo.rayzen@live.com`. O procedimento de revisão e o formato de coleta estão no [protocolo N4](NATURAL_LANGUAGE_PILOT_N4_PROTOCOL.md).
+
 ## Requisitos
 
 - Node.js 18 ou superior;

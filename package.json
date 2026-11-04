@@ -34,6 +34,7 @@
     "db:inspect:f2": "tsx scripts/inspect-entity-evidence.ts",
     "db:catalog": "tsx scripts/inspect-dataset-catalog.ts",
     "alerts:weekly": "tsx scripts/weekly-alert-report.ts",
+    "evaluate:natural": "tsx scripts/evaluate-natural-language.ts",
     "normalize:loa": "tsx scripts/normalize-loa.ts",
     "test": "jest --runInBand"
   },
