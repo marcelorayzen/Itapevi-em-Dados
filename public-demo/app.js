@@ -5,41 +5,36 @@ let turnstileToken = '';
 let turnstileWidgetId = null;
 let latestAnswer = null;
 
-const topics = {
-  orcamento: { name: 'Execução orçamentária', value: '67,4', suffix: '%', caption: 'do valor previsto no recorte selecionado', note: 'Este resultado é ilustrativo até que a fonte municipal correspondente seja liberada para publicação.', rows: [['Previsto', '100%', 'R$ 8,4 mi', ''], ['Realizado', '67.4%', 'R$ 5,7 mi', 'green']] },
-  compras: { name: 'Compras por modalidade', value: '42', suffix: '%', caption: 'em uma modalidade no recorte demonstrativo', note: 'A distribuição é ilustrativa. Dados reais só entram após liberação da fonte e preservam as limitações do recorte.', rows: [['Modalidade A', '100%', 'R$ 4,0 mi', ''], ['Modalidade B', '42%', 'R$ 1,7 mi', 'green']] },
-  populacao: { name: 'População de Itapevi', value: '—', suffix: '', caption: 'consulte a pergunta livre para a fonte oficial atual', note: 'A pergunta livre consulta a fonte oficial do IBGE e apresenta o ano de referência.', rows: [['Fonte oficial', '100%', 'IBGE', 'green']] }
-};
-
 const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
 const checksumMarkup = (value) => (Array.isArray(value) ? value : [value]).filter(Boolean).map((item) => { const text = String(item); return `<button class="checksum" type="button" data-checksum="${escapeHtml(text)}" title="Copiar checksum completo">${escapeHtml(text.length > 24 ? `${text.slice(0, 12)}…${text.slice(-8)}` : text)}</button>`; }).join(' ');
-
-function renderTopic(key) {
-  const t = topics[key];
-  document.querySelector('.metric-name').textContent = t.name;
-  document.querySelector('.metric').innerHTML = t.value + '<span>' + t.suffix + '</span>';
-  document.querySelector('.metric-caption').textContent = t.caption;
-  document.querySelector('.insight-note').textContent = t.note;
-  document.querySelector('.bar-chart').innerHTML = t.rows.map(([label, width, total, color]) => '<div class="bar-row"><span>' + label + '</span><i><b class="' + color + '" style="width:' + width + '"></b></i><strong>' + total + '</strong></div>').join('');
-}
+const sourceLink = (url, label) => url ? `<a class="audit-link" href="${escapeHtml(url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>` : escapeHtml(label);
 
 function renderAnswer(payload) {
   latestAnswer = payload;
   const evidence = payload.evidence?.[0];
   const source = evidence?.source || evidence?.sourceId || 'Fonte identificada';
-  const sourceHtml = evidence?.url ? '<a href="' + escapeHtml(evidence.url) + '" target="_blank" rel="noreferrer">' + escapeHtml(source) + '</a>' : escapeHtml(source);
-  const evidenceHtml = evidence ? '<p class="answer-evidence"><strong>Evidência:</strong> ' + sourceHtml + (evidence.datasetId ? ' · Dataset ' + escapeHtml(evidence.datasetId) : '') + (evidence.artifactSha256 ? ' · Checksum ' + checksumMarkup(evidence.artifactSha256) : '') + '</p>' : '';
+  const sourceHtml = sourceLink(evidence?.url, source);
+  const evidenceHtml = evidence ? '<p class="answer-evidence"><strong>Evidência auditável:</strong> ' + sourceHtml + (evidence.sourceId ? ' · Fonte ' + escapeHtml(evidence.sourceId) : '') + (evidence.datasetId ? ' · Dataset ' + escapeHtml(evidence.datasetId) : '') + (evidence.artifactSha256 ? ' · Checksum ' + checksumMarkup(evidence.artifactSha256) : '') + '</p>' : '';
   const coverageHtml = payload.coverage?.scope ? '<p class="answer-limit"><strong>Cobertura:</strong> ' + escapeHtml(payload.coverage.scope) + '</p>' : '';
   const limitHtml = payload.limitations?.length ? '<p class="answer-limit"><strong>Limites:</strong> ' + escapeHtml(payload.limitations[0]) + '</p>' : '';
-  document.getElementById('answer-box').innerHTML = '<span class="answer-icon">✓</span><p><strong>' + escapeHtml(payload.answer || payload.message) + '</strong></p>' + evidenceHtml + coverageHtml + limitHtml + (evidence ? '<button class="evidence-trigger" type="button" data-response-evidence>Ver evidência completa</button>' : '');
+  document.getElementById('answer-box').innerHTML = '<span class="answer-icon">✓</span><p><strong>' + escapeHtml(payload.answer || payload.message) + '</strong></p>' + evidenceHtml + coverageHtml + limitHtml + (evidence ? '<button class="evidence-trigger" type="button" data-response-evidence>Ver trilha de auditoria</button>' : '');
 }
 
 function openResponseEvidence() {
   if (!latestAnswer) return;
   const evidence = latestAnswer.evidence?.[0] || {};
   const dialog = document.getElementById('evidence-modal');
-  dialog.querySelector('#modal-title').textContent = 'Evidência desta resposta';
-  dialog.querySelector('.evidence-list').innerHTML = [['Fonte', evidence.source || evidence.sourceId || 'Não informada'], ['Dataset', evidence.datasetId || 'Não informado'], ['Checksum', Array.isArray(evidence.artifactSha256) ? evidence.artifactSha256.join('\n') : (evidence.artifactSha256 || 'Não informado')], ['Cobertura e limites', `${latestAnswer.coverage?.scope || 'Não informada'}\n${latestAnswer.limitations?.[0] || 'Sem limite adicional informado.'}`]].map(([label, value]) => `<li><span>•</span><div><b>${escapeHtml(label)}</b><p style="white-space:pre-wrap;overflow-wrap:anywhere">${escapeHtml(value)}</p></div></li>`).join('');
+  dialog.querySelector('#modal-title').textContent = 'Trilha de auditoria da resposta';
+  const fields = [
+    ['Fonte', evidence.source || evidence.sourceId || 'Não informada', false],
+    ['Identificador da fonte', evidence.sourceId || 'Não informado', false],
+    ['Dataset', evidence.datasetId || 'Não informado', false],
+    ['Consulta oficial', evidence.url ? sourceLink(evidence.url, 'Abrir fonte oficial') : 'Não informada', Boolean(evidence.url)],
+    ['Como conferir', evidence.verification || 'Consulte a fonte, o período e o checksum apresentados.', false],
+    ['Checksum', Array.isArray(evidence.artifactSha256) ? evidence.artifactSha256.join('\n') : (evidence.artifactSha256 || 'Não informado'), false],
+    ['Cobertura e limites', `${latestAnswer.coverage?.scope || 'Não informada'}\n${latestAnswer.limitations?.[0] || 'Sem limite adicional informado.'}`, false],
+  ];
+  dialog.querySelector('.evidence-list').innerHTML = fields.map(([label, value, trustedHtml]) => `<li><span>•</span><div><b>${escapeHtml(label)}</b><p style="white-space:pre-wrap;overflow-wrap:anywhere">${trustedHtml ? value : escapeHtml(value)}</p></div></li>`).join('');
   dialog.showModal();
 }
 
@@ -80,12 +75,6 @@ async function configureTurnstile() {
   }
 }
 
-document.querySelectorAll('.topic-card').forEach((button) => {
-  button.addEventListener('click', () => {
-    document.querySelectorAll('.topic-card').forEach((item) => { item.classList.remove('active'); item.setAttribute('aria-pressed', 'false'); });
-    button.classList.add('active'); button.setAttribute('aria-pressed', 'true'); renderTopic(button.dataset.topic);
-  });
-});
 document.querySelectorAll('[data-question]').forEach((button) => {
   if (/empresas.*licitac/i.test(button.dataset.question)) {
     button.dataset.question = 'Quantas licitações constam nos recortes publicados?';

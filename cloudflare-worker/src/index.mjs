@@ -7,6 +7,7 @@ const IBGE_POPULATION_URL = `https://servicodados.ibge.gov.br/api/v1/pesquisas/i
 const PORTAL_ORIGIN = 'https://itapevi-em-dados.rayzen.com.br';
 const AI_MODEL = '@cf/meta/llama-3.1-8b-instruct';
 const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+const ITAPEVI_LAI_PORTAL_URL = 'https://transparencia.itapevi.sp.gov.br/tdaportalclient.aspx?418';
 const BUDGET_COVERAGE = Object.freeze({ year: 2026, month: 9, label: '01/09/2026 a 30/09/2026' });
 
 const BUDGET_BODY_CATALOG = Object.freeze({
@@ -81,6 +82,17 @@ function response(body, status = 200, origin = '') {
       'vary': 'Origin',
     },
   });
+}
+
+export function municipalEvidence({ sourceId, datasetId, artifactSha256, verification }) {
+  return {
+    source: 'Portal da Transparência de Itapevi',
+    sourceId,
+    datasetId,
+    url: ITAPEVI_LAI_PORTAL_URL,
+    artifactSha256,
+    verification,
+  };
 }
 
 function normalized(text) {
@@ -200,7 +212,7 @@ export async function publicFactAnswer(question, env, routedIntent = null) {
       if (!month) return { status: 'not_available', question, answer: 'Informe mês e ano para consultar gastos por unidade de saúde. Exemplo: quanto foi pago ao pronto-socorro em janeiro de 2026?', evidence: [], coverage: { scope: 'consulta mensal por unidade com vínculo explícito', status: 'partial' }, limitations: ['Não assumo mês ou período quando ele não foi informado.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'deterministic-clarification' } };
       const result = await client.query('SELECT record_count, committed_amount, processed_amount, paid_amount, artifact_sha256s FROM public_api.health_unit_monthly_summary WHERE health_unit=$1 AND month=$2', [unit, month]);
       const row = result.rows[0]; if (!row) return { status: 'not_available', question, answer: 'Não há registro publicado para essa unidade e mês no recorte atualmente carregado.', evidence: [], coverage: { scope: 'empenhos com vínculo explícito à unidade', status: 'partial' }, limitations: ['Ausência no recorte não demonstra ausência de gasto.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
-      return { status: 'ok', question, answer: `No recorte oficial, ${unit === 'samu' ? 'o SAMU' : 'o pronto-socorro'} teve R$ ${Number(row.paid_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} pagos em ${month.slice(5,7)}/${month.slice(0,4)}.`, evidence: [{ source: 'Portal da Transparência de Itapevi', datasetId: 'DS-LAI-EMPENHOS-DETALHADOS', artifactSha256: row.artifact_sha256s }], coverage: { scope: 'empenhos com referência explícita à unidade, no mês consultado', status: 'partial' }, limitations: ['O total não inclui despesas sem vínculo explícito à unidade.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
+      return { status: 'ok', question, answer: `No recorte oficial, ${unit === 'samu' ? 'o SAMU' : 'o pronto-socorro'} teve R$ ${Number(row.paid_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} pagos em ${month.slice(5,7)}/${month.slice(0,4)}.`, evidence: [municipalEvidence({ sourceId: 'SRC-PREF-LAI-001', datasetId: 'DS-LAI-EMPENHOS-DETALHADOS', artifactSha256: row.artifact_sha256s, verification: 'No painel LAI, consulte Empenhos Detalhados e aplique a unidade e o mês informados; o recorte considera somente vínculos explícitos à unidade.' })], coverage: { scope: 'empenhos com referência explícita à unidade, no mês consultado', status: 'partial' }, limitations: ['O total não inclui despesas sem vínculo explícito à unidade.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
     }
     if (wantsBudget) {
       const requestedBody = budgetBodyFromIntent(routedIntent) || requestedBudgetBody(query);
@@ -214,7 +226,7 @@ export async function publicFactAnswer(question, env, routedIntent = null) {
         if (!bodiesResult.rows.length) return null;
         const bodies = bodiesResult.rows.map((row) => ({ responsibleBody: row.responsible_body, recordCount: Number(row.record_count), plannedAmount: Number(row.planned_amount), realizedAmount: Number(row.realized_amount) }));
         const bodyNames = bodies.map((body) => body.responsibleBody).join('; ');
-        return { status: 'ok', question, answer: `No recorte oficial carregado, há ${bodies.length} órgãos com valores previstos. Eles são: ${bodyNames}.`, data: { indicator: 'execucao_orcamentaria_por_orgao', period: BUDGET_COVERAGE, totalBodies: bodies.length, bodies }, evidence: [{ source: 'Portal da Transparência de Itapevi', datasetId: 'DS-LAI-PREVISTO-EMPENHADO-2026', artifactSha256: evidenceResult.rows[0]?.checksums ?? [] }], coverage: { scope: `${BUDGET_COVERAGE.label}; órgãos e programas retornados pelo painel`, status: 'partial' }, limitations: ['A relação mostra somente os órgãos retornados pelo painel no período informado; não confirma a cobertura integral do orçamento municipal.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
+        return { status: 'ok', question, answer: `No recorte oficial carregado, há ${bodies.length} órgãos com valores previstos. Eles são: ${bodyNames}.`, data: { indicator: 'execucao_orcamentaria_por_orgao', period: BUDGET_COVERAGE, totalBodies: bodies.length, bodies }, evidence: [municipalEvidence({ sourceId: 'SRC-PREF-LAI-BUDGET-001', datasetId: 'DS-LAI-PREVISTO-EMPENHADO-2026', artifactSha256: evidenceResult.rows[0]?.checksums ?? [], verification: `No painel LAI, abra Previsto e Empenhado por Programa e Secretaria e aplique Data de Empenho de ${BUDGET_COVERAGE.label}.` })], coverage: { scope: `${BUDGET_COVERAGE.label}; órgãos e programas retornados pelo painel`, status: 'partial' }, limitations: ['A relação mostra somente os órgãos retornados pelo painel no período informado; não confirma a cobertura integral do orçamento municipal.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
       }
       const result = requestedBody
         ? await client.query(`SELECT responsible_body, record_count, planned_amount, realized_amount, artifact_sha256s FROM public_api.budget_execution_summary WHERE responsible_body ILIKE ANY($1::text[]) ORDER BY planned_amount DESC LIMIT 1`, [requestedBody.patterns])
@@ -225,7 +237,7 @@ export async function publicFactAnswer(question, env, routedIntent = null) {
       const answer = receivedBudgetValueQuestion(query)
         ? `A fonte não publica uma métrica chamada “valor recebido”. No recorte de execução orçamentária carregado, ${row.responsible_body} possui R$ ${Number(row.planned_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} previstos e R$ ${Number(row.realized_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} realizados.`
         : `No recorte oficial carregado, ${row.responsible_body} possui R$ ${Number(row.planned_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} previstos e R$ ${Number(row.realized_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} realizados.`;
-      return { status: 'ok', question, answer, evidence: [{ source: 'Portal da Transparência de Itapevi', datasetId: 'DS-LAI-PREVISTO-EMPENHADO-2026', artifactSha256: row.artifact_sha256s }], coverage: { scope: '01/09/2026 a 30/09/2026; filtro por data de empenho; órgãos e programas retornados pelo painel', status: 'partial' }, limitations: ['O recorte cobre somente as linhas retornadas pelo painel no período informado; não mede desempenho, legalidade ou responsabilidade.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
+      return { status: 'ok', question, answer, evidence: [municipalEvidence({ sourceId: 'SRC-PREF-LAI-BUDGET-001', datasetId: 'DS-LAI-PREVISTO-EMPENHADO-2026', artifactSha256: row.artifact_sha256s, verification: 'No painel LAI, abra Previsto e Empenhado por Programa e Secretaria e aplique Data de Empenho de 01/09/2026 a 30/09/2026; filtre o órgão citado.' })], coverage: { scope: '01/09/2026 a 30/09/2026; filtro por data de empenho; órgãos e programas retornados pelo painel', status: 'partial' }, limitations: ['O recorte cobre somente as linhas retornadas pelo painel no período informado; não mede desempenho, legalidade ou responsabilidade.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
     }
     if (wantsContract) {
       const requestedBody = budgetBodyFromIntent(routedIntent);
@@ -235,12 +247,12 @@ export async function publicFactAnswer(question, env, routedIntent = null) {
       const row = result.rows[0];
       if (!row && requestedBody) return { status: 'not_available', question, answer: `Não há contratos publicados para ${requestedBody.label} no recorte atualmente carregado.`, evidence: [], coverage: { scope: 'contratos municipais carregados de 2024 a 2026', status: 'partial' }, limitations: ['A ausência no recorte não demonstra ausência de contrato.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
       if (!row) return null;
-      return { status: 'ok', question, answer: `Nos recortes públicos carregados, ${row.managing_secretariat} concentra o maior valor contratado: R$ ${Number(row.contracted_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}, em ${row.contract_count} contratos.`, evidence: [{ source: 'Portal da Transparência de Itapevi', datasetId: 'DS-LAI-CONTRACTS', artifactSha256: row.checksums }], coverage: { scope: 'contratos municipais carregados de 2024 a 2026', status: 'partial' }, limitations: ['A resposta usa os recortes oficiais atualmente carregados e não conclui regularidade, favorecimento ou culpa.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
+      return { status: 'ok', question, answer: `Nos recortes públicos carregados, ${row.managing_secretariat} concentra o maior valor contratado: R$ ${Number(row.contracted_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}, em ${row.contract_count} contratos.`, evidence: [municipalEvidence({ sourceId: 'SRC-PREF-LAI-CONTRACTS-001', datasetId: 'DS-LAI-CONTRACTS', artifactSha256: row.checksums, verification: 'No painel LAI, abra Contratos - Detalhe e aplique o exercício ou os filtros do recorte consultado.' })], coverage: { scope: 'contratos municipais carregados de 2024 a 2026', status: 'partial' }, limitations: ['A resposta usa os recortes oficiais atualmente carregados e não conclui regularidade, favorecimento ou culpa.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
     }
     const result = await client.query(`SELECT SUM(procurement_count)::integer AS procurement_count, SUM(purchased_amount)::numeric AS purchased_amount, SUM(estimated_amount)::numeric AS estimated_amount, ARRAY_AGG(DISTINCT sha) AS checksums FROM public_api.procurement_summary, UNNEST(artifact_sha256s) AS sha`);
     const row = result.rows[0];
     if (!row) return null;
-    return { status: 'ok', question, answer: `Nos recortes públicos carregados, há ${row.procurement_count} licitações, com R$ ${Number(row.purchased_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} em valores comprados e R$ ${Number(row.estimated_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} estimados.`, evidence: [{ source: 'Portal da Transparência de Itapevi', datasetId: 'DS-LAI-COMPRAS-MODALIDADE-2026', artifactSha256: row.checksums }], coverage: { scope: 'licitações municipais carregadas de 2024 a 2026', status: 'partial' }, limitations: ['Os totais refletem os recortes oficiais carregados e devem ser lidos com seus checksums e período.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
+    return { status: 'ok', question, answer: `Nos recortes públicos carregados, há ${row.procurement_count} licitações, com R$ ${Number(row.purchased_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} em valores comprados e R$ ${Number(row.estimated_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} estimados.`, evidence: [municipalEvidence({ sourceId: 'SRC-PREF-LAI-PROCUREMENT-001', datasetId: 'DS-LAI-COMPRAS-MODALIDADE-2026', artifactSha256: row.checksums, verification: 'No painel LAI, abra Compras por Tipo de Licitação - Resumo e aplique os filtros do recorte publicado.' })], coverage: { scope: 'licitações municipais carregadas de 2024 a 2026', status: 'partial' }, limitations: ['Os totais refletem os recortes oficiais carregados e devem ser lidos com seus checksums e período.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
   } finally { await client.end(); }
 }
 
@@ -422,7 +434,7 @@ export async function answerQuestion(question, fetchImpl = fetch, collectedAt = 
     question,
     answer: `A estimativa populacional de Itapevi para ${year}, segundo o IBGE, e de ${population.toLocaleString('pt-BR')} habitantes.`,
     data: { indicator: 'estimativa_populacional', municipality: 'Itapevi', municipalityCode: MUNICIPALITY_CODE, year, population },
-    evidence: [{ source: 'Instituto Brasileiro de Geografia e Estatistica (IBGE)', indicator: POPULATION_INDICATOR, url: IBGE_POPULATION_URL, collectedAt }],
+    evidence: [{ source: 'Instituto Brasileiro de Geografia e Estatistica (IBGE)', sourceId: 'SRC-IBGE-001', datasetId: 'DS-IBGE-EST-2026', indicator: POPULATION_INDICATOR, url: IBGE_POPULATION_URL, collectedAt, verification: 'Abra a consulta oficial do indicador 29171 para o município 3522505 e confira o ano retornado pela série.' }],
     coverage: { scope: 'estimativa populacional municipal de Itapevi; ultimo ano retornado pelo indicador 29171', status: 'official_source' },
     limitations: ['A estimativa populacional nao informa gasto publico, qualidade de servicos, area territorial, densidade ou PIB.', 'O numero deve ser lido junto do ano de referencia informado.'],
     confidence: 'high',

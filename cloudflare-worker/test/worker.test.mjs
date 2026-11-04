@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { answerQuestion, classifyAllowedIntent, classifyNaturalLanguageIntent, parseNaturalLanguageIntent, publicQueryRateLimit, recordMetric, verifyTurnstile } from '../src/index.mjs';
+import { answerQuestion, classifyAllowedIntent, classifyNaturalLanguageIntent, municipalEvidence, parseNaturalLanguageIntent, publicQueryRateLimit, recordMetric, verifyTurnstile } from '../src/index.mjs';
 
 const ibgePayload = [{ res: [{ res: { '2025': '240961', '2026': '243967' } }] }];
 
@@ -11,6 +11,15 @@ test('responde populacao com evidencia oficial', async () => {
   assert.equal(response.data.year, '2026');
   assert.equal(response.evidence[0].indicator, '29171');
   assert.match(response.answer, /243\.967/);
+});
+
+test('anexa trilha auditavel a cada evidencia municipal', () => {
+  const evidence = municipalEvidence({ sourceId: 'SRC-PREF-LAI-BUDGET-001', datasetId: 'DS-LAI-PREVISTO-EMPENHADO-2026', artifactSha256: ['ABC'], verification: 'Aplique o filtro do recorte.' });
+  assert.equal(evidence.source, 'Portal da Transparência de Itapevi');
+  assert.equal(evidence.sourceId, 'SRC-PREF-LAI-BUDGET-001');
+  assert.equal(evidence.datasetId, 'DS-LAI-PREVISTO-EMPENHADO-2026');
+  assert.match(evidence.url, /^https:\/\/transparencia\.itapevi\.sp\.gov\.br\//);
+  assert.equal(evidence.verification, 'Aplique o filtro do recorte.');
 });
 
 test('nao inventa resposta para tema indisponivel', async () => {

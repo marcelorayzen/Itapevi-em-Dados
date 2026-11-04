@@ -55,6 +55,7 @@ As ADRs são propostas até serem validadas por custo operacional e provas de co
 - [Prévia privada de API da F3](F3_PRIVATE_PREVIEW_VALIDATION.md)
 - [Preparação da prévia privada em subdomínio](PRIVATE_PREVIEW_DEPLOYMENT.md)
 - [API pública de perguntas no Cloudflare Worker](F3_PUBLIC_API_WORKER.md)
+  - [Trilha de auditoria pública](PUBLIC_AUDIT_TRAIL.md)
 - [Publicação da demonstração estática](PUBLIC_DEMO_DEPLOYMENT.md)
 - [Validação da exportação municipal LAI](F1_LAI_EXPORT_VALIDATION.md)
 - [Validação da exportação municipal de compras](F1_LAI_PROCUREMENT_EXPORT_VALIDATION.md)

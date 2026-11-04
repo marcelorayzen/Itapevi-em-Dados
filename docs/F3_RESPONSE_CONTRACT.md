@@ -39,7 +39,7 @@ O mesmo núcleo deve responder de maneira consistente para MCP, interface web e 
 | `contractVersion` | Sempre `1.0` nesta fase. Mudancas incompativeis exigem nova versao. |
 | `status` | `ok`, `partial`, `not_found` ou `error`; nunca simular sucesso. |
 | `data` | Conteudo consultado, sem transformar hipotese em fato. |
-| `evidence` | Fonte, dataset e, quando existir, artefato, URL, checksum, data e localizador. Resposta `ok` exige ao menos uma evidencia. |
+| `evidence` | Fonte, identificador da fonte, dataset, URL oficial, checksum, data e instrução de conferência quando existir. Resposta `ok` exige ao menos uma evidência. |
 | `coverage` | Recorte efetivamente consultado, situacao e exclusoes conhecidas. |
 | `limitations` | Lacunas, termos, escopo, incerteza ou dependencia externa relevantes. |
 | `confidence` | `high`, `medium`, `low` ou `needs_review`; nao substitui evidencia. |
@@ -54,5 +54,6 @@ O mesmo núcleo deve responder de maneira consistente para MCP, interface web e 
 ## Limites desta versao
 
 - O contrato nao cria uma API publica, autenticacao ou direitos de redistribuicao.
-- Clientes devem apresentar `limitations`, `coverage` e `evidence` junto do dado, especialmente em demonstracoes.
+- Clientes devem apresentar `limitations`, `coverage` e `evidence` junto do dado, especialmente em demonstrações.
+- Para resposta pública factual, o cliente deve oferecer link para a fonte oficial e a instrução de conferência do recorte; checksum sem contexto não é evidência suficiente para um cidadão.
 - A adocao por cada conector depende de teste com fonte real e aprovacao do seu estado de governanca.
