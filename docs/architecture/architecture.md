@@ -1,6 +1,6 @@
 # Arquitetura-alvo V2
 
-> Esta é a direção arquitetural de evolução. A arquitetura em produção hoje é descrita em [OPERATIONS.md](../OPERATIONS.md) e o estado publicado em [CURRENT_PUBLIC_PRODUCT_STATUS.md](../CURRENT_PUBLIC_PRODUCT_STATUS.md). Componentes como Neo4j, Timeline e Spatial Engine permanecem planejados até haver código, testes e evidência operacional.
+> Esta é a direção arquitetural de evolução. O estado publicado está em [CURRENT_PUBLIC_PRODUCT_STATUS.md](../CURRENT_PUBLIC_PRODUCT_STATUS.md). Componentes como Neo4j, Timeline e Spatial Engine permanecem planejados até haver código, testes e evidência operacional.
 
 ## Baseline V1 de origem
 

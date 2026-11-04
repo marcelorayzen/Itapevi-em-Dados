@@ -4,7 +4,7 @@ Observatório público de dados municipais que transforma fontes oficiais disper
 
 **Portal público:** [itapevi-em-dados.rayzen.com.br](https://itapevi-em-dados.rayzen.com.br/)
 
-**Estado desta documentação:** reconciliado em 03/11/2026. Para o que está realmente publicado, consulte o [estado atual do produto](docs/CURRENT_PUBLIC_PRODUCT_STATUS.md); planos e registros de validação antigos não substituem essa referência.
+**Estado desta documentação:** para o que está realmente publicado, consulte o [estado atual do produto](docs/CURRENT_PUBLIC_PRODUCT_STATUS.md).
 
 ## Capacidades publicadas
 
@@ -32,22 +32,18 @@ PostgreSQL é a fonte de verdade. Documentos brutos não são expostos pela API 
 ## Documentação
 
 - [Estado atual do produto público](docs/CURRENT_PUBLIC_PRODUCT_STATUS.md)
-- [Governança e leitura da documentação](docs/DOCUMENTATION_STATUS.md)
 - [Visão de produto](docs/vision.md)
 - [Arquitetura](docs/architecture/architecture.md)
 - [Capacidades e cobertura](docs/CAPABILITIES.md)
-- [Operação e segurança](docs/OPERATIONS.md)
 - [Trilha de auditoria pública](docs/PUBLIC_AUDIT_TRAIL.md)
 - [Registro de fontes e condições de uso](docs/DATA_SOURCES_REGISTER.md)
 - [Modelo de dados](docs/data/ontology.md)
 - [Decisões arquiteturais (ADRs)](docs/adr/README.md)
-- [Plano e backlog](docs/DEVELOPMENT_PLAN.md)
-- [Apresentação institucional](docs/PRESENTACAO_INSTITUCIONAL.md)
 - [Índice completo](docs/README.md)
 
 ## Perguntas naturais
 
-O portal aceita perguntas livres dentro da cobertura publicada. O piloto público de IA está **ativo de forma controlada**: o Workers AI interpreta a intenção em um contrato fechado e o Worker consulta somente rotas parametrizadas nas visões públicas. O modelo não cria fatos, não executa SQL livre e não substitui fonte, período, checksum, cobertura ou limitações. Perguntas fora do catálogo recebem uma explicação verificável da lacuna. A avaliação N4 com perguntas reais continua durante o piloto; veja [Piloto de perguntas naturais](docs/NATURAL_LANGUAGE_PILOT_PLAN.md).
+O portal aceita perguntas livres dentro da cobertura publicada. O piloto público de IA está **ativo de forma controlada**: o Workers AI interpreta a intenção em um contrato fechado e o Worker consulta somente rotas parametrizadas nas visões públicas. O modelo não cria fatos, não executa SQL livre e não substitui fonte, período, checksum, cobertura ou limitações. Perguntas fora do catálogo recebem uma explicação verificável da lacuna.
 
 ## Desenvolvimento
 

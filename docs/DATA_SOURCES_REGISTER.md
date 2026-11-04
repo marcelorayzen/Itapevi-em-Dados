@@ -7,7 +7,7 @@ Em 31/10/2026, Marcelo confirmou ao projeto que os recursos municipais oficiais 
 
 | ID | Fonte | Uso atual | Estado | Termos e redistribuição |
 |---|---|---|---|---|
-| SRC-IBGE-001 | API de localidades e indicador populacional do IBGE | identificacao municipal e estimativa populacional de Itapevi, codigo 3522505, indicador 29171 | allowlist publica limitada | Aprovado por Marcelo em 31/10/2026 somente para o valor agregado do indicador 29171, com atribuicao ao IBGE, URL da consulta, ano, data de coleta e limites obrigatorios; ver `docs/P0_DATA_LICENSE_REVIEW.md`. Nao libera outros indicadores nem dados individualizados. |
+| SRC-IBGE-001 | API de localidades e indicador populacional do IBGE | identificacao municipal e estimativa populacional de Itapevi, codigo 3522505, indicador 29171 | allowlist publica limitada | Uso limitado ao valor agregado do indicador 29171, com atribuição ao IBGE, URL da consulta, ano, data de coleta e limites obrigatórios. Não libera outros indicadores nem dados individualizados. |
 | SRC-DO-001 | Gazeta SP, publicidade legal de Itapevi | Busca de títulos, datas e links de publicações | experimental | evidência preliminar: [portal de publicidade legal](https://publicidadelegal.gazetasp.com.br/); não foi localizada permissão explícita de redistribuição no levantamento inicial; validar termos e scraping antes de uso derivado |
 | SRC-PREF-DO-001 | Prefeitura de Itapevi, Diário Oficial | edições oficiais, leis, atos e publicações administrativas | aprovado para coleta e uso no projeto | [página oficial](https://itapevi.sp.gov.br/diario-oficial/) lista edições por número/data e fornece PDF para download; Marcelo confirmou em 31/10/2026 o uso no projeto. PDFs brutos permanecem fora do Git; respostas devem citar edição, data, página e URL. |
 | SRC-MM-001 | MeuMunicípio, perfil de Itapevi | Indicadores baseados no Censo 2010 | experimental | evidência preliminar: [termos de uso](https://meumunicipio.org.br/termos-de-uso); confirmar permissões de coleta e redistribuição antes de uso derivado |
@@ -37,4 +37,4 @@ Em 31/10/2026, Marcelo confirmou ao projeto que os recursos municipais oficiais 
 
 ## Regra de manutenção
 
-Um novo dataset só entra no portal após constar neste registro, ter artefato/checksum, recorte e agregação definidos, teste de resposta, trilha de auditoria e atualização de [capacidades](CAPABILITIES.md) e [backlog](BACKLOG.md).
+Um novo dataset só entra no portal após constar neste registro, ter artefato/checksum, recorte e agregação definidos, teste de resposta, trilha de auditoria e atualização de [capacidades](CAPABILITIES.md) e do estado público.

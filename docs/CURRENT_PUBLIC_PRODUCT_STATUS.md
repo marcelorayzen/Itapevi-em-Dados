@@ -1,7 +1,7 @@
 # Estado atual do produto público
 
 **Atualizado em:** 03/11/2026  
-**Finalidade:** referência canônica para demonstrações, avaliação institucional e manutenção. Registros históricos continuam preservados, mas não substituem este documento; veja [Governança da documentação](DOCUMENTATION_STATUS.md).
+**Finalidade:** referência pública para demonstrações e avaliação institucional.
 
 ## O que está publicado
 
@@ -54,7 +54,6 @@ O piloto público de IA está **ativo de forma controlada** (`AI_PILOT_ENABLED=t
 ## Referências operacionais
 
 - [Manual de uso](USER_MANUAL.md)
-- [Plano do piloto de perguntas naturais](NATURAL_LANGUAGE_PILOT_PLAN.md)
-- [Protocolo N4 de avaliação](NATURAL_LANGUAGE_PILOT_N4_PROTOCOL.md)
-- [Operação e segurança](OPERATIONS.md)
-- [Backlog](BACKLOG.md)
+- [API pública de perguntas](F3_PUBLIC_API_WORKER.md)
+- [Registro de fontes e condições de uso](DATA_SOURCES_REGISTER.md)
+- [Pedido de avaliação institucional ao BBSIA](BBSIA_REVIEW_REQUEST.md)

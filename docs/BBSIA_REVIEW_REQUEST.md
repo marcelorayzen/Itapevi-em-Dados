@@ -8,10 +8,9 @@ Solicitar ao BBSIA uma avaliacao tecnica e institucional do **Itapevi em Dados**
 
 1. [README do projeto](../README.md), [estado público](CURRENT_PUBLIC_PRODUCT_STATUS.md) e [manual](USER_MANUAL.md): propósito, estado atual e como testar o portal.
 2. [Visao](vision.md), [principios](principles.md) e [arquitetura](architecture/architecture.md).
-3. [Registro de fontes](DATA_SOURCES_REGISTER.md) e [revisao de termos](P0_DATA_LICENSE_REVIEW.md).
+3. [Registro de fontes](DATA_SOURCES_REGISTER.md).
 4. [Governança de dados](DATA_GOVERNANCE.md) e [ADRs canônicos](adr/README.md).
-5. [Experiencia do portal](PRODUCT_PORTAL_EXPERIENCE.md).
-6. [Trilha de auditoria pública](PUBLIC_AUDIT_TRAIL.md), protocolo N4 e evidências de validação F1--F4.
+5. [Trilha de auditoria pública](PUBLIC_AUDIT_TRAIL.md) e [API pública](F3_PUBLIC_API_WORKER.md).
 
 ## Perguntas para a reuniao
 

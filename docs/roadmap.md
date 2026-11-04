@@ -1,6 +1,6 @@
 # Roadmap de produto
 
-**Situação em 03/11/2026:** o projeto já possui portal e API públicos para recortes governados. Este roadmap mostra o que vem depois dessa base, sem reclassificar a arquitetura-alvo como funcionalidade entregue. O estado detalhado das tarefas está no [backlog](BACKLOG.md).
+**Situação em 03/11/2026:** o projeto já possui portal e API públicos para recortes governados. Este roadmap mostra o que vem depois dessa base, sem reclassificar a arquitetura-alvo como funcionalidade entregue. A evolução pública depende de fontes, evidências, testes e decisões de governança documentadas.
 
 | Horizonte | Estado | Resultado verificável |
 |---|---|---|

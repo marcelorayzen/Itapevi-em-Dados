@@ -45,14 +45,13 @@ Resposta bem-sucedida inclui `answer`, `data`, `evidence`, `coverage`, `limitati
 ## Validacao atual
 
 - testes locais cobrem população, respostas indisponíveis, filtros fechados, perguntas acusatórias, orçamento e proteção de rota;
-- a visão pública de orçamento retornou 20 órgãos em setembro e 25 em outubro de 2026, com checksum por artefato e sem soma entre meses; veja [Validação temporal de orçamento](R0_BUDGET_TEMPORAL_COVERAGE_VALIDATION_2026-11-03.md);
+- a visão pública de orçamento retorna recortes mensais separados, com checksum por artefato e sem soma entre meses;
 - o Worker foi empacotado com sucesso antes da publicação e está protegido por Turnstile e limite de requisições;
 - a integração do portal usa o subdomínio técnico `api-dados.rayzen.com.br`, separado do endereço público do portal.
 
 ## Proximas etapas
 
-1. Concluir a avaliação N4 de 40 perguntas reais anonimizadas durante o piloto e registrar cada falha no backlog.
-2. Publicar novos datasets reais somente após liberação documentada.
-3. Ampliar filtros e períodos somente quando o recorte correspondente estiver carregado e validado.
-4. Manter a interpretação por IA citável, sem permitir resposta sem evidências.
+1. Ampliar cobertura somente com fonte, período, critério de uso e evidência documentados.
+2. Manter a interpretação por IA citável, sem permitir resposta sem evidências.
+3. Incorporar melhorias de clareza, acessibilidade e feedback sem reduzir os controles de publicação.
 
