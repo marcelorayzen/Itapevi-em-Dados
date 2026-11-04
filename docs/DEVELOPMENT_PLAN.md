@@ -22,7 +22,7 @@
 | P0 — Base confiável | Preparar a V1 para evolução controlada | repositório seguro, CI e inventário de fontes/licenças aprovados |
 | F1 — Uma fonte governada | Validar o fluxo vertical de dados | uma fonte reprocessável com artefato, evento e evidência consultável |
 | F2 — Conhecimento verificável | Projetar relações apenas quando necessário | uma consulta relacional com todos os elos citáveis |
-| F3 — Entrega controlada | Expor catálogo e consultas consistentes | contrato único para MCP/API futura, sem prometer API pública |
+| F3 — Entrega controlada | Expor catálogo e consultas consistentes | contrato único, API pública restrita e portal com evidências |
 | F4 — Inteligência responsável | Produzir insights descritivos | regra, período, cobertura e fontes mostrados em cada insight |
 | F5 — Multi-cidade | Reutilizar o núcleo | segunda configuração municipal isolada e testada |
 | R0 — Demonstração pública útil | Responder perguntas reais com dados reais e evidências | três temas aprovados, respostas reproduzíveis, interface pública compreensível e piloto monitorado |
@@ -106,12 +106,12 @@ A edição 1612 do Diário Oficial de Itapevi foi persistida localmente com arte
   - Aceite: contrato versionado e testes de compatibilidade.
 - [x] **F3-02 — Criar catálogo navegável de datasets.** O catálogo local usa o contrato `1.0` e exibe escopo, atualização, fonte, termos, status, artefatos e limitações do piloto F1. Evidência em `docs/F3_DATASET_CATALOG_VALIDATION.md`.
   - Aceite: piloto lista a fonte F1 e suas limitações.
-- [x] **F3-03 — Avaliar API pública, sem antecipá-la.** Marcelo aprovou preparar uma prévia privada, sem deploy externo; controles e limites estão registrados em `docs/F3_PUBLIC_API_EVALUATION.md` e `docs/F3_PRIVATE_PREVIEW_VALIDATION.md`.
-  - Aceite: decisão explícita de seguir, adiar ou rejeitar.
+- [x] **F3-03 — Avaliar e publicar API pública restrita.** A decisão inicial evoluiu para Worker Cloudflare publicado com Hyperdrive, Turnstile, rate limit e visões públicas agregadas; evidências e controles atuais estão em `docs/F3_PUBLIC_API_WORKER.md` e `docs/R0_PRODUCTION_PUBLIC_API_VALIDATION.md`.
+  - Aceite: API responde somente a recortes aprovados, com controles e evidências verificáveis.
 - [x] **F3-04 — Construir console técnico web local.** A demonstração local e somente leitura apresenta catálogo, entidades, evidências, cobertura e limites pelo contrato `1.0`, sem chamadas externas ou publicação. Evidência em `docs/F3_WEB_DEMO_VALIDATION.md`.
   - Aceite: fluxo demonstrável localmente para validação técnica, com consulta, fonte/artefato/página visíveis e limites de cobertura.
-- [-] **F3-05 — Construir portal de apresentação e testes institucionais.** O portal de usuário será uma entrega distinta do console técnico: terá narrativa pública, exploração guiada, painel de evidências, roteiro de avaliação e ambientes separados para demo estática e prévia privada. Especificação em `docs/PRODUCT_PORTAL_EXPERIENCE.md`.
-  - Aceite: fluxos testados por cidadão, vereador/assessor, prefeitura e BBSIA; dados demonstrativos e hospedagem explicitamente aprovados; nenhum conteúdo pendente ou segredo publicado.
+- [-] **F3-05 — Construir portal de apresentação e testes institucionais.** O portal de usuário está publicado com narrativa pública, consulta guiada, fontes, limites e canal de feedback. O roteiro de avaliação com cidadãos, vereadores/assessores, prefeitura e BBSIA permanece em execução em `docs/NATURAL_LANGUAGE_PILOT_N4_PROTOCOL.md`.
+  - Aceite: fluxos testados por cidadão, vereador/assessor, prefeitura e BBSIA; dados reais aprovados, hospedagem explicitamente aprovada e nenhum conteúdo pendente ou segredo publicado.
 
 ## F4 — Inteligência responsável
 

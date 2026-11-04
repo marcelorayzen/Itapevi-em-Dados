@@ -6,7 +6,7 @@ Versao `1.0` aprovada em 27/10/2026 para novas entregas e adaptadores. Os conect
 
 ## Objetivo
 
-O mesmo nucleo deve responder de maneira consistente para MCP, interface web de demonstracao e uma eventual API futura. O contrato evita que uma interface oculte fonte, cobertura ou incerteza.
+O mesmo núcleo deve responder de maneira consistente para MCP, interface web e API pública restrita. O contrato evita que uma interface oculte fonte, cobertura ou incerteza.
 
 ## Envelope
 

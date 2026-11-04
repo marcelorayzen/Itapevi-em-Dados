@@ -29,6 +29,7 @@ PostgreSQL é a fonte de verdade. Documentos brutos não são expostos pela API 
 
 ## Documentação
 
+- [Estado atual do produto público](docs/CURRENT_PUBLIC_PRODUCT_STATUS.md)
 - [Visão de produto](docs/vision.md)
 - [Arquitetura](docs/architecture/architecture.md)
 - [Capacidades e cobertura](docs/CAPABILITIES.md)
@@ -37,6 +38,10 @@ PostgreSQL é a fonte de verdade. Documentos brutos não são expostos pela API 
 - [Decisões arquiteturais](docs/architecture/adr/)
 - [Plano e backlog](docs/DEVELOPMENT_PLAN.md)
 - [Índice completo](docs/README.md)
+
+## Perguntas naturais
+
+O portal aceita perguntas livres somente dentro da cobertura publicada. A interpretação por IA foi implementada com contrato fechado, mas permanece **desativada ao público** até a avaliação de 40 perguntas reais anonimizadas. O roteiro e o critério de aceite estão em [Piloto de perguntas naturais](docs/NATURAL_LANGUAGE_PILOT_PLAN.md).
 
 ## Desenvolvimento
 

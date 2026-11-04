@@ -1,5 +1,7 @@
 # Plano - Perguntas livres com respostas verificáveis
 
+> **Registro histórico de planejamento.** O plano operacional vigente é o [piloto de perguntas naturais governadas](NATURAL_LANGUAGE_PILOT_PLAN.md). Este documento é mantido para preservar a evolução de escopo, não para indicar o estado atual de implementação.
+
 ## Objetivo
 
 Permitir pergunta em linguagem natural sem transformar texto livre em acesso livre ao banco. Cada resposta deve resultar de uma intenção permitida, parâmetros validados, dados reais, evidência e limites explícitos.

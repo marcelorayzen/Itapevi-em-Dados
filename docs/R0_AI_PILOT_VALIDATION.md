@@ -1,5 +1,7 @@
 # R0 — Validação da camada de IA do piloto
 
+> **Registro histórico de 31/10/2026.** O estado atual usa `@cf/meta/llama-3.1-8b-instruct`, contrato JSON fechado, validação Zod, Turnstile e rate limit. A IA continua desativada ao público. Consulte o [plano vigente](NATURAL_LANGUAGE_PILOT_PLAN.md) e o [estado atual](CURRENT_PUBLIC_PRODUCT_STATUS.md).
+
 ## Escopo implementado
 
 Em 31/10/2026 foi preparada a integração opcional do Cloudflare Workers AI no Worker público. O modelo escolhido para o experimento é `@cf/google/gemma-4-26b-a4b-it`, acessado exclusivamente pela binding `env.AI`.

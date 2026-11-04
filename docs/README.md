@@ -1,6 +1,13 @@
 # Documentação V2
 
-Esta pasta define a direção da V2 do **Itapevi em Dados**. É uma especificação e um plano; não descreve componentes como se já estivessem implantados.
+Esta pasta reúne o estado publicado, evidências de validação e a direção da V2 do **Itapevi em Dados**. Documentos de arquitetura, visão, ontologia e roadmap descrevem a direção; eles não tornam componentes planejados recursos implantados.
+
+## Comece por aqui
+
+1. [Estado atual do produto público](CURRENT_PUBLIC_PRODUCT_STATUS.md)
+2. [Manual de uso](USER_MANUAL.md)
+3. [Plano e backlog](DEVELOPMENT_PLAN.md) e [Backlog](BACKLOG.md)
+4. [Piloto de perguntas naturais](NATURAL_LANGUAGE_PILOT_PLAN.md)
 
 1. [Visão](vision.md) e [princípios](principles.md)
 2. [Estado verificado da V1](architecture/current-state.md)

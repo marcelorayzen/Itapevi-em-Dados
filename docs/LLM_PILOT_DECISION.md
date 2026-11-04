@@ -44,16 +44,10 @@ Caso a conta seja elegível, créditos da API associados a ChatGPT Pro ou Busine
 
 ## Decisão registrada
 
-Em 31/10/2026, Marcelo aprovou a opção **Workers AI gratuito para piloto**. A implementação começa com uma allowlist de intenção para o indicador populacional já liberado. A variável `AI_PILOT_ENABLED` permanece `false` até que os testes, a proteção de requisições e a revisão de deploy sejam concluídos.
+Marcelo aprovou **Workers AI gratuito para piloto**. A implementação atual usa `@cf/meta/llama-3.1-8b-instruct` apenas para classificar intenções estruturadas; Zod valida a saída antes de qualquer função interna, e o modelo não produz fatos nem SQL.
 
-O Turnstile foi implementado no código como primeira proteção contra automação. Sua configuração pública e a chave secreta ainda não foram criadas no painel Cloudflare; o procedimento controlado está em [TURNSTILE_SETUP.md](TURNSTILE_SETUP.md).
+Turnstile e rate limit estão publicados. A variável `AI_PILOT_ENABLED` permanece `false`: a ativação pública está bloqueada até a avaliação N4 com 40 perguntas reais anonimizadas e a decisão formal de Marcelo/Rayzen. O roteiro vigente está em [NATURAL_LANGUAGE_PILOT_PLAN.md](NATURAL_LANGUAGE_PILOT_PLAN.md).
 
 ## Próxima decisão necessária
 
-Antes de implementar a camada de IA, Marcelo deve escolher uma das opções:
-
-1. **Habilitar em produção o piloto Workers AI** após R0-10 — quota diária, fallback determinístico e avaliação de qualidade.
-2. **Migrar para OpenAI API com créditos ou orçamento limitado** — melhor qualidade potencial, exige organização/API key, teto de gasto e segredo no Worker.
-3. **Manter a primeira demonstração sem IA ativa** — entrega consultas estruturadas, rápidas e auditáveis; a IA entra após validar dados e experiência.
-
-Independentemente da opção, R0-03 a R0-10 continuam necessários: o modelo não pode responder sobre licitações antes de existir um dataset municipal aprovado e consultável.
+Após N4, Marcelo e Rayzen devem decidir se ativam o piloto Workers AI com a capacidade gratuita existente, mantêm a rota determinística ou adotam um provedor com orçamento explícito. A credencial do Codex/ChatGPT não será usada como backend do produto.
