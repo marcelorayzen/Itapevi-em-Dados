@@ -135,6 +135,16 @@ test('rota listagem generica de orgaos orcamentarios sem escolher um orgao por p
   assert.deepEqual(routedIntent, { intent: 'budget_by_body', entity: 'budget_body', confidence: 'high' });
 });
 
+test('reconhece valor recebido como consulta derivada de execucao orcamentaria', async () => {
+  let routedIntent = null;
+  const response = await answerQuestion('Qual valor recebeu a Secretaria de Administracao e Tecnologia?', undefined, undefined, null, async (_question, intent) => {
+    routedIntent = intent;
+    return { status: 'ok', answer: 'Resposta orcamentaria controlada.', evidence: [] };
+  });
+  assert.equal(response.answer, 'Resposta orcamentaria controlada.');
+  assert.deepEqual(routedIntent, { intent: 'budget_by_body', entity: 'budget_body', body: 'administracao_tecnologia', confidence: 'high' });
+});
+
 test('nao consulta fatos quando a interpretacao natural e invalida', async () => {
   let factReaderCalled = false;
   const ai = {

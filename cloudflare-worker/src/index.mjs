@@ -109,7 +109,11 @@ function procurementQuestion(query) {
 }
 
 function budgetQuestion(query) {
-  return ['previsto', 'realizado', 'empenhado', 'orcamento', 'orçamento'].some((term) => query.includes(term));
+  return ['previsto', 'realizado', 'empenhado', 'orcamento', 'orçamento', 'recebeu', 'recebido', 'receber', 'dotacao', 'dotação'].some((term) => query.includes(term));
+}
+
+function receivedBudgetValueQuestion(query) {
+  return ['recebeu', 'recebido', 'receber'].some((term) => query.includes(term));
 }
 
 function requestedBudgetBody(query) {
@@ -218,7 +222,10 @@ export async function publicFactAnswer(question, env, routedIntent = null) {
       const row = result.rows[0];
       if (!row && requestedBody) return { status: 'not_available', question, answer: `Não há recorte orçamentário publicado para ${requestedBody.label}.`, evidence: [], coverage: { scope: 'execução orçamentária por órgão no recorte publicado', status: 'partial' }, limitations: ['A ausência no recorte não demonstra ausência de orçamento ou execução.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
       if (!row) return null;
-      return { status: 'ok', question, answer: `No recorte oficial carregado, ${row.responsible_body} possui R$ ${Number(row.planned_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} previstos e R$ ${Number(row.realized_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} realizados.`, evidence: [{ source: 'Portal da Transparência de Itapevi', datasetId: 'DS-LAI-PREVISTO-EMPENHADO-2026', artifactSha256: row.artifact_sha256s }], coverage: { scope: '01/09/2026 a 30/09/2026; filtro por data de empenho; órgãos e programas retornados pelo painel', status: 'partial' }, limitations: ['O recorte cobre somente as linhas retornadas pelo painel no período informado; não mede desempenho, legalidade ou responsabilidade.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
+      const answer = receivedBudgetValueQuestion(query)
+        ? `A fonte não publica uma métrica chamada “valor recebido”. No recorte de execução orçamentária carregado, ${row.responsible_body} possui R$ ${Number(row.planned_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} previstos e R$ ${Number(row.realized_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} realizados.`
+        : `No recorte oficial carregado, ${row.responsible_body} possui R$ ${Number(row.planned_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} previstos e R$ ${Number(row.realized_amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} realizados.`;
+      return { status: 'ok', question, answer, evidence: [{ source: 'Portal da Transparência de Itapevi', datasetId: 'DS-LAI-PREVISTO-EMPENHADO-2026', artifactSha256: row.artifact_sha256s }], coverage: { scope: '01/09/2026 a 30/09/2026; filtro por data de empenho; órgãos e programas retornados pelo painel', status: 'partial' }, limitations: ['O recorte cobre somente as linhas retornadas pelo painel no período informado; não mede desempenho, legalidade ou responsabilidade.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
     }
     if (wantsContract) {
       const requestedBody = budgetBodyFromIntent(routedIntent);

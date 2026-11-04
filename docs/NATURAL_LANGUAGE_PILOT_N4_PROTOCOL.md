@@ -6,6 +6,8 @@ Medir se a consulta em linguagem natural encaminha perguntas reais para resposta
 
 N4 ainda não está concluída. O protocolo e o verificador estão preparados; o fechamento depende de pelo menos 40 perguntas reais, anonimizadas e revisadas por Marcelo e Rayzen.
 
+O [primeiro achado do piloto](NATURAL_LANGUAGE_PILOT_N4_EARLY_FINDINGS.md) já corrigiu uma falha de vocabulário em uma pergunta derivada de execução orçamentária. Ele é uma referência de regressão e não compõe a amostra externa de 40 casos.
+
 ## Coleta permitida
 
 Peça a cada pessoa para enviar somente:
