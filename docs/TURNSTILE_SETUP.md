@@ -44,7 +44,7 @@ Os testes unitários simulam a validação do servidor e confirmam que o hostnam
 
 - Tokens expiram em cinco minutos e são de uso único.
 - O Turnstile verifica que há um navegador legítimo; ele não define a licença de um dataset nem permite consultas fora da allowlist.
-- O Turnstile é a primeira parte de R0-10. Limite de requisições e telemetria mínima ainda precisam ser implementados antes de ativar a IA pública.
+- Turnstile, limite de requisições e telemetria mínima compõem os controles do piloto de IA público ativo. Eles não substituem o contrato de intenções, a validação de saída ou a revisão semanal.
 
 ## Limite de requisições
 

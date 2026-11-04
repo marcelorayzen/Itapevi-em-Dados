@@ -38,20 +38,20 @@ Resposta bem-sucedida inclui `answer`, `data`, `evidence`, `coverage`, `limitati
 - aceita somente origem do portal publico;
 - aceita perguntas entre 3 e 500 caracteres;
 - nao recebe login, documentos, chaves ou dados pessoais;
-- a interpretação por IA está implementada, mas permanece desativada ao público até a avaliação controlada do piloto;
+- o piloto de IA está ativo desde 03/11/2026 com contrato de intenção fechado; o modelo não recebe acesso a SQL, documentos brutos, credenciais ou fatos para redação livre;
 - depende da disponibilidade do servico oficial do IBGE;
 - novas fontes so entram apos revisao de termos, proveniencia e cobertura.
 
 ## Validacao atual
 
 - testes locais cobrem população, respostas indisponíveis, filtros fechados, perguntas acusatórias, orçamento e proteção de rota;
-- a visão pública de orçamento retornou 20 órgãos no recorte de setembro de 2026, com checksum do artefato; veja [Validação N3](NATURAL_LANGUAGE_PILOT_N3_VALIDATION.md);
+- a visão pública de orçamento retornou 20 órgãos em setembro e 25 em outubro de 2026, com checksum por artefato e sem soma entre meses; veja [Validação temporal de orçamento](R0_BUDGET_TEMPORAL_COVERAGE_VALIDATION_2026-11-03.md);
 - o Worker foi empacotado com sucesso antes da publicação e está protegido por Turnstile e limite de requisições;
 - a integração do portal usa o subdomínio técnico `api-dados.rayzen.com.br`, separado do endereço público do portal.
 
 ## Proximas etapas
 
-1. Avaliar 40 perguntas reais anonimizadas antes de ativar a interpretação por IA.
+1. Concluir a avaliação N4 de 40 perguntas reais anonimizadas durante o piloto e registrar cada falha no backlog.
 2. Publicar novos datasets reais somente após liberação documentada.
 3. Ampliar filtros e períodos somente quando o recorte correspondente estiver carregado e validado.
 4. Manter a interpretação por IA citável, sem permitir resposta sem evidências.

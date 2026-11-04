@@ -22,6 +22,7 @@ Esta pasta separa claramente o produto que está publicado, o trabalho em curso,
   - [Validação N3](NATURAL_LANGUAGE_PILOT_N3_VALIDATION.md)
   - [Protocolo N4](NATURAL_LANGUAGE_PILOT_N4_PROTOCOL.md)
   - [Primeiro achado de N4](NATURAL_LANGUAGE_PILOT_N4_EARLY_FINDINGS.md)
+- [Validação temporal da cobertura orçamentária](R0_BUDGET_TEMPORAL_COVERAGE_VALIDATION_2026-11-03.md)
 - [Validação de consulta pública](R0_PUBLIC_QUERY_VALIDATION_2026-11-03.md)
 - [Prontidão para testes públicos](PUBLIC_TEST_READINESS_CHECK_2026-11-03.md)
 - [Integração BBSIA](BBSIA_INTEGRATION.md) e [pedido de avaliação](BBSIA_REVIEW_REQUEST.md)

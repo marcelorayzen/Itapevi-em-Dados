@@ -69,6 +69,18 @@ async function main() {
       results[check.id] = result.rows[0] ?? null;
     }
 
+    const budgetPeriods = await client.query(`SELECT period_start, period_end, temporal_filter,
+      COUNT(*)::integer AS rows,
+      COUNT(DISTINCT responsible_body)::integer AS bodies,
+      COALESCE(SUM(planned_amount), 0)::text AS planned_amount,
+      COALESCE(SUM(realized_amount), 0)::text AS realized_amount,
+      ARRAY_REMOVE(ARRAY_AGG(DISTINCT checksum), NULL) AS checksums
+      FROM public_api.budget_execution_summary
+      CROSS JOIN LATERAL UNNEST(artifact_sha256s) AS checksum
+      GROUP BY period_start, period_end, temporal_filter
+      ORDER BY period_start`);
+    results.budgetPeriods = budgetPeriods.rows;
+
     console.log(JSON.stringify(results, null, 2));
   } finally {
     await client.end();

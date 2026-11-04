@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { answerQuestion, classifyAllowedIntent, classifyNaturalLanguageIntent, municipalEvidence, parseNaturalLanguageIntent, publicQueryRateLimit, recordMetric, verifyTurnstile } from '../src/index.mjs';
+import worker, { answerQuestion, budgetPeriodPayload, classifyAllowedIntent, classifyNaturalLanguageIntent, municipalEvidence, parseNaturalLanguageIntent, publicQueryRateLimit, recordMetric, resolveBudgetPeriod, verifyTurnstile } from '../src/index.mjs';
 
 const ibgePayload = [{ res: [{ res: { '2025': '240961', '2026': '243967' } }] }];
 
@@ -152,6 +152,41 @@ test('reconhece valor recebido como consulta derivada de execucao orcamentaria',
   });
   assert.equal(response.answer, 'Resposta orcamentaria controlada.');
   assert.deepEqual(routedIntent, { intent: 'budget_by_body', entity: 'budget_body', body: 'administracao_tecnologia', confidence: 'high' });
+});
+
+test('preserva mes e ano explicitados na pergunta orcamentaria', async () => {
+  let routedIntent = null;
+  await answerQuestion('Quanto foi realizado pela Secretaria de Saude em outubro de 2026?', undefined, undefined, null, async (_question, intent) => {
+    routedIntent = intent;
+    return { status: 'ok', answer: 'Resposta orcamentaria por periodo.', evidence: [] };
+  });
+  assert.deepEqual(routedIntent, { intent: 'budget_by_body', entity: 'budget_body', body: 'saude', period: { year: 2026, month: 10 }, confidence: 'high' });
+});
+
+test('normaliza datas DATE retornadas pelo PostgreSQL antes de selecionar o recorte', () => {
+  assert.deepEqual(budgetPeriodPayload({ period_start: new Date('2026-10-01T00:00:00.000Z'), period_end: new Date('2026-10-31T00:00:00.000Z'), temporal_filter: 'Data de Empenho' }), {
+    start: '2026-10-01', end: '2026-10-31', temporalFilter: 'Data de Empenho', label: '01/10/2026 a 31/10/2026',
+  });
+});
+
+test('pede o mes quando ha mais de um recorte orcamentario publicado', async () => {
+  const client = {
+    query: async () => ({ rows: [
+      { period_start: new Date('2026-09-01T00:00:00.000Z'), period_end: new Date('2026-09-30T00:00:00.000Z'), temporal_filter: 'Data de Empenho' },
+      { period_start: new Date('2026-10-01T00:00:00.000Z'), period_end: new Date('2026-10-31T00:00:00.000Z'), temporal_filter: 'Data de Empenho' },
+    ] }),
+  };
+  const result = await resolveBudgetPeriod(client, 'Quanto foi realizado pela Saude?', { intent: 'budget_by_body', entity: 'budget_body', body: 'saude', confidence: 'high' });
+  assert.equal(result.status, 'clarification');
+  assert.equal(result.periods.length, 2);
+});
+
+test('health informa publicamente o estado do piloto sem revelar configuracoes sensiveis', async () => {
+  const response = await worker.fetch(new Request('https://api-dados.rayzen.com.br/health'), { AI_PILOT_ENABLED: 'true', HYPERDRIVE: { connectionString: 'postgresql://readonly@example.invalid/db' } });
+  const payload = await response.json();
+  assert.equal(payload.status, 'ok');
+  assert.equal(payload.aiPilotEnabled, true);
+  assert.equal(payload.hyperdriveConfigured, true);
 });
 
 test('nao consulta fatos quando a interpretacao natural e invalida', async () => {

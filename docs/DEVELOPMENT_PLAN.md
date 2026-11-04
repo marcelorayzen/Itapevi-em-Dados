@@ -114,7 +114,7 @@ A edição 1612 do Diário Oficial de Itapevi foi persistida localmente com arte
   - Aceite: API responde somente a recortes aprovados, com controles e evidências verificáveis.
 - [x] **F3-04 — Construir console técnico web local.** A demonstração local e somente leitura apresenta catálogo, entidades, evidências, cobertura e limites pelo contrato `1.0`, sem chamadas externas ou publicação. Evidência em `docs/F3_WEB_DEMO_VALIDATION.md`.
   - Aceite: fluxo demonstrável localmente para validação técnica, com consulta, fonte/artefato/página visíveis e limites de cobertura.
-- [-] **F3-05 — Construir portal de apresentação e testes institucionais.** O portal de usuário está publicado com narrativa pública, consulta livre dentro da cobertura, fontes, limites, trilha de auditoria e canal de feedback. O roteiro de avaliação com cidadãos, vereadores/assessores, prefeitura e BBSIA permanece em execução em `docs/NATURAL_LANGUAGE_PILOT_N4_PROTOCOL.md`.
+- [-] **F3-05 — Construir portal de apresentação e testes institucionais.** O portal de usuário está publicado com narrativa pública, consulta livre dentro da cobertura, fontes, limites, trilha de auditoria e canal de feedback. O piloto monitorado de IA está ativo para interpretar intenções fechadas; o roteiro de avaliação com cidadãos, vereadores/assessores, prefeitura e BBSIA permanece em execução em `docs/NATURAL_LANGUAGE_PILOT_N4_PROTOCOL.md`.
   - Aceite: fluxos testados por cidadão, vereador/assessor, prefeitura e BBSIA; dados reais aprovados, hospedagem explicitamente aprovada e nenhum conteúdo pendente ou segredo publicado.
 
 ## F4 — Inteligência responsável

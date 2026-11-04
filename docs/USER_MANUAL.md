@@ -27,7 +27,9 @@ Cada resposta deve trazer a conclusão descritiva, fonte, dataset, checksum, per
 
 Use **Ver trilha de auditoria** abaixo de cada resposta factual para abrir a fonte oficial, ver o identificador da origem, o dataset, o checksum e as instruções para refazer a consulta. O procedimento completo está em [Trilha de auditoria pública](PUBLIC_AUDIT_TRAIL.md).
 
-Na consulta orçamentária por órgão, o recorte público atual cobre 01/09/2026 a 30/09/2026. A lista de órgãos representa somente as linhas retornadas pelo painel nesse período. Veja [Validação N3 da cobertura orçamentária](NATURAL_LANGUAGE_PILOT_N3_VALIDATION.md).
+Na consulta orçamentária por órgão, os recortes públicos atuais cobrem 01/09/2026 a 30/09/2026 e 01/10/2026 a 31/10/2026, ambos filtrados por `Data de Empenho`. Se a pergunta informar somente 2026, o portal pede o mês para não somar recortes que podem ser cumulativos no painel de origem. A lista de órgãos representa somente as linhas retornadas no mês escolhido. Veja a [validação temporal da cobertura orçamentária](R0_BUDGET_TEMPORAL_COVERAGE_VALIDATION_2026-11-03.md).
+
+O portal usa IA apenas para interpretar perguntas fora das regras determinísticas. A resposta factual continua sendo calculada pelo Worker em cima de dados publicados e sempre mostra fonte, período, evidência e limitações. Se o tema ou o período não estiverem cobertos, o portal explica a lacuna em vez de inventar uma resposta.
 
 Para contribuir com a avaliação do portal, envie uma pergunta real anonimizável, a expectativa e a dificuldade encontrada para `marcelo.rayzen@live.com`. O procedimento de revisão e o formato de coleta estão no [protocolo N4](NATURAL_LANGUAGE_PILOT_N4_PROTOCOL.md).
 

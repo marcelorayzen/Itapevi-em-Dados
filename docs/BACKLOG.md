@@ -60,6 +60,9 @@ _Esta trilha não substitui as fases F1–F5. Ela organiza a passagem do protót
 | R0-13 | P2 | Piloto público monitorado com roteiro de avaliação e revisão semanal Marcelo/Rayzen | R0-09, R0-10, R0-12 | [-] |
 | R0-14 | P1 | Ingerir metadados e estrutura do Diário Oficial oficial, começando pela edição 1612 | R0-01 | [-] |
 | R0-15 | P1 | Tornar a extração estrutural Docling do Diário Oficial observável, reprodutível e testada | R0-14 | [-] |
+| R0-16 | P1 | Publicar recortes mensais de execução orçamentária com período, filtro e checksum, sem soma automática entre meses | R0-07 | [x] |
+| R0-17 | P1 | Carregar e validar ao menos 24 meses históricos de execução orçamentária, com metadados do filtro de origem | R0-16 | [ ] |
+| R0-18 | P1 | Definir e testar política de cálculo entre períodos antes de responder agregados anuais | R0-16 | [ ] |
 
 ## Registro de bloqueios
 
@@ -88,9 +91,9 @@ _Esta trilha não substitui as fases F1–F5. Ela organiza a passagem do protót
 | N1-01 | P1 | Contrato JSON e validação local de intenção, período e filtros | R0-07 | [x] |
 | N1-02 | P1 | Roteador semântico Workers AI com fallback determinístico | N1-01 | [x] |
 | N1-03 | P1 | Consultas de orçamento por órgão e listagem de órgãos cobertos | N1-01 | [x] |
-| N1-04 | P1 | Avaliação com 40 perguntas reais anonimizadas; protocolo e verificador prontos, coleta pendente | N1-02, N1-03 | [-] |
-| N1-05 | P2 | Ativação pública controlada do piloto de IA | N1-04, aprovação explícita | [ ] |
-| N1-06 | P2 | Revisão semanal de métricas e decisão de capacidade | N1-05 | [ ] |
+| N1-04 | P1 | Avaliação com 40 perguntas reais anonimizadas; protocolo e verificador prontos, coleta em andamento durante o piloto | N1-02, N1-03 | [-] |
+| N1-05 | P2 | Ativação pública controlada do piloto de IA, autorizada em 03/11/2026 | aprovação explícita | [x] |
+| N1-06 | P2 | Revisão semanal de métricas e decisão de capacidade | N1-05 | [-] |
 
 | Data | Item | Bloqueio | Próxima ação | Responsável |
 |---|---|---|---|---|
@@ -107,3 +110,5 @@ _Esta trilha não substitui as fases F1–F5. Ela organiza a passagem do protót
 | 2026-10-31 | Perguntas livres não podem ampliar o catálogo nem inferir fatos sem evidência; os recortes municipais publicados permanecem agregados, com fonte, período, checksum e limites | `docs/P0_DATA_LICENSE_REVIEW.md`, ADR-009 e ADR-011 | Protege a demonstração pública enquanto a revisão específica de termos por dataset continua |
 | 2026-11-02 | O export oficial de empenhos detalhados é reprocessado com artefato, checksum, execução, evento e evidência próprios; duplicidades idênticas anteriores foram removidas em transação após validação por todos os campos de negócio. | `scripts/ingest-lai-detailed-commitments.ts`, checksum `5EB1B2B8...F03753` | Consultas públicas de unidades de saúde passam a referenciar o artefato correto. |
 | 2026-11-03 | Portal e API públicos passam a ser a referência operacional para os recortes aprovados; documentação de prévia privada e decisões anteriores é mantida como histórico, não como estado atual. | `docs/DOCUMENTATION_STATUS.md`, `docs/CURRENT_PUBLIC_PRODUCT_STATUS.md` | Evita que backlog, manual e índice contradigam o produto publicado. |
+| 2026-11-03 | Marcelo autorizou a ativação pública controlada do Workers AI antes da conclusão de N4. A IA interpreta somente intenções fechadas; a coleta de 40 perguntas e a revisão semanal continuam obrigatórias. | `docs/LLM_PILOT_DECISION.md`, `docs/NATURAL_LANGUAGE_PILOT_PLAN.md` | Permite testar perguntas naturais reais sem liberar SQL, fatos gerados ou novos temas sem evidência. |
+| 2026-11-03 | A execução orçamentária passa a publicar setembro e outubro de 2026 como recortes separados, com período e filtro persistidos por artefato. | `docs/R0_BUDGET_TEMPORAL_COVERAGE_VALIDATION_2026-11-03.md` | Evita que o portal some valores potencialmente cumulativos entre meses. |

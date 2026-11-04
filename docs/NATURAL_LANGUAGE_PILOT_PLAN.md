@@ -79,9 +79,9 @@ O classificador não poderá devolver `empresa vencedora`, `fraude`, `regularida
 
 **Aceite:** a pergunta de saúde retorna Saúde ou indisponibilidade para Saúde; jamais Educação.
 
-### N4 — Avaliação antes de abrir a IA
+### N4 — Avaliação durante o piloto controlado
 
-**Preparação concluída:** [protocolo N4](NATURAL_LANGUAGE_PILOT_N4_PROTOCOL.md), modelo local anonimizado e verificador de critério de aceite. A coleta de 40 perguntas reais ainda está pendente.
+**Preparação concluída:** [protocolo N4](NATURAL_LANGUAGE_PILOT_N4_PROTOCOL.md), modelo local anonimizado e verificador de critério de aceite. Em 03/11/2026, Marcelo autorizou a abertura controlada de N5 antes de N4 atingir 40 perguntas. A coleta continua obrigatória e toda falha vira backlog.
 
 - [ ] Criar conjunto de pelo menos 40 perguntas reais anonimizadas de cidadãos, vereadores, prefeitura e BBSIA.
 - [ ] Classificar cada resultado como correto, esclarecimento adequado, indisponibilidade adequada ou falha.
@@ -92,7 +92,7 @@ O classificador não poderá devolver `empresa vencedora`, `fraude`, `regularida
 
 ### N5 — Piloto monitorado
 
-- [ ] Habilitar `AI_PILOT_ENABLED=true` apenas após N1–N4.
+- [x] Habilitar `AI_PILOT_ENABLED=true` por aprovação explícita de Marcelo em 03/11/2026, como exceção controlada enquanto N4 continua.
 - [ ] Exibir no portal que a pergunta foi interpretada automaticamente, mantendo os fatos como dados publicados.
 - [ ] Monitorar somente métricas agregadas: consultas, intenção, resultado e falha técnica; não guardar pergunta ou IP.
 - [ ] Definir limite diário de uso e resposta de degradação quando a franquia acabar.
@@ -109,9 +109,9 @@ O classificador não poderá devolver `empresa vencedora`, `fraude`, `regularida
 
 ## Ordem de execução
 
-`N1 → N2 → N3 → N4 → N5 → N6`.
+`N1 → N2 → N3 → N4 e N5 monitorados em paralelo → N6`.
 
-N1–N4 são desenvolvimento e avaliação controlados. N5 altera o comportamento público e exige sua aprovação explícita no momento de ativar `AI_PILOT_ENABLED`.
+N1–N4 são desenvolvimento e avaliação controlados. N5 altera o comportamento público e exigiu aprovação explícita no momento de ativar `AI_PILOT_ENABLED`; essa aprovação foi registrada em 03/11/2026 e não encerra N4.
 
 ## Riscos e respostas
 
@@ -126,7 +126,7 @@ N1–N4 são desenvolvimento e avaliação controlados. N5 altera o comportament
 ## Autorizações necessárias por etapa
 
 - **Já autorizado:** desenvolvimento, testes, pesquisa pública, coleta de dados públicos e deploy após testes.
-- **Necessário no futuro:** ativar `AI_PILOT_ENABLED=true` para usuários públicos após relatório N4.
+- **Autorizado em 03/11/2026:** ativar `AI_PILOT_ENABLED=true` para usuários públicos como piloto monitorado; N4 segue obrigatório.
 - **Necessário se houver custo:** qualquer mudança de plano, modelo pago ou aumento deliberado de franquia.
 
 ## Fontes técnicas

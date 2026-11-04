@@ -25,7 +25,7 @@ Ao abrir **Ver trilha de auditoria**, o portal apresenta:
 
 ## Exemplo: execução orçamentária
 
-Para a execução por órgão, o portal abre o [painel LAI da Transparência de Itapevi](https://transparencia.itapevi.sp.gov.br/tdaportalclient.aspx?418). A resposta informa que o recorte atual usa **Data de Empenho de 01/09/2026 a 30/09/2026**. O cidadão deve selecionar a consulta de previsto e empenhado, reaplicar o período e então conferir o órgão apresentado.
+Para a execução por órgão, o portal abre o [painel LAI da Transparência de Itapevi](https://transparencia.itapevi.sp.gov.br/tdaportalclient.aspx?418). A resposta informa o recorte efetivamente usado: **Data de Empenho de 01/09/2026 a 30/09/2026** ou **Data de Empenho de 01/10/2026 a 31/10/2026**. O cidadão deve selecionar a consulta de previsto e empenhado, reaplicar o período da resposta e então conferir o órgão apresentado. O portal não soma meses distintos automaticamente.
 
 O link abre a fonte oficial, mas não substitui os filtros documentados: o painel é dinâmico e pode mostrar outra visão se o usuário alterar os campos.
 

@@ -46,8 +46,8 @@ Caso a conta seja elegível, créditos da API associados a ChatGPT Pro ou Busine
 
 Marcelo aprovou **Workers AI gratuito para piloto**. A implementação atual usa `@cf/meta/llama-3.1-8b-instruct` apenas para classificar intenções estruturadas; Zod valida a saída antes de qualquer função interna, e o modelo não produz fatos nem SQL.
 
-Turnstile e rate limit estão publicados. A variável `AI_PILOT_ENABLED` permanece `false`: a ativação pública está bloqueada até a avaliação N4 com 40 perguntas reais anonimizadas e a decisão formal de Marcelo/Rayzen. O roteiro vigente está em [NATURAL_LANGUAGE_PILOT_PLAN.md](NATURAL_LANGUAGE_PILOT_PLAN.md).
+Turnstile e rate limit estão publicados. Em 03/11/2026, Marcelo autorizou a ativação pública controlada e `AI_PILOT_ENABLED` foi configurada como `true`. A decisão antecipa N5 enquanto N4 permanece em coleta: não declara N4 concluída, nem substitui a revisão semanal Marcelo/Rayzen. O roteiro vigente está em [NATURAL_LANGUAGE_PILOT_PLAN.md](NATURAL_LANGUAGE_PILOT_PLAN.md).
 
 ## Próxima decisão necessária
 
-Após N4, Marcelo e Rayzen devem decidir se ativam o piloto Workers AI com a capacidade gratuita existente, mantêm a rota determinística ou adotam um provedor com orçamento explícito. A credencial do Codex/ChatGPT não será usada como backend do produto.
+Após a semana inicial de N5 e a conclusão de N4, Marcelo e Rayzen devem decidir se mantêm o Workers AI gratuito, voltam à rota apenas determinística ou adotam um provedor com orçamento explícito. A credencial do Codex/ChatGPT não será usada como backend do produto.

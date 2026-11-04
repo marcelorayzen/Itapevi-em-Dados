@@ -35,7 +35,7 @@
     }
   ],
   "vars": {
-    "AI_PILOT_ENABLED": "false",
+    "AI_PILOT_ENABLED": "true",
     "RATE_LIMIT_ENABLED": "true",
     "TURNSTILE_ENABLED": "true",
     "TURNSTILE_SITE_KEY": "0x4AAAAAAFudgJvfL-D8dC2t"

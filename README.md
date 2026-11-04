@@ -46,7 +46,7 @@ PostgreSQL é a fonte de verdade. Documentos brutos não são expostos pela API 
 
 ## Perguntas naturais
 
-O portal aceita perguntas livres somente dentro da cobertura publicada. A interpretação por IA foi implementada com contrato fechado, mas permanece **desativada ao público** até a avaliação de 40 perguntas reais anonimizadas. O roteiro e o critério de aceite estão em [Piloto de perguntas naturais](docs/NATURAL_LANGUAGE_PILOT_PLAN.md).
+O portal aceita perguntas livres dentro da cobertura publicada. O piloto público de IA está **ativo de forma controlada**: o Workers AI interpreta a intenção em um contrato fechado e o Worker consulta somente rotas parametrizadas nas visões públicas. O modelo não cria fatos, não executa SQL livre e não substitui fonte, período, checksum, cobertura ou limitações. Perguntas fora do catálogo recebem uma explicação verificável da lacuna. A avaliação N4 com perguntas reais continua durante o piloto; veja [Piloto de perguntas naturais](docs/NATURAL_LANGUAGE_PILOT_PLAN.md).
 
 ## Desenvolvimento
 
