@@ -37,6 +37,7 @@ As ADRs são propostas até serem validadas por custo operacional e provas de co
 - [Plano do piloto de perguntas naturais](NATURAL_LANGUAGE_PILOT_PLAN.md)
   - [Validação N1 do contrato de perguntas naturais](NATURAL_LANGUAGE_PILOT_N1_VALIDATION.md)
   - [Validação N2 do roteador semântico](NATURAL_LANGUAGE_PILOT_N2_VALIDATION.md)
+  - [Validação N3 da cobertura orçamentária](NATURAL_LANGUAGE_PILOT_N3_VALIDATION.md)
 - [Contrato comum de resposta da F3](F3_RESPONSE_CONTRACT.md)
 - [Validação do catálogo de datasets da F3](F3_DATASET_CATALOG_VALIDATION.md)
 - [Validação da demonstração web local da F3](F3_WEB_DEMO_VALIDATION.md)

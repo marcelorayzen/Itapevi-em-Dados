@@ -7,6 +7,32 @@ const IBGE_POPULATION_URL = `https://servicodados.ibge.gov.br/api/v1/pesquisas/i
 const PORTAL_ORIGIN = 'https://itapevi-em-dados.rayzen.com.br';
 const AI_MODEL = '@cf/meta/llama-3.1-8b-instruct';
 const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+const BUDGET_COVERAGE = Object.freeze({ year: 2026, month: 9, label: '01/09/2026 a 30/09/2026' });
+
+const BUDGET_BODY_CATALOG = Object.freeze({
+  educacao: { label: 'Secretaria de Educação', aliases: ['educacao'], patterns: ['%Educa%'] },
+  saude: { label: 'Fundo Municipal de Saúde', aliases: ['saude', 'fundo municipal de saude'], patterns: ['%Saude%', '%Saúde%'] },
+  fazenda_patrimonio: { label: 'Secretaria da Fazenda e Patrimônio', aliases: ['fazenda', 'patrimonio'], patterns: ['%Fazenda%'] },
+  infraestrutura_servicos_urbanos: { label: 'Secretaria de Infraestrutura e Serviços Urbanos', aliases: ['infraestrutura', 'servicos urbanos'], patterns: ['%Infraestrutura%'] },
+  seguranca_mobilidade_urbana: { label: 'Secretaria de Segurança e Mobilidade Urbana', aliases: ['seguranca', 'mobilidade'], patterns: ['%Seguranca%'] },
+  desenvolvimento_social_cidadania: { label: 'Secretaria de Desenvolvimento Social e Cidadania', aliases: ['desenvolvimento social', 'desenvol social'], patterns: ['%Social%'] },
+  administracao_tecnologia: { label: 'Secretaria de Administração e Tecnologia', aliases: ['administracao'], patterns: ['%Administracao%'] },
+  esportes_lazer: { label: 'Secretaria de Esportes e Lazer', aliases: ['esporte', 'lazer'], patterns: ['%Esporte%'] },
+  gabinete_prefeito: { label: 'Gabinete do Prefeito', aliases: ['gabinete do prefeito', 'gabinete'], patterns: ['%Gabinete do Prefeito%'] },
+  cultura: { label: 'Secretaria de Cultura', aliases: ['cultura'], patterns: ['%Cultura%'] },
+  desenvolvimento_economico: { label: 'Secretaria de Desenvolvimento Econômico', aliases: ['desenvolvimento economico', 'economico'], patterns: ['%Economico%'] },
+  meio_ambiente_defesa_animal: { label: 'Secretaria de Meio Ambiente e Defesa Animal', aliases: ['meio ambiente', 'defesa animal'], patterns: ['%Meio Ambiente%'] },
+  desenvolvimento_urbano_ordenacao_solo: { label: 'Secretaria de Desenvolvimento Urbano e Ordenação do Solo', aliases: ['desenvolvimento urbano', 'ordenacao do solo', 'ordenacao'], patterns: ['%Des. Urbano%', '%Ordenacao%'] },
+  planejamento: { label: 'Secretaria de Planejamento', aliases: ['planejamento'], patterns: ['%Planejamento%'] },
+  habitacao: { label: 'Secretaria Municipal de Habitação', aliases: ['habitacao'], patterns: ['%Habitacao%'] },
+  direitos_humanos_cidadania: { label: 'Secretaria de Direitos Humanos e Cidadania', aliases: ['direitos humanos'], patterns: ['%Direitos Humanos%'] },
+  suprimentos_almoxarifado: { label: 'Secretaria de Suprimentos e Almoxarifado', aliases: ['suprimentos', 'almoxarifado'], patterns: ['%Suprimentos%'] },
+  governo: { label: 'Secretaria de Governo', aliases: ['secretaria de governo', 'governo'], patterns: ['%Governo%'] },
+  tecnologia_inovacao: { label: 'Secretaria de Tecnologia e Inovação', aliases: ['tecnologia e inovacao', 'inovacao'], patterns: ['%Tecnologia e Inovacao%'] },
+  justica: { label: 'Secretaria de Justiça', aliases: ['justica'], patterns: ['%Justica%'] },
+});
+
+const BUDGET_BODY_IDS = Object.keys(BUDGET_BODY_CATALOG);
 
 const NaturalLanguagePeriodSchema = z.object({
   year: z.number().int().min(2024).max(2026).optional(),
@@ -18,7 +44,7 @@ const NaturalLanguagePeriodSchema = z.object({
 export const NaturalLanguageIntentSchema = z.object({
   intent: z.enum(['population', 'budget_by_body', 'procurement_summary', 'contract_summary', 'health_unit_monthly', 'not_available']),
   entity: z.enum(['municipality', 'budget_body', 'procurement', 'contract', 'health_unit', 'none']),
-  body: z.enum(['saude', 'educacao']).optional(),
+  body: z.enum(BUDGET_BODY_IDS).optional(),
   healthUnit: z.enum(['pronto_socorro', 'samu']).optional(),
   period: NaturalLanguagePeriodSchema.optional(),
   confidence: z.enum(['high', 'medium', 'low']),
@@ -31,7 +57,7 @@ const NaturalLanguageIntentJsonSchema = {
   properties: {
     intent: { type: 'string', enum: ['population', 'budget_by_body', 'procurement_summary', 'contract_summary', 'health_unit_monthly', 'not_available'] },
     entity: { type: 'string', enum: ['municipality', 'budget_body', 'procurement', 'contract', 'health_unit', 'none'] },
-    body: { type: 'string', enum: ['saude', 'educacao'] },
+    body: { type: 'string', enum: BUDGET_BODY_IDS },
     healthUnit: { type: 'string', enum: ['pronto_socorro', 'samu'] },
     period: {
       type: 'object',
@@ -87,14 +113,14 @@ function budgetQuestion(query) {
 }
 
 function requestedBudgetBody(query) {
-  if (query.includes('saude')) return { id: 'saude', label: 'Secretaria de Saúde', patterns: ['%Saúde%', '%Saude%'] };
-  if (query.includes('educacao')) return { id: 'educacao', label: 'Secretaria de Educação', patterns: ['%Educação%', '%Educacao%'] };
+  const entry = Object.entries(BUDGET_BODY_CATALOG).find(([, body]) => body.aliases.some((alias) => query.includes(alias)));
+  if (entry) return { id: entry[0], ...entry[1] };
   return null;
 }
 
 function budgetBodyFromIntent(intent) {
-  if (intent?.body === 'saude') return { id: 'saude', label: 'Secretaria de Saúde', patterns: ['%Saúde%', '%Saude%'] };
-  if (intent?.body === 'educacao') return { id: 'educacao', label: 'Secretaria de Educação', patterns: ['%Educação%', '%Educacao%'] };
+  const body = intent?.body ? BUDGET_BODY_CATALOG[intent.body] : null;
+  if (body) return { id: intent.body, ...body };
   return null;
 }
 
@@ -114,6 +140,20 @@ function monthFromIntent(intent) {
   return `${intent.period.year}-${String(intent.period.month).padStart(2, '0')}-01`;
 }
 
+function budgetPeriodIsCovered(intent) {
+  const period = intent?.period;
+  if (!period) return true;
+  return period.year === BUDGET_COVERAGE.year && (period.month === undefined || period.month === BUDGET_COVERAGE.month);
+}
+
+function budgetListQuestion(query) {
+  return /(quais|liste|listar|relacao|relação|todos)/.test(query) && /(orgao|secretaria|fundo|gabinete)/.test(query);
+}
+
+function specificBudgetBodyQuestion(query) {
+  return /(secretaria|orgao|fundo|gabinete)/.test(query) && !budgetListQuestion(query);
+}
+
 function deterministicIntent(query) {
   if (populationQuestion(query)) return { intent: 'population', entity: 'municipality', confidence: 'high' };
   if (healthUnitQuestion(query)) {
@@ -126,7 +166,7 @@ function deterministicIntent(query) {
   }
   if (budgetQuestion(query)) {
     const body = requestedBudgetBody(query);
-    if (body) return { intent: 'budget_by_body', entity: 'budget_body', body: body.id, confidence: 'high' };
+    return { intent: 'budget_by_body', entity: 'budget_body', ...(body ? { body: body.id } : {}), confidence: 'high' };
   }
   if (procurementQuestion(query)) return { intent: 'procurement_summary', entity: 'procurement', confidence: 'high' };
   if (/contrat/.test(query)) {
@@ -160,7 +200,18 @@ export async function publicFactAnswer(question, env, routedIntent = null) {
     }
     if (wantsBudget) {
       const requestedBody = budgetBodyFromIntent(routedIntent) || requestedBudgetBody(query);
-      if (routedType === 'budget_by_body' && !requestedBody) return { status: 'not_available', question, answer: 'O recorte orçamentário atual precisa de um órgão ou secretaria específico. A listagem de órgãos cobertos será disponibilizada na próxima etapa do catálogo.', evidence: [], coverage: { scope: 'execução orçamentária por órgão no recorte publicado', status: 'partial' }, limitations: ['Não seleciono um órgão por padrão quando a pergunta pede uma lista ou não informa o órgão.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'semantic-clarification' } };
+      if (!budgetPeriodIsCovered(routedIntent)) return { status: 'not_available', question, answer: `O recorte orçamentário publicado cobre somente ${BUDGET_COVERAGE.label}. Informe esse período ou consulte outro tema disponível.`, evidence: [], coverage: { scope: 'execução orçamentária por órgão no recorte publicado', status: 'partial' }, limitations: ['Ainda não há recorte orçamentário publicado nesta API para o período solicitado.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'semantic-clarification' } };
+      if (!requestedBody && specificBudgetBodyQuestion(query)) return { status: 'not_available', question, answer: 'Não há órgão ou secretaria correspondente no recorte orçamentário publicado. Consulte a lista de órgãos cobertos ou informe um dos órgãos disponíveis.', evidence: [], coverage: { scope: 'execução orçamentária por órgão no recorte publicado', status: 'partial' }, limitations: ['A ausência no recorte não demonstra ausência de orçamento municipal para o órgão citado.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'semantic-clarification' } };
+      if (!requestedBody) {
+        const [bodiesResult, evidenceResult] = await Promise.all([
+          client.query(`SELECT responsible_body, SUM(record_count)::integer AS record_count, SUM(planned_amount)::numeric AS planned_amount, SUM(realized_amount)::numeric AS realized_amount FROM public_api.budget_execution_summary GROUP BY responsible_body ORDER BY SUM(planned_amount) DESC, responsible_body`),
+          client.query(`SELECT ARRAY_AGG(DISTINCT sha) AS checksums FROM public_api.budget_execution_summary summary CROSS JOIN LATERAL UNNEST(summary.artifact_sha256s) AS sha`),
+        ]);
+        if (!bodiesResult.rows.length) return null;
+        const bodies = bodiesResult.rows.map((row) => ({ responsibleBody: row.responsible_body, recordCount: Number(row.record_count), plannedAmount: Number(row.planned_amount), realizedAmount: Number(row.realized_amount) }));
+        const bodyNames = bodies.map((body) => body.responsibleBody).join('; ');
+        return { status: 'ok', question, answer: `No recorte oficial carregado, há ${bodies.length} órgãos com valores previstos. Eles são: ${bodyNames}.`, data: { indicator: 'execucao_orcamentaria_por_orgao', period: BUDGET_COVERAGE, totalBodies: bodies.length, bodies }, evidence: [{ source: 'Portal da Transparência de Itapevi', datasetId: 'DS-LAI-PREVISTO-EMPENHADO-2026', artifactSha256: evidenceResult.rows[0]?.checksums ?? [] }], coverage: { scope: `${BUDGET_COVERAGE.label}; órgãos e programas retornados pelo painel`, status: 'partial' }, limitations: ['A relação mostra somente os órgãos retornados pelo painel no período informado; não confirma a cobertura integral do orçamento municipal.'], confidence: 'high', metadata: { municipality: 'Itapevi', mode: 'postgres-public-view' } };
+      }
       const result = requestedBody
         ? await client.query(`SELECT responsible_body, record_count, planned_amount, realized_amount, artifact_sha256s FROM public_api.budget_execution_summary WHERE responsible_body ILIKE ANY($1::text[]) ORDER BY planned_amount DESC LIMIT 1`, [requestedBody.patterns])
         : await client.query(`SELECT responsible_body, record_count, planned_amount, realized_amount, artifact_sha256s FROM public_api.budget_execution_summary ORDER BY planned_amount DESC LIMIT 1`);

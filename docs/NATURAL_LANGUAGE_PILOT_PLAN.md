@@ -72,10 +72,10 @@ O classificador não poderá devolver `empresa vencedora`, `fraude`, `regularida
 
 ### N3 — Cobertura real de orçamento
 
-- [ ] Criar consulta agregada que liste órgãos disponíveis no recorte, em vez de escolher o maior valor.
-- [ ] Permitir filtro por órgão/secretaria normalizado e exercício coberto.
-- [ ] Adicionar respostas para “quais órgãos”, “quanto foi previsto” e “quanto foi realizado”.
-- [ ] Testar Saúde, Educação e órgão inexistente.
+- [x] Criar consulta agregada que liste órgãos disponíveis no recorte, em vez de escolher o maior valor.
+- [x] Permitir filtro por órgão/secretaria normalizado e exercício coberto.
+- [x] Adicionar respostas para “quais órgãos”, “quanto foi previsto” e “quanto foi realizado”.
+- [x] Testar Saúde, Educação e órgão inexistente.
 
 **Aceite:** a pergunta de saúde retorna Saúde ou indisponibilidade para Saúde; jamais Educação.
 

@@ -76,6 +76,13 @@ test('valida somente a intencao natural fechada e de alta confianca', () => {
   });
 });
 
+test('aceita apenas orgaos orcamentarios catalogados como filtro estruturado', () => {
+  const accepted = parseNaturalLanguageIntent({ intent: 'budget_by_body', entity: 'budget_body', body: 'fazenda_patrimonio', period: { year: 2026 }, confidence: 'high' });
+  const rejected = parseNaturalLanguageIntent({ intent: 'budget_by_body', entity: 'budget_body', body: 'qualquer_texto_livre', period: { year: 2026 }, confidence: 'high' });
+  assert.equal(accepted?.body, 'fazenda_patrimonio');
+  assert.equal(rejected, null);
+});
+
 test('recusa JSON malformado, baixa confianca e filtros incompletos', () => {
   assert.equal(parseNaturalLanguageIntent('{invalid json'), null);
   assert.equal(parseNaturalLanguageIntent({ intent: 'budget_by_body', entity: 'budget_body', confidence: 'low' }), null);
@@ -118,12 +125,22 @@ test('roteia pergunta nao deterministica apenas pela intencao validada', async (
   assert.deepEqual(routedIntent, { intent: 'budget_by_body', entity: 'budget_body', confidence: 'high' });
 });
 
+test('rota listagem generica de orgaos orcamentarios sem escolher um orgao por padrao', async () => {
+  let routedIntent = null;
+  const response = await answerQuestion('Quais orgaos recebem orcamento?', undefined, undefined, null, async (_question, intent) => {
+    routedIntent = intent;
+    return { status: 'ok', answer: 'Lista de orgaos do recorte.', evidence: [] };
+  });
+  assert.equal(response.answer, 'Lista de orgaos do recorte.');
+  assert.deepEqual(routedIntent, { intent: 'budget_by_body', entity: 'budget_body', confidence: 'high' });
+});
+
 test('nao consulta fatos quando a interpretacao natural e invalida', async () => {
   let factReaderCalled = false;
   const ai = {
     run: async () => ({ response: JSON.stringify({ intent: 'budget_by_body', entity: 'budget_body', confidence: 'medium' }) }),
   };
-  const response = await answerQuestion('Quais orgaos recebem orcamento?', undefined, undefined, ai, async () => { factReaderCalled = true; return {}; });
+  const response = await answerQuestion('Quais indicadores ambientais estao disponiveis?', undefined, undefined, ai, async () => { factReaderCalled = true; return {}; });
   assert.equal(response.status, 'not_available');
   assert.equal(factReaderCalled, false);
 });

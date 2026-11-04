@@ -85,7 +85,7 @@ _Esta trilha não substitui as fases F1–F5. Ela organiza a passagem do protót
 |---|---|---|---|---|
 | N1-01 | P1 | Contrato JSON e validação local de intenção, período e filtros | R0-07 | [x] |
 | N1-02 | P1 | Roteador semântico Workers AI com fallback determinístico | N1-01 | [x] |
-| N1-03 | P1 | Consultas de orçamento por órgão e listagem de órgãos cobertos | N1-01 | [ ] |
+| N1-03 | P1 | Consultas de orçamento por órgão e listagem de órgãos cobertos | N1-01 | [x] |
 | N1-04 | P1 | Avaliação com 40 perguntas reais anonimizadas | N1-02, N1-03 | [ ] |
 | N1-05 | P2 | Ativação pública controlada do piloto de IA | N1-04, aprovação explícita | [ ] |
 | N1-06 | P2 | Revisão semanal de métricas e decisão de capacidade | N1-05 | [ ] |

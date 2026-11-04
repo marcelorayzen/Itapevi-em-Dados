@@ -6,14 +6,14 @@ A API publica permite que o portal encaminhe perguntas livres sem utilizar o ser
 
 ## Enderecos
 
-| Endereco | Finalidade | Estado em 31/10/2026 |
+| Endereco | Finalidade | Estado em 03/11/2026 |
 |---|---|---|
 | https://api-dados.rayzen.com.br/health | Diagnostico publico | Endpoint tecnico publico do Worker |
 | POST /v1/ask | Pergunta publica em JSON | Worker publicado e validado via HTTP enquanto HTTPS e emitido |
 
-## Primeiro catalogo real
+## Catalogo publico atual
 
-A primeira pergunta publicada e a estimativa populacional de Itapevi. A API consulta o indicador 29171 do IBGE para o municipio 3522505. A publicacao deste agregado foi aprovada pelo responsavel do projeto em 31/10/2026, com atribuicao e limites obrigatorios. A API retorna:
+O catálogo reúne somente recortes com fonte e limites explícitos: estimativa populacional do IBGE, totais agregados de contratos e licitações, execução orçamentária por órgão no período publicado e pagamentos mensais com vínculo explícito a pronto-socorro ou SAMU. A estimativa populacional consulta o indicador 29171 do IBGE para o município 3522505. A API retorna:
 
 - ano de referencia;
 - populacao retornada pela serie;
@@ -21,7 +21,7 @@ A primeira pergunta publicada e a estimativa populacional de Itapevi. A API cons
 - momento da coleta;
 - cobertura e limitacoes.
 
-Perguntas sem dataset publicado retornam not_available. A API nao infere, completa ou acusa pessoas, empresas, contratos ou orgaos.
+Perguntas sem dataset publicado retornam `not_available`. A API não infere, completa ou acusa pessoas, empresas, contratos ou órgãos. Uma pergunta genérica sobre órgãos orçamentários retorna a listagem do recorte publicado; ela não escolhe um órgão pelo maior valor.
 
 ## Contrato
 
@@ -38,21 +38,21 @@ Resposta bem-sucedida inclui answer, data, evidence, coverage, limitations, conf
 - aceita somente origem do portal publico;
 - aceita perguntas entre 3 e 500 caracteres;
 - nao recebe login, documentos, chaves ou dados pessoais;
-- nao possui modelo generativo nesta primeira versao;
+- a interpretação por IA está implementada, mas permanece desativada ao público até a avaliação controlada do piloto;
 - depende da disponibilidade do servico oficial do IBGE;
 - novas fontes so entram apos revisao de termos, proveniencia e cobertura.
 
-## Validacao inicial
+## Validacao atual
 
-- testes locais: pergunta de populacao e pergunta indisponivel aprovadas;
-- validacao sem deploy: bundle Worker gerado com sucesso;
-- validacao publicada via HTTP: pergunta de populacao retornou 243.967 habitantes para 2026, com fonte IBGE; pergunta de licitacoes retornou not_available;
-- a integracao do portal usa o subdominio tecnico api-dados.rayzen.com.br, separado do endereco publico do portal.
+- testes locais cobrem população, respostas indisponíveis, filtros fechados, perguntas acusatórias, orçamento e proteção de rota;
+- a visão pública de orçamento retornou 20 órgãos no recorte de setembro de 2026, com checksum do artefato; veja [Validação N3](NATURAL_LANGUAGE_PILOT_N3_VALIDATION.md);
+- o Worker foi empacotado com sucesso antes da publicação e está protegido por Turnstile e limite de requisições;
+- a integração do portal usa o subdomínio técnico `api-dados.rayzen.com.br`, separado do endereço público do portal.
 
 ## Proximas etapas
 
-1. Confirmar certificado HTTPS da API e conectar o campo de pergunta do portal.
-2. Inserir protecao de abuso/rate limiting na borda.
-3. Publicar novos datasets reais somente apos liberacao documentada.
-4. Evoluir para interpretacao por IA citavel, sem permitir resposta sem evidencias.
+1. Avaliar 40 perguntas reais anonimizadas antes de ativar a interpretação por IA.
+2. Publicar novos datasets reais somente após liberação documentada.
+3. Ampliar filtros e períodos somente quando o recorte correspondente estiver carregado e validado.
+4. Manter a interpretação por IA citável, sem permitir resposta sem evidências.
 

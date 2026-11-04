@@ -4,11 +4,28 @@
 
 O projeto possui portal e API públicos para recortes aprovados, além de ferramentas locais de desenvolvimento. O portal público é `https://itapevi-em-dados.rayzen.com.br` e não exige login.
 
-1. uma pagina de diagnostico no navegador;
-2. comandos de banco para conferir a cadeia de dados F1/F2;
-3. um servidor MCP por `stdio`, para ser conectado a um cliente MCP compativel.
+1. um portal público de consulta com fontes, período, cobertura e limites;
+2. uma página local de diagnóstico no navegador;
+3. comandos de banco para conferir a cadeia de dados F1/F2;
+4. um servidor MCP por `stdio`, para ser conectado a um cliente MCP compatível.
 
-A pagina local e os comandos abaixo sao ferramentas de desenvolvimento. Eles nao tornam os dados publicos nem substituem a fonte oficial. O endereco `/demo` e um console tecnico, e nao a interface destinada aos usuarios finais. O plano do portal institucional esta em [Experiencia do portal e demonstracao](PRODUCT_PORTAL_EXPERIENCE.md).
+A página local e os comandos abaixo são ferramentas de desenvolvimento. Eles não substituem a fonte oficial. O endereço `/demo` é um console técnico; a interface destinada ao público é o portal institucional no domínio acima.
+
+## Consultar o portal público
+
+Abra `https://itapevi-em-dados.rayzen.com.br`, conclua a verificação de segurança quando ela for exibida e escreva uma pergunta de até 500 caracteres. Não é necessário criar conta.
+
+Exemplos atualmente cobertos:
+
+- `Qual é a população de Itapevi?`
+- `Quais órgãos recebem orçamento?`
+- `Quanto foi realizado pela Secretaria de Saúde?`
+- `Quantas licitações constam nos recortes publicados?`
+- `Quanto foi pago ao pronto-socorro em janeiro de 2026?`
+
+Cada resposta deve trazer a conclusão descritiva, fonte, dataset, checksum, período, cobertura e limites. Perguntas fora da cobertura publicada, que exijam outro período ou que façam acusações recebem uma explicação de indisponibilidade; elas não são completadas por inferência.
+
+Na consulta orçamentária por órgão, o recorte público atual cobre 01/09/2026 a 30/09/2026. A lista de órgãos representa somente as linhas retornadas pelo painel nesse período. Veja [Validação N3 da cobertura orçamentária](NATURAL_LANGUAGE_PILOT_N3_VALIDATION.md).
 
 ## Requisitos
 
@@ -199,4 +216,4 @@ Não ative nem distribua chaves sem termos das fontes revisados, allowlist aprov
 - O acesso HTTP e somente diagnostico local; nao e interface de consulta publica.
 - O PostgreSQL local e ambiente de desenvolvimento, nao producao.
 - Fontes, documentos e dados derivados possuem regras proprias de uso e redistribuicao.
-- A interface de consulta para usuarios sera uma entrega de produto separada, com dados demonstrativos, hospedagem, seguranca e revisao humana definidos antes da publicacao. Veja [Experiencia do portal e demonstracao](PRODUCT_PORTAL_EXPERIENCE.md).
+- A interface de consulta para usuários está publicada no portal institucional. Ela permanece limitada aos recortes oficialmente carregados, com hospedagem, segurança e revisão de cobertura documentadas em [Experiência do portal e demonstração](PRODUCT_PORTAL_EXPERIENCE.md).
