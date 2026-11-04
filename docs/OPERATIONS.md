@@ -27,3 +27,15 @@ A API pública usa conta de leitura limitada ao schema `public_api`. Tabelas bru
 ## Qualidade contínua
 
 O CI separa os testes do núcleo TypeScript dos testes do Worker público e executa `npm run docs:check` no job do núcleo para impedir links locais quebrados na documentação versionada. A checagem de links não substitui revisão humana do conteúdo, da fonte ou da condição de uso.
+
+## Conferir cobertura antes de ampliar uma resposta
+
+Com a credencial de leitura limitada configurada fora do Git, execute contra o ambiente desejado. Para verificar a produção localmente:
+
+```powershell
+$env:DOTENV_CONFIG_PATH = '.env.production.local'
+npm run db:inspect:public-coverage
+Remove-Item Env:DOTENV_CONFIG_PATH
+```
+
+O comando consulta somente as visões `public_api` e mostra contagens, totais, meses disponíveis e checksums. Ele não mostra URL de banco, documentos brutos nem linhas individuais.

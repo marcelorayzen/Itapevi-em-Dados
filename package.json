@@ -33,6 +33,7 @@
     "db:ingest:school-catalog": "tsx scripts/ingest-school-catalog.ts",
     "db:inspect:f2": "tsx scripts/inspect-entity-evidence.ts",
     "db:catalog": "tsx scripts/inspect-dataset-catalog.ts",
+    "db:inspect:public-coverage": "tsx scripts/inspect-public-coverage.ts",
     "alerts:weekly": "tsx scripts/weekly-alert-report.ts",
     "evaluate:natural": "tsx scripts/evaluate-natural-language.ts",
     "docs:check": "node scripts/check-doc-links.mjs",

@@ -130,6 +130,16 @@ Para listar os datasets registrados, sua cobertura e o estado de termos:
 npm run db:catalog
 ```
 
+Para conferir, com credencial de leitura, a cobertura que já chegou às visões públicas do Neon:
+
+```powershell
+$env:DOTENV_CONFIG_PATH = '.env.production.local'
+npm run db:inspect:public-coverage
+Remove-Item Env:DOTENV_CONFIG_PATH
+```
+
+O resultado apresenta somente totais, meses e checksums das visões públicas. Ele não exibe artefatos brutos nem credenciais.
+
 ### Ingerir a exportacao de compras por modalidade
 
 Com a exportacao ZIP salva localmente e o PostgreSQL iniciado:
