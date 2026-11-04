@@ -12,6 +12,7 @@ Esta pasta separa claramente o produto que está publicado, o trabalho em curso,
 6. [Registro de fontes](DATA_SOURCES_REGISTER.md) e [revisão de dados/licenças](P0_DATA_LICENSE_REVIEW.md) — condição de uso, proveniência e limites.
 7. [ADRs canônicos](adr/README.md) — decisões que orientam a evolução.
 8. [Handoff de metas para Rayzen](RAYZEN_GOALS_HANDOFF_2026-11-03.md) — continuidade ordenada após a sessão de 03/11/2026.
+9. [Apresentação institucional](PRESENTACAO_INSTITUCIONAL.md) — roteiro para demonstrações, reuniões e pedidos de apoio.
 
 ## Produto público e avaliação
 

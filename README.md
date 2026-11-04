@@ -42,6 +42,7 @@ PostgreSQL é a fonte de verdade. Documentos brutos não são expostos pela API 
 - [Modelo de dados](docs/data/ontology.md)
 - [Decisões arquiteturais (ADRs)](docs/adr/README.md)
 - [Plano e backlog](docs/DEVELOPMENT_PLAN.md)
+- [Apresentação institucional](docs/PRESENTACAO_INSTITUCIONAL.md)
 - [Índice completo](docs/README.md)
 
 ## Perguntas naturais
