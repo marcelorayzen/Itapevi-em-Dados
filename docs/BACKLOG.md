@@ -66,6 +66,18 @@ _Esta trilha não substitui as fases F1–F5. Ela organiza a passagem do protót
 
 ## Registro de bloqueios
 
+## Handoff de metas para Rayzen
+
+O próximo ciclo deve ser criado a partir do [handoff de metas da sessão](RAYZEN_GOALS_HANDOFF_2026-11-03.md). Ele agrupa os itens abaixo em objetivos verificáveis e define dependências, critérios de aceite e pontos que continuam exigindo decisão de Marcelo. O documento não altera o estado de nenhum item: é a ordem de trabalho para o acompanhamento semanal Marcelo/Rayzen.
+
+| Meta proposta | Itens canônicos | Estado inicial |
+|---|---|---|
+| G1 — Avaliar e estabilizar o piloto público | N1-04, N1-06, R0-09, R0-13 | em andamento |
+| G2 — Ampliar a cobertura orçamentária com segurança temporal | R0-17, R0-18 | não iniciada |
+| G3 — Fechar lacunas de governança e release | R0-02, P0-04, P0-05, P0-06 | em andamento |
+| G4 — Preparar educação e Diário Oficial como novas fontes governadas | R0-14, R0-15, R2-01, R2-02 | em andamento |
+| G5 — Pesquisar a próxima expansão de produto antes de implementá-la | F3-05, R0-12, R2-03, R2-04 | estudo planejado |
+
 ## Expansão de consultas reais
 
 | ID | Prioridade | Item | Dependência | Estado |

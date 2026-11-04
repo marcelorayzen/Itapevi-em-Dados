@@ -14,6 +14,7 @@
 - **Acompanhamento do plano:** Marcelo Augusto e Rayzen.
 - **Papel do Rayzen:** organizar evidências, manter plano/backlog atualizados e solicitar decisão quando houver escolha de escopo, prioridade, risco ou informação faltante.
 - **Ritmo de revisão:** semanal.
+- **Próximo ciclo:** registrar e acompanhar as metas do [handoff para Rayzen](RAYZEN_GOALS_HANDOFF_2026-11-03.md), sem iniciar uma nova fonte, integração paga ou mudança pública de escopo sem a decisão correspondente de Marcelo.
 
 ## Marcos e critérios de saída
 

@@ -11,6 +11,7 @@ Esta pasta separa claramente o produto que está publicado, o trabalho em curso,
 5. [Plano de desenvolvimento](DEVELOPMENT_PLAN.md) e [Backlog](BACKLOG.md) — tarefas, estados e próximos critérios de aceite.
 6. [Registro de fontes](DATA_SOURCES_REGISTER.md) e [revisão de dados/licenças](P0_DATA_LICENSE_REVIEW.md) — condição de uso, proveniência e limites.
 7. [ADRs canônicos](adr/README.md) — decisões que orientam a evolução.
+8. [Handoff de metas para Rayzen](RAYZEN_GOALS_HANDOFF_2026-11-03.md) — continuidade ordenada após a sessão de 03/11/2026.
 
 ## Produto público e avaliação
 
