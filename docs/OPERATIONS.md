@@ -23,3 +23,7 @@ A API pública usa conta de leitura limitada ao schema `public_api`. Tabelas bru
 4. Testar respostas, recusas e permissões.
 5. Atualizar a documentação canônica: estado público, capacidades, fontes, backlog e manual quando aplicável.
 6. Publicar somente após revisão humana e validar `GET /health`, uma pergunta factual, uma recusa segura e a trilha de auditoria.
+
+## Qualidade contínua
+
+O CI separa os testes do núcleo TypeScript dos testes do Worker público e executa `npm run docs:check` no job do núcleo para impedir links locais quebrados na documentação versionada. A checagem de links não substitui revisão humana do conteúdo, da fonte ou da condição de uso.

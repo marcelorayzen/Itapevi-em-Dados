@@ -16,7 +16,7 @@
 | P0-05 | P0 | Registro de fontes e termos de uso | P0-01 | [-] |
 | P0-06 | P0 | Checklist de segurança e release | P0-01 | [-] |
 | P0-07 | P0 | Conciliar documentação canônica, backlog e registros históricos | P0-01 | [x] |
-| P0-08 | P1 | Executar a checagem de links da documentação também no CI | P0-03, P0-07 | [ ] |
+| P0-08 | P1 | Executar a checagem de links da documentação também no CI | P0-03, P0-07 | [x] |
 | F1-01 | P1 | Escolha da fonte piloto | P0-05 | [x] |
 | F1-02 | P1 | Modelo mínimo de catálogo e proveniência | F1-01 | [x] |
 | F1-03 | P1 | Artefato bruto e checksum | F1-02 | [x] |

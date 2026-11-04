@@ -71,7 +71,7 @@ A edição 1612 do Diário Oficial de Itapevi foi persistida localmente com arte
   - Aceite: checklist de release e de contribuição aprovado.
 - [x] **P0-07 — Conciliar a documentação operacional.** Índice, estado público, capacidades, backlog, manual e referências históricas foram reconciliados em 03/11/2026.
   - Aceite: documentos canônicos indicam o produto publicado e registros antigos apontam para a referência vigente.
-- [ ] **P0-08 — Incluir a checagem de links da documentação no CI.** O comando local `npm run docs:check` já verifica links Markdown locais; falta executá-lo em todo pull request e push.
+- [x] **P0-08 — Incluir a checagem de links da documentação no CI.** O comando `npm run docs:check` é executado no job `core` em todo pull request e push para `main`.
   - Aceite: uma alteração com link local inválido falha no CI antes do merge.
 
 ## F1 — Uma fonte governada

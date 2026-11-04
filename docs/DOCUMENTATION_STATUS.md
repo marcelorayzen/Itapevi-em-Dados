@@ -23,4 +23,4 @@ Validacoes, avaliacoes de alternativas, snapshots de checkout e planos substitui
 
 Uma mudança de capacidade, fonte, cobertura, controle público ou deploy precisa atualizar, na mesma alteração: estado público, capacidades, backlog, plano operacional e manual quando afetar o uso. Registros de validação anteriores não devem ser apagados; devem receber referência para o documento vigente quando puderem induzir uma leitura atual incorreta.
 
-O comando `npm run docs:check` localiza links locais quebrados na documentação versionada. A inclusão obrigatória dessa checagem no CI está registrada em P0-08. A ferramenta não avalia se uma afirmação está atualizada: essa revisão continua obrigatória quando há mudança de produto ou de fonte.
+O comando `npm run docs:check` localiza links locais quebrados na documentação versionada e é executado no job `core` do CI. A ferramenta não avalia se uma afirmação está atualizada: essa revisão continua obrigatória quando há mudança de produto ou de fonte.
