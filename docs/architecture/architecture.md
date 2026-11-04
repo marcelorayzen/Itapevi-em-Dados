@@ -1,12 +1,14 @@
-# Arquitetura V2
+# Arquitetura-alvo V2
 
-## V1 atual
+> Esta é a direção arquitetural de evolução. A arquitetura em produção hoje é descrita em [OPERATIONS.md](../OPERATIONS.md) e o estado publicado em [CURRENT_PUBLIC_PRODUCT_STATUS.md](../CURRENT_PUBLIC_PRODUCT_STATUS.md). Componentes como Neo4j, Timeline e Spatial Engine permanecem planejados até haver código, testes e evidência operacional.
+
+## Baseline V1 de origem
 
 ```text
 Fonte -> coleta/scraping -> MCP Tool -> resposta
 ```
 
-Esta arquitetura é a do protótipo existente. Ela não contém grafo, memória histórica, banco transacional, lineage, portal ou API pública.
+Esta arquitetura era a do protótipo de origem. Ela não continha grafo, memória histórica, banco transacional, lineage, portal ou API pública. O estado atual já possui PostgreSQL, proveniência para recortes publicados, portal e API restrita; os demais componentes continuam sujeitos ao roadmap.
 
 ## Diretriz V2
 

@@ -2,18 +2,17 @@
 
 ## Estado atual
 
-O repositório ainda rastreia `dist/` e `node_modules/`. A presença desses diretórios não significa que a política está aprovada; ela é uma condição herdada que precisa de decisão controlada.
+Em 27/10/2026, `dist/` e `node_modules/` foram removidos do índice Git, preservados apenas no ambiente local e incluídos no `.gitignore` (P0-02 concluído). Eles não devem voltar ao repositório sem uma decisão explícita de distribuição, justificativa e validação reprodutível.
 
 ## Diretriz proposta
 
 - Código-fonte, manifests e lockfile são versionados.
 - `node_modules/` não deve ser versionado em novos commits.
 - `dist/` deve ser tratado como artefato de build, salvo decisão explícita de distribuição que registre motivo, plataforma e reprodutibilidade.
-- Nenhum diretório já rastreado será removido ou deixará de ser rastreado sem revisão e aprovação humana.
+- Mudanças na política de artefatos exigem revisão humana e validação de clone, build e CI.
 
 ## Próximos passos
 
-1. Comparar o conteúdo de `dist/` com um build limpo em CI.
-2. Decidir se a distribuição exige artefato versionado.
-3. Criar uma mudança revisável para retirar arquivos do índice, se aprovada.
-4. Confirmar que o clone e o CI funcionam sem `node_modules/` versionado.
+1. Confirmar em cada release que `dist/`, `node_modules/`, `.local/`, PDFs e ZIPs brutos continuam fora do diff.
+2. Se uma distribuição exigir artefato versionado, registrar motivo, plataforma e processo de reprodução antes de alterar a política.
+3. Executar build e CI a partir de clone limpo após qualquer mudança de ferramenta.

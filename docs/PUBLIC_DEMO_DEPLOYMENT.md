@@ -1,8 +1,8 @@
-# Publicacao da demonstracao estatica
+# Publicação do portal público
 
 ## Estado
 
-Em 31 de outubro de 2026, a demonstracao estatica do Itapevi em Dados foi publicada em:
+Em 03 de novembro de 2026, o portal público do Itapevi em Dados está publicado em:
 
 - https://itapevi-em-dados.rayzen.com.br/
 
@@ -19,13 +19,13 @@ O endereco anterior do GitHub Pages permanece disponivel como endereco tecnico:
 | DNS | CNAME para marcelorayzen.github.io |
 | Certificado HTTPS | Aprovado pelo GitHub Pages |
 | HTTPS obrigatorio | Ativo |
-| Conteudo | Interface estatica; pergunta de populacao consulta o IBGE em tempo real; demais indicadores visuais permanecem ilustrativos |
+| Conteúdo | Interface estática conectada à API pública; respostas factuais usam recortes reais agregados e evidências. |
 
 ## Limites da publicacao
 
-Esta publicacao nao expoe PostgreSQL, API privada, chaves, documentos brutos ou dados municipais ainda em revisao. A pergunta de populacao utiliza uma API publica separada, hospedada no Cloudflare Worker, e mostra a fonte oficial. Os demais elementos visuais permanecem ilustrativos. A publicacao serve para apresentar a experiencia, o metodo de evidencia e os limites do produto.
+Esta publicação não expõe PostgreSQL, credenciais, documentos brutos, ZIPs locais ou tabelas não aprovadas. O portal usa uma API pública separada no Cloudflare Worker e apresenta somente recortes reais agregados com fonte, dataset, checksum, cobertura e limitações. Nenhum elemento ilustrativo deve ser apresentado como resposta factual.
 
-A inclusao de dados reais exige, por dataset:
+A inclusão ou ampliação de dados reais exige, por dataset:
 
 1. origem e periodo registrados;
 2. termos e condicao de redistribuicao revisados;
@@ -33,7 +33,7 @@ A inclusao de dados reais exige, por dataset:
 4. evidencia e limitacao visiveis na interface;
 5. aprovacao humana registrada.
 
-## Proxima evolucao
+## Próxima evolução
 
-A proxima entrega de dados reais deve ser um recorte agregado, verificavel e formalmente liberado. Ela sera publicada somente depois de atualizar o registro de fontes, o status de termos e os testes de interface.
+A próxima entrega de dados reais deve ser um recorte agregado, verificável e aprovado para publicação. Ela só entra após atualizar registro de fontes, status de termos, cobertura, testes de interface e documentação canônica.
 

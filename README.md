@@ -4,6 +4,8 @@ Observatório público de dados municipais que transforma fontes oficiais disper
 
 **Portal público:** [itapevi-em-dados.rayzen.com.br](https://itapevi-em-dados.rayzen.com.br/)
 
+**Estado desta documentação:** reconciliado em 03/11/2026. Para o que está realmente publicado, consulte o [estado atual do produto](docs/CURRENT_PUBLIC_PRODUCT_STATUS.md); planos e registros de validação antigos não substituem essa referência.
+
 ## Capacidades publicadas
 
 | Domínio | Cobertura atual |
@@ -30,12 +32,15 @@ PostgreSQL é a fonte de verdade. Documentos brutos não são expostos pela API 
 ## Documentação
 
 - [Estado atual do produto público](docs/CURRENT_PUBLIC_PRODUCT_STATUS.md)
+- [Governança e leitura da documentação](docs/DOCUMENTATION_STATUS.md)
 - [Visão de produto](docs/vision.md)
 - [Arquitetura](docs/architecture/architecture.md)
 - [Capacidades e cobertura](docs/CAPABILITIES.md)
 - [Operação e segurança](docs/OPERATIONS.md)
+- [Trilha de auditoria pública](docs/PUBLIC_AUDIT_TRAIL.md)
+- [Registro de fontes e condições de uso](docs/DATA_SOURCES_REGISTER.md)
 - [Modelo de dados](docs/data/ontology.md)
-- [Decisões arquiteturais](docs/architecture/adr/)
+- [Decisões arquiteturais (ADRs)](docs/adr/README.md)
 - [Plano e backlog](docs/DEVELOPMENT_PLAN.md)
 - [Índice completo](docs/README.md)
 

@@ -1,14 +1,14 @@
 # Estado atual do produto público
 
 **Atualizado em:** 03/11/2026  
-**Finalidade:** referência rápida para demonstrações, avaliação institucional e manutenção. Registros históricos continuam preservados nos documentos de validação.
+**Finalidade:** referência canônica para demonstrações, avaliação institucional e manutenção. Registros históricos continuam preservados, mas não substituem este documento; veja [Governança da documentação](DOCUMENTATION_STATUS.md).
 
 ## O que está publicado
 
 | Componente | Endereço | Estado |
 |---|---|---|
 | Portal público | `https://itapevi-em-dados.rayzen.com.br` | Público, sem login, protegido por verificação antiabuso antes da consulta. |
-| API pública | `https://api-dados.rayzen.com.br` | Cloudflare Worker com Hyperdrive para PostgreSQL Neon. |
+| API pública | `https://api-dados.rayzen.com.br` | Cloudflare Worker com Hyperdrive para PostgreSQL Neon; `GET /health` e `POST /v1/ask`. |
 | Banco público | Visões `public_api` | Apenas agregados aprovados; tabelas brutas e artefatos locais não são expostos. |
 
 ## Cobertura publicada
@@ -19,7 +19,7 @@
 - execução orçamentária por órgão no recorte de 01/09/2026 a 30/09/2026;
 - pagamentos mensais com vínculo explícito a pronto-socorro ou SAMU.
 
-Cada resposta factual precisa retornar fonte, dataset, checksum, período, cobertura e limitações. O portal não conclui fraude, irregularidade, favorecimento, culpa ou legalidade.
+Cada resposta factual retorna fonte oficial, identificador de origem, dataset, checksum, período, cobertura, instruções de conferência e limitações. O portal não conclui fraude, irregularidade, favorecimento, culpa ou legalidade. A fonte pode ser aberta em **Ver trilha de auditoria**.
 
 ## Perguntas naturais
 
@@ -32,6 +32,16 @@ O Worker já contém um contrato fechado para interpretar intenções, mas o rec
 | N3 — orçamento por órgão | concluída |
 | N4 — 40 perguntas reais anonimizadas | coleta pendente |
 | N5 — ativação pública da IA | bloqueada por N4 e decisão formal |
+
+## Estado das entregas públicas
+
+| Entrega | Estado | Evidência de manutenção |
+|---|---|---|
+| API restrita de fatos agregados | publicada | [API pública](F3_PUBLIC_API_WORKER.md) |
+| Portal público sem login | publicado | [manual](USER_MANUAL.md) |
+| Proteção antiabuso | publicada | Turnstile e limite de requisições antes da consulta |
+| Trilha de auditoria por resposta | publicada | [trilha pública](PUBLIC_AUDIT_TRAIL.md) |
+| IA para interpretação livre | desativada ao público | N4 pendente |
 
 ## O que ainda não é oferecido
 

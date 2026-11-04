@@ -1,28 +1,44 @@
-# Documentação V2
+# Documentação do Itapevi em Dados
 
-Esta pasta reúne o estado publicado, evidências de validação e a direção da V2 do **Itapevi em Dados**. Documentos de arquitetura, visão, ontologia e roadmap descrevem a direção; eles não tornam componentes planejados recursos implantados.
+Esta pasta separa claramente o produto que está publicado, o trabalho em curso, a direção arquitetural e os registros históricos. **Para qualquer afirmação sobre o estado atual, comece pelos documentos canônicos abaixo.** A convenção completa está em [Governança da documentação](DOCUMENTATION_STATUS.md).
 
-## Comece por aqui
+## Documentos canônicos
 
-1. [Estado atual do produto público](CURRENT_PUBLIC_PRODUCT_STATUS.md)
-2. [Manual de uso](USER_MANUAL.md)
-3. [Plano e backlog](DEVELOPMENT_PLAN.md) e [Backlog](BACKLOG.md)
-4. [Piloto de perguntas naturais](NATURAL_LANGUAGE_PILOT_PLAN.md)
+1. [Estado atual do produto público](CURRENT_PUBLIC_PRODUCT_STATUS.md) — endereços publicados, cobertura e limites.
+2. [Capacidades e cobertura](CAPABILITIES.md) — o que cada consulta pode e não pode responder.
+3. [Manual de uso](USER_MANUAL.md) e [Trilha de auditoria pública](PUBLIC_AUDIT_TRAIL.md) — como consultar e conferir uma resposta.
+4. [Operação e segurança](OPERATIONS.md) — serviços, limites de acesso e rotina de publicação.
+5. [Plano de desenvolvimento](DEVELOPMENT_PLAN.md) e [Backlog](BACKLOG.md) — tarefas, estados e próximos critérios de aceite.
+6. [Registro de fontes](DATA_SOURCES_REGISTER.md) e [revisão de dados/licenças](P0_DATA_LICENSE_REVIEW.md) — condição de uso, proveniência e limites.
+7. [ADRs canônicos](adr/README.md) — decisões que orientam a evolução.
 
-1. [Visão](vision.md) e [princípios](principles.md)
-2. [Estado verificado da V1](architecture/current-state.md)
-3. [Arquitetura-alvo](architecture/architecture.md)
-4. [Ontologia](data/ontology.md), [governança](governance/provenance.md) e [roadmap](roadmap.md)
-5. [Blueprint](engineering/implementation-blueprint.md) e [ADRs](architecture/adr/)
-6. [Plano de desenvolvimento](DEVELOPMENT_PLAN.md) e [backlog](BACKLOG.md)
-7. [Manual de uso local](USER_MANUAL.md)
-8. [Experiencia do portal e demonstracao](PRODUCT_PORTAL_EXPERIENCE.md)
+## Produto público e avaliação
 
-As ADRs são propostas até serem validadas por custo operacional e provas de conceito. Dados de origem e eventos continuam sendo a autoridade; projeções, LLMs e grafos são derivados reconstruíveis.
+- [Experiência do portal e demonstração](PRODUCT_PORTAL_EXPERIENCE.md)
+- [API pública de perguntas](F3_PUBLIC_API_WORKER.md)
+- [Piloto de perguntas naturais](NATURAL_LANGUAGE_PILOT_PLAN.md)
+  - [Validação N1](NATURAL_LANGUAGE_PILOT_N1_VALIDATION.md)
+  - [Validação N2](NATURAL_LANGUAGE_PILOT_N2_VALIDATION.md)
+  - [Validação N3](NATURAL_LANGUAGE_PILOT_N3_VALIDATION.md)
+  - [Protocolo N4](NATURAL_LANGUAGE_PILOT_N4_PROTOCOL.md)
+  - [Primeiro achado de N4](NATURAL_LANGUAGE_PILOT_N4_EARLY_FINDINGS.md)
+- [Validação de consulta pública](R0_PUBLIC_QUERY_VALIDATION_2026-11-03.md)
+- [Prontidão para testes públicos](PUBLIC_TEST_READINESS_CHECK_2026-11-03.md)
+- [Integração BBSIA](BBSIA_INTEGRATION.md) e [pedido de avaliação](BBSIA_REVIEW_REQUEST.md)
+
+## Arquitetura e direção
+
+- [Visão](vision.md), [princípios](principles.md) e [roadmap](roadmap.md)
+- [Arquitetura-alvo](architecture/architecture.md) e [snapshot histórico da V1](architecture/current-state.md)
+- [Ontologia](data/ontology.md), [proveniência](governance/provenance.md) e [blueprint](engineering/implementation-blueprint.md)
+
+## Registros técnicos e históricos
+
+As validações F1–F4, R0 e os documentos de prévia privada registram decisões e testes datados. Eles são evidência útil, mas não substituem os documentos canônicos quando descrevem uma etapa anterior. Para navegação por fase, consulte o [backlog](BACKLOG.md).
 
 ## Avaliação BBSIA
 
-- [Status do Protótipo](PROTOTYPE_STATUS.md)
+- [Status técnico do protótipo local](PROTOTYPE_STATUS.md)
 - [Integração BBSIA](BBSIA_INTEGRATION.md)
 - [Pedido de avaliação institucional ao BBSIA](BBSIA_REVIEW_REQUEST.md)
 - [Estratégia de código aberto](OPEN_SOURCE_STRATEGY.md)
@@ -51,9 +67,9 @@ As ADRs são propostas até serem validadas por custo operacional e provas de co
 - [Validação do catálogo de datasets da F3](F3_DATASET_CATALOG_VALIDATION.md)
 - [Validação da demonstração web local da F3](F3_WEB_DEMO_VALIDATION.md)
 - [Experiência do portal e demonstração institucional](PRODUCT_PORTAL_EXPERIENCE.md)
-- [Avaliação de API pública da F3](F3_PUBLIC_API_EVALUATION.md)
-- [Prévia privada de API da F3](F3_PRIVATE_PREVIEW_VALIDATION.md)
-- [Preparação da prévia privada em subdomínio](PRIVATE_PREVIEW_DEPLOYMENT.md)
+- [Avaliação histórica de API pública da F3](F3_PUBLIC_API_EVALUATION.md)
+- [Prévia privada de API da F3 (alternativa não ativada)](F3_PRIVATE_PREVIEW_VALIDATION.md)
+- [Preparação histórica da prévia privada](PRIVATE_PREVIEW_DEPLOYMENT.md)
 - [API pública de perguntas no Cloudflare Worker](F3_PUBLIC_API_WORKER.md)
   - [Trilha de auditoria pública](PUBLIC_AUDIT_TRAIL.md)
 - [Publicação da demonstração estática](PUBLIC_DEMO_DEPLOYMENT.md)
@@ -66,4 +82,4 @@ As ADRs são propostas até serem validadas por custo operacional e provas de co
 - [Validação do piloto agregado TCESP](F1_TCESP_AGGREGATE_VALIDATION.md)
 - [Melhorias futuras registradas](FUTURE_IMPROVEMENTS.md)
 
-Os documentos existentes de visão, princípios, arquitetura, roadmap e ontologia descrevem a direção V2 e não representam recursos já implementados.
+Os documentos de visão, princípios, arquitetura, roadmap e ontologia descrevem a direção V2. Eles não tornam componentes planejados recursos implantados.

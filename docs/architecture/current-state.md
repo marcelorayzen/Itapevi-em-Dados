@@ -1,4 +1,6 @@
-# Estado atual da V1 — inventário verificado
+# Registro histórico — estado da V1
+
+> **Snapshot de 24/10/2026.** O conteúdo abaixo descreve o checkout anterior à base pública atual. Não é o estado do produto em 03/11/2026; consulte [CURRENT_PUBLIC_PRODUCT_STATUS.md](../CURRENT_PUBLIC_PRODUCT_STATUS.md).
 
 _Verificado no checkout `0263789`, em 24/10/2026._
 

@@ -1,4 +1,6 @@
-# Preparacao da previa privada em subdominio
+# Registro histórico — preparação da prévia privada em subdomínio
+
+> **Não é o ambiente atual.** O portal público e a API pública foram publicados posteriormente. Esta prévia autenticada nunca foi ativada e permanece apenas como alternativa de arquitetura. Para o estado vigente, consulte [CURRENT_PUBLIC_PRODUCT_STATUS.md](CURRENT_PUBLIC_PRODUCT_STATUS.md).
 
 ## Finalidade
 
@@ -8,9 +10,9 @@ Ela e diferente da demonstracao no GitHub Pages:
 
 | Ambiente | Conteudo | Acesso |
 |---|---|---|
-| GitHub Pages | Interface e dados ilustrativos | Publico |
-| Previa privada | Apenas dados agregados aprovados | Convidados com chave individual |
-| Producao | Escopo aprovado por instituicao | Futuro |
+| Portal público atual | Recortes agregados governados, com evidências | Público, sem login |
+| Prévia privada histórica | Apenas dados agregados aprovados | Convidados com chave individual |
+| Produção atual | GitHub Pages + Cloudflare Worker | Cobertura documentada e controles públicos |
 
 ## O que ja esta preparado
 
@@ -22,7 +24,7 @@ A rota GET /api/preview/v1/catalog existe no codigo e permanece desligada por pa
 - limite de requisicoes configurado;
 - dataset ativo, origem permitida e artefato aprovado para publicacao.
 
-Nenhuma chave, dominio, origem externa ou dataset publico foi configurado neste repositorio.
+Nenhuma chave, domínio ou origem da **prévia privada** foi configurado neste repositório. Isso não descreve o Worker público atualmente publicado.
 
 ## Decisoes necessarias antes de ativar
 
@@ -66,5 +68,5 @@ Cada convidado recebe uma chave diferente. A chave bruta e entregue por canal ap
 
 ## Reversao
 
-Para encerrar a previa, primeiro defina PREVIEW_API_ENABLED=false, revogue as chaves e remova a origem permitida. Depois preserve apenas os logs necessarios para auditoria, conforme a politica definida para o ambiente. A demo estatica publica nao e afetada por essa reversao porque ela nao chama a API privada.
+Para encerrar uma eventual prévia, primeiro defina `PREVIEW_API_ENABLED=false`, revogue as chaves e remova a origem permitida. Depois preserve apenas os logs necessários para auditoria, conforme a política definida para o ambiente. O portal público atual não chama essa API privada histórica.
 

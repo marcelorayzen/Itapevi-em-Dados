@@ -1,5 +1,7 @@
 # Checklist de segurança e release
 
+> Este é um checklist reutilizável, não um atestado automático da última publicação. Para o estado operacional atual, consulte [OPERATIONS.md](OPERATIONS.md); os números de testes e de auditoria abaixo são registros datados.
+
 ## Antes de abrir ou publicar alterações
 
 - [ ] Não há credenciais, tokens, cookies, dados pessoais ou arquivos `.env` no diff.

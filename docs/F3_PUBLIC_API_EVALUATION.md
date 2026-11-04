@@ -1,8 +1,10 @@
-# F3 - Avaliação de API pública
+# Registro histórico — F3: avaliação de API pública
 
-## Estado da decisão
+> **Contexto encerrado em 29/10/2026.** Esta avaliação levou à preparação de uma prévia privada. Posteriormente, o projeto publicou uma API pública de recortes agregados e governados. Não use este documento para descrever o estado atual: consulte [F3_PUBLIC_API_WORKER.md](F3_PUBLIC_API_WORKER.md), [CURRENT_PUBLIC_PRODUCT_STATUS.md](CURRENT_PUBLIC_PRODUCT_STATUS.md) e [OPERATIONS.md](OPERATIONS.md).
 
-**Decisão registrada:** preparar prévia privada, autenticada e somente leitura. Não existe API pública, deploy externo, chave real de acesso ou compromisso de disponibilidade nesta etapa.
+## Estado da decisão na data do registro
+
+**Decisão registrada em 29/10/2026:** preparar prévia privada, autenticada e somente leitura. Naquela etapa, não existiam API pública, deploy externo, chave real de acesso ou compromisso de disponibilidade.
 
 ## Situação atual
 

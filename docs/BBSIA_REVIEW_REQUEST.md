@@ -6,12 +6,12 @@ Solicitar ao BBSIA uma avaliacao tecnica e institucional do **Itapevi em Dados**
 
 ## Material a apresentar
 
-1. [README do projeto](../README.md): proposito, estado atual e como testar localmente.
+1. [README do projeto](../README.md), [estado público](CURRENT_PUBLIC_PRODUCT_STATUS.md) e [manual](USER_MANUAL.md): propósito, estado atual e como testar o portal.
 2. [Visao](vision.md), [principios](principles.md) e [arquitetura](architecture/architecture.md).
 3. [Registro de fontes](DATA_SOURCES_REGISTER.md) e [revisao de termos](P0_DATA_LICENSE_REVIEW.md).
-4. [Governanca de dados](DATA_GOVERNANCE.md) e [ADRs](architecture/adr/).
+4. [Governança de dados](DATA_GOVERNANCE.md) e [ADRs canônicos](adr/README.md).
 5. [Experiencia do portal](PRODUCT_PORTAL_EXPERIENCE.md).
-6. [Manual de uso local](USER_MANUAL.md) e evidencias de validacao F1--F4.
+6. [Trilha de auditoria pública](PUBLIC_AUDIT_TRAIL.md), protocolo N4 e evidências de validação F1--F4.
 
 ## Perguntas para a reuniao
 
@@ -25,8 +25,8 @@ Solicitar ao BBSIA uma avaliacao tecnica e institucional do **Itapevi em Dados**
 
 ### Demonstracao e seguranca
 
-- A demonstracao publica atual consulta somente o agregado populacional do IBGE; o BBSIA concorda com a manutencao desta allowlist limitada enquanto as fontes municipais passam por revisao?
-- O BBSIA recomenda complementar a demonstracao publica com uma previa privada para os datasets municipais ainda pendentes de termos?
+- A cobertura pública de agregados municipais e IBGE, com fonte, período e checksum, atende à expectativa de auditabilidade do piloto?
+- O BBSIA recomenda algum controle adicional antes de ampliar a cobertura pública para novos datasets municipais?
 - Quem serao os avaliadores, por quanto tempo e com qual canal para relatar problemas?
 - Quais requisitos minimos de acessibilidade, identidade visual, hospedagem, logs e suporte devem constar da demonstracao?
 - Que criterio objetivo declara a demonstracao apta para ser apresentada a prefeituras e camaras?
@@ -45,12 +45,12 @@ Ao final, registrar em ata ou e-mail:
 |---|---|
 | Participantes e papeis | Nome, area e responsabilidade |
 | Fontes avaliadas | Dataset, origem, termo localizado e condicao de uso |
-| Decisao de demonstracao | Estatica publica, previa privada ou ambas |
+| Decisão de demonstração | Manter portal público, ampliar cobertura ou criar prévia autenticada complementar |
 | Dados permitidos | Campos, granularidade, periodo e atribuicao |
 | Pendencias | Responsavel, proximo passo e prazo |
 | Criterio de aprovacao | Quem aprova e qual evidencia sera arquivada |
 
 ## Limite juridico
 
-A avaliacao tecnica/institucional do BBSIA e valiosa para governanca, mas nao substitui autorizacao do detentor da fonte, termo expresso ou parecer juridico quando houver duvida sobre direitos, LGPD, redistribuicao, dados pessoais ou responsabilidade editorial. Enquanto a condicao nao for confirmada, o dataset permanece pendente de revisao e nao integra uma demonstracao publica.
+A avaliação técnica/institucional do BBSIA é valiosa para governança, mas não substitui autorização do detentor da fonte, termo expresso ou parecer jurídico quando houver dúvida sobre direitos, LGPD, redistribuição, dados pessoais ou responsabilidade editorial. Enquanto a condição não for confirmada, **um novo dataset ou campo** permanece pendente de revisão e não integra a cobertura pública.
 

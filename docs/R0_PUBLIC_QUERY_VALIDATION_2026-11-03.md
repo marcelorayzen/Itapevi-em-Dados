@@ -1,4 +1,6 @@
-# Validação da consulta pública — 03/11/2026
+# Registro histórico — validação da consulta pública em 03/11/2026
+
+> Este é um snapshot de uma rodada anterior de validação, com versões de Worker e commits daquela data. Para a cobertura e publicação vigentes, consulte [CURRENT_PUBLIC_PRODUCT_STATUS.md](CURRENT_PUBLIC_PRODUCT_STATUS.md) e [F3_PUBLIC_API_WORKER.md](F3_PUBLIC_API_WORKER.md).
 
 ## Objetivo
 

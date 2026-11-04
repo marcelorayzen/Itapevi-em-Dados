@@ -9,7 +9,7 @@ A API publica permite que o portal encaminhe perguntas livres sem utilizar o ser
 | Endereco | Finalidade | Estado em 03/11/2026 |
 |---|---|---|
 | https://api-dados.rayzen.com.br/health | Diagnostico publico | Endpoint tecnico publico do Worker |
-| POST /v1/ask | Pergunta publica em JSON | Worker publicado e validado via HTTP enquanto HTTPS e emitido |
+| https://api-dados.rayzen.com.br/v1/ask | `POST` de pergunta pública em JSON | Worker publicado com HTTPS; o portal é o cliente público previsto. |
 
 ## Catalogo publico atual
 
@@ -31,7 +31,7 @@ Requisicao:
 { "question": "Qual e a populacao de Itapevi?" }
 ```
 
-Resposta bem-sucedida inclui answer, data, evidence, coverage, limitations, confidence e metadata.
+Resposta bem-sucedida inclui `answer`, `data`, `evidence`, `coverage`, `limitations`, `confidence` e `metadata`. A evidência identifica fonte, `sourceId`, `datasetId`, URL oficial, checksum e instruções de conferência; o portal apresenta esses elementos em **Ver trilha de auditoria**.
 
 ## Seguranca e limites
 

@@ -1,4 +1,6 @@
-# Check-up de prontidão para testes públicos — 03/11/2026
+# Registro histórico — check-up de prontidão para testes públicos em 03/11/2026
+
+> Este check-up registra uma versão anterior à última conciliação de documentação e ao aprimoramento da trilha de auditoria. Para o estado vigente, consulte [CURRENT_PUBLIC_PRODUCT_STATUS.md](CURRENT_PUBLIC_PRODUCT_STATUS.md), [OPERATIONS.md](OPERATIONS.md) e [DOCUMENTATION_STATUS.md](DOCUMENTATION_STATUS.md).
 
 ## Resultado
 
@@ -37,6 +39,6 @@ O projeto está apto para a rodada controlada de testes com pessoas externas, co
 - Perguntas fora do escopo recebem indisponibilidade explicável; não são respondidas por inferência.
 - A rodada de testes humanos serve para registrar dúvidas, erros percebidos e sugestões antes da próxima expansão.
 
-## Situação de publicação
+## Situação de publicação na data do registro
 
 O commit `bd08cb0` iniciou uma nova execução de CI e de deploy do GitHub Pages. A confirmação final deve ser observada no GitHub Actions antes de divulgar a alteração de interface como concluída.

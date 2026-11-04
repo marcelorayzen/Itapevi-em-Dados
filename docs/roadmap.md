@@ -1,46 +1,21 @@
-# Roadmap V2
+# Roadmap de produto
 
-## Etapas de produto
+**Situação em 03/11/2026:** o projeto já possui portal e API públicos para recortes governados. Este roadmap mostra o que vem depois dessa base, sem reclassificar a arquitetura-alvo como funcionalidade entregue. O estado detalhado das tarefas está no [backlog](BACKLOG.md).
 
-| Etapa | Escopo |
-|---|---|
-| V1 atual | Servidor MCP, conectores iniciais, cache, health-check e testes. |
-| V1.1 — abertura BBSIA | Licença, documentação, maturidade, segurança e fontes. |
-| V2 Foundation | Catálogo, eventos, normalização, proveniência e lineage. |
-| V2 Intelligence | Timeline, grafo aplicado, semantic layer e insights reproduzíveis. |
-| V3 | Portal, dashboards, alertas e expansão multi-cidade. |
+| Horizonte | Estado | Resultado verificável |
+|---|---|---|
+| Base pública verificável | Entregue, em manutenção | Portal, API, PostgreSQL, evidências e recortes agregados publicados. |
+| Qualidade e validação de uso | Em andamento | Avaliação N4 com 40 perguntas reais anonimizadas e correções registradas. |
+| Ampliação governada de fontes | Em andamento | Novos datasets entram com artefato, checksum, cobertura, termos e teste de resposta. |
+| Document Intelligence | Parcial | Diário Oficial registrado; extração Docling integral ainda precisa de validação. |
+| Conhecimento relacional | Planejado | Relações Empresa–Licitação–Contrato somente quando cada elo tiver evidência citável. |
+| Território, insights e alertas | Planejado | Regras reproduzíveis, cobertura declarada e revisão humana. |
+| Multi-cidade | Planejado | Segunda configuração isolada, sem fork do núcleo. |
 
-## Fase 0 — Fundação e evidência
+## Próximos marcos
 
-- Aprovar documentação, responsáveis e critérios de sucesso.
-- Corrigir higiene do repositório: segredos fora do versionamento, `.gitignore`, CI e inventário de fontes/licenças.
-- Modelar dataset, fonte, artefato e proveniência no PostgreSQL.
-- **Saída:** uma fonte V1 reprocessável de ponta a ponta, com artefato bruto e evidência exibível.
-
-## Fase 1 — Ingestão governada
-
-- Coleta idempotente, agendamento, retries e observabilidade.
-- Prova de conceito Docling em PDFs reais antes de torná-lo padrão.
-- Modelo de eventos, fatos e revisões.
-- **Saída:** Diário Oficial ou licitações incremental, rastreável e reprocessável.
-
-## Fase 2 — Conhecimento e tempo
-
-- Resolução de entidades e aliases; projeção Neo4j para relações aceitas.
-- Consultas por caminho e timeline.
-- **Saída:** relação Empresa–Licitação–Contrato com cada elo citável.
-
-## Fase 3 — Território e entrega
-
-- Catálogo público, camada semântica, consulta territorial e contratos comuns para portal/API/MCP.
-- **Saída:** pergunta por bairro combina indicador e investimento com cobertura explícita.
-
-## Fase 4 — Insights e alertas
-
-- Regras versionadas, alertas assináveis e relatórios automáticos.
-- **Saída:** alerta explica regra, comparação, período, cobertura e evidências.
-
-## Fase 5 — Multi-cidade
-
-- Onboarding parametrizado e isolamento testado.
-- **Saída:** segunda cidade sem alteração do núcleo e sem vazamento entre tenants.
+1. **N4 — validar perguntas naturais:** coletar e avaliar 40 perguntas anonimizadas antes de habilitar IA ao público.
+2. **Ampliar dados reais com segurança:** educação, Escolas do Futuro e Diário Oficial entram somente após coleta, estrutura, proveniência e avaliação da publicação.
+3. **Qualidade de fontes e operação:** completar a revisão de termos por dataset, SBOM/licenças e critérios de release.
+4. **Consultas relacionais:** avaliar grafo apenas se PostgreSQL não resolver uma pergunta pública com todos os elos citáveis.
+5. **Escala institucional:** testar com cidadãos, câmaras, prefeituras e BBSIA e incorporar feedback sem registrar conteúdo pessoal desnecessário.

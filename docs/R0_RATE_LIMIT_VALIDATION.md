@@ -19,15 +19,15 @@ O limitador é verificado antes de Turnstile, IBGE e Workers AI. Os resultados p
 - deploy de produção concluído na versão `e1735730-f6af-4922-a206-f2e25d4c7c04`;
 - consultas externas sem token continuaram recebendo `403 verification_required`, portanto não alcançaram fontes nem IA.
 
-## Limite de validação operacional
+## Limite de validação operacional (registro intermediário)
 
 Foram realizadas 31 tentativas externas sem token na mesma janela de teste. Todas receberam `403`; não foi observado `429`. Isso não prova que o limite é estrito nem que falhou: a documentação do Cloudflare declara que esta binding é aproximada e aplicada por localização, com atualização de contadores em segundo plano.
 
-Por rigor, o resultado é **implementado e testado por unidade; validação externa de limiar pendente**. O item R0-10 permanece em andamento. Antes de ativar Workers AI, a próxima revisão deve observar métricas do Cloudflare ou executar teste controlado de carga a partir de uma única localização estável.
+Por rigor, naquele momento o resultado foi **implementado e testado por unidade; validação externa de limiar pendente**. A seção seguinte registra a conclusão posterior do escopo R0-10.
 
-## Validação humana
+## Validação humana e conclusão do escopo R0-10
 
-Após a publicação, Marcelo confirmou em 31/10/2026 que validou o comportamento esperado. A confirmação humana encerra a verificação de uso do piloto; R0-10 permanece em andamento somente pela telemetria mínima ainda não implementada.
+Após a publicação, Marcelo confirmou em 31/10/2026 que validou o comportamento esperado. A telemetria mínima foi habilitada em seguida; portanto, **R0-10 está concluído para o escopo do piloto**. A validação de carga de alto volume permanece uma melhoria futura, não uma condição omitida de conclusão.
 
 ## Telemetria mínima
 

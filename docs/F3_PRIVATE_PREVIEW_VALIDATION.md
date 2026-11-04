@@ -1,4 +1,6 @@
-# F3 - Prévia privada de API
+# Registro histórico — F3: prévia privada de API
+
+> **Alternativa não ativada.** O conteúdo abaixo registra a preparação aprovada em 29/10/2026. A API pública publicada posteriormente não usa esta rota, estas chaves nem este fluxo. Para o estado atual, consulte [F3_PUBLIC_API_WORKER.md](F3_PUBLIC_API_WORKER.md).
 
 ## Decisão aprovada
 
@@ -41,8 +43,8 @@ node -e "console.log(require('node:crypto').createHash('sha256').update(process.
 
 Os testes cobrem prévia desligada (`404`), ausência de chave (`401`), origem não permitida (`403`), origem permitida, limite por chave (`429`) e contrato comum de erro. O projeto passou em build e testes com 12 suítes e 23 testes.
 
-## Limites operacionais
+## Limites operacionais daquela prévia
 
-- Não há deploy, DNS, firewall, credenciais reais, convidados externos ou compromisso de disponibilidade.
+- Naquela prévia não havia deploy, DNS, firewall, credenciais reais, convidados externos ou compromisso de disponibilidade.
 - Não há logs de acesso persistentes nesta etapa; antes de ativação externa, definir retenção mínima, responsável e revisão de privacidade.
 - A ativação externa continua condicionada a termos das fontes, allowlist de datasets, responsável operacional e ApprovalGate humano.

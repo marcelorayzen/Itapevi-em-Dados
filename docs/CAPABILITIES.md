@@ -1,5 +1,8 @@
 # Capacidades e cobertura pública
 
+**Referência:** [estado atual do produto](CURRENT_PUBLIC_PRODUCT_STATUS.md).
+**Regra:** a cobertura abaixo é uma lista de recortes publicados, não uma afirmação de cobertura integral do município.
+
 ## Regra de resposta
 
 Uma resposta numérica só é emitida quando tema, entidade, período e medida estiverem cobertos por fatos aprovados. Caso contrário, o portal informa a lacuna sem inventar resultados.
@@ -8,14 +11,15 @@ Uma resposta numérica só é emitida quando tema, entidade, período e medida e
 
 | Capacidade | Evidência | Limite |
 |---|---|---|
-| População | IBGE, indicador 29171 | Não representa gasto público. |
-| Contratos | Exportações LAI com checksum | Agregados por secretaria. |
-| Licitações | Exportações LAI com checksum | Cobertura restrita aos artefatos carregados. |
-| Orçamento | Previsto e realizado por órgão/programa | Período e filtros do painel são exibidos. |
-| Pronto-socorro e SAMU | Empenhos com menção explícita, por mês | Não inclui despesas sem vínculo explícito. |
+| População | Estimativa IBGE, indicador 29171 | Não representa gasto público. |
+| Contratos | Exportações LAI com checksum, agregadas de 2024 a 2026 | Agregados por secretaria; não conclui execução, regularidade ou vínculo não publicado. |
+| Licitações | Exportações LAI com checksum, agregadas de 2024 a 2026 | Cobertura restrita aos artefatos carregados; não classifica conduta de empresas. |
+| Orçamento | Previsto e realizado por órgão/programa | Recorte atual: 01/09/2026 a 30/09/2026; filtros do painel são exibidos. |
+| Pronto-socorro e SAMU | Empenhos com menção explícita, por mês | Não inclui despesas sem vínculo explícito; período e unidade devem estar cobertos. |
 
 ## Garantias
 
 - Fonte, dataset, checksum, cobertura e limitações acompanham a resposta.
 - Dados brutos, documentos e credenciais não são expostos publicamente.
 - Perguntas acusatórias não geram conclusões sobre conduta.
+- A resposta mostra como refazer a conferência na [trilha de auditoria](PUBLIC_AUDIT_TRAIL.md).
