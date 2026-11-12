@@ -62,3 +62,10 @@ Consulte o [manual técnico](docs/USER_MANUAL.md). Credenciais, artefatos brutos
 ## Licença e dados
 
 O código está sob [Apache-2.0](LICENSE). A licença do código não concede direitos sobre dados, documentos, APIs ou artefatos de terceiros. Cada fonte possui registro de origem, condição de uso e evidência associada.
+
+## Como contribuir
+
+- Abra uma issue antes de propor qualquer mudança.
+- Rode os testes antes de abrir o PR.
+- Cite a fonte oficial de todo dado novo.
+- Não exponha dado bruto pela API pública.
